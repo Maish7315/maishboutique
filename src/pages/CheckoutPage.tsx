@@ -13,6 +13,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useOrders } from '@/context/OrderContext';
 import { formatPrice } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -66,6 +67,7 @@ interface ShippingInfo {
 const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
   const { items, subtotal, shipping, total, clearCart } = useCart();
+  const { addOrder } = useOrders();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>('shipping');
   const [selectedZone, setSelectedZone] = useState(DELIVERY_ZONES[0]);
   const [selectedPayment, setSelectedPayment] = useState(PAYMENT_METHODS[0]);
@@ -113,6 +115,50 @@ const CheckoutPage: React.FC = () => {
   const handlePlaceOrder = () => {
     // Generate order number
     const orderNum = 'MF-' + Date.now().toString(36).toUpperCase();
+    
+    // Save order to context
+    addOrder({
+      orderNumber: orderNum,
+      customer: {
+        firstName: shippingInfo.firstName,
+        lastName: shippingInfo.lastName,
+        phone: shippingInfo.phone,
+        email: shippingInfo.email,
+      },
+      shipping: {
+        county: shippingInfo.county,
+        town: shippingInfo.town,
+        address: shippingInfo.address,
+        instructions: shippingInfo.instructions,
+      },
+      items: items.map((item) => ({
+        productId: item.product.id,
+        name: item.product.name,
+        price: item.product.price,
+        quantity: item.quantity,
+        selectedSize: item.selectedSize,
+        selectedColor: item.selectedColor.name,
+        colorHex: item.selectedColor.hex,
+        image: item.product.images[0]?.src || '',
+      })),
+      payment: {
+        method: selectedPayment.name,
+        status: selectedPayment.id === 'cod' ? 'cod' : 'pending',
+      },
+      delivery: {
+        zone: selectedZone.name,
+        price: selectedZone.price,
+        status: 'pending',
+      },
+      pricing: {
+        subtotal,
+        discount,
+        delivery: selectedZone.price,
+        total: finalTotal,
+      },
+      status: 'pending',
+    });
+    
     setOrderNumber(orderNum);
     setOrderPlaced(true);
     clearCart();
