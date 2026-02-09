@@ -74,6 +74,8 @@ const CheckoutPage: React.FC = () => {
   const [promoApplied, setPromoApplied] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const [shippingInfo, setShippingInfo] = useState<ShippingInfo>({
     firstName: '',
@@ -112,58 +114,68 @@ const CheckoutPage: React.FC = () => {
     }
   };
 
-  const handlePlaceOrder = () => {
-    // Generate order number
-    const orderNum = 'MF-' + Date.now().toString(36).toUpperCase();
+  const handlePlaceOrder = async () => {
+    setIsSubmitting(true);
+    setSubmitError(null);
     
-    // Save order to context
-    addOrder({
-      orderNumber: orderNum,
-      customer: {
-        firstName: shippingInfo.firstName,
-        lastName: shippingInfo.lastName,
-        phone: shippingInfo.phone,
-        email: shippingInfo.email,
-      },
-      shipping: {
-        county: shippingInfo.county,
-        town: shippingInfo.town,
-        address: shippingInfo.address,
-        instructions: shippingInfo.instructions,
-      },
-      items: items.map((item) => ({
-        productId: item.product.id,
-        name: item.product.name,
-        price: item.product.price,
-        quantity: item.quantity,
-        selectedSize: item.selectedSize,
-        selectedColor: item.selectedColor.name,
-        colorHex: item.selectedColor.hex,
-        image: item.product.images[0]?.src || '',
-      })),
-      payment: {
-        method: selectedPayment.name,
-        status: selectedPayment.id === 'cod' ? 'cod' : 'pending',
-      },
-      delivery: {
-        zone: selectedZone.name,
-        price: selectedZone.price,
+    try {
+      // Generate order number
+      const orderNum = 'MF-' + Date.now().toString(36).toUpperCase();
+      
+      // Save order to Supabase
+      await addOrder({
+        orderNumber: orderNum,
+        customer: {
+          firstName: shippingInfo.firstName,
+          lastName: shippingInfo.lastName,
+          phone: shippingInfo.phone,
+          email: shippingInfo.email,
+        },
+        shipping: {
+          county: shippingInfo.county,
+          town: shippingInfo.town,
+          address: shippingInfo.address,
+          instructions: shippingInfo.instructions,
+        },
+        items: items.map((item) => ({
+          productId: item.product.id,
+          name: item.product.name,
+          price: item.product.price,
+          quantity: item.quantity,
+          selectedSize: item.selectedSize,
+          selectedColor: item.selectedColor.name,
+          colorHex: item.selectedColor.hex,
+          image: item.product.images[0]?.src || '',
+        })),
+        payment: {
+          method: selectedPayment.name,
+          status: selectedPayment.id === 'cod' ? 'cod' : 'pending',
+        },
+        delivery: {
+          zone: selectedZone.name,
+          price: selectedZone.price,
+          status: 'pending',
+        },
+        pricing: {
+          subtotal,
+          discount,
+          delivery: selectedZone.price,
+          total: finalTotal,
+        },
         status: 'pending',
-      },
-      pricing: {
-        subtotal,
-        discount,
-        delivery: selectedZone.price,
-        total: finalTotal,
-      },
-      status: 'pending',
-    });
-    
-    setOrderNumber(orderNum);
-    setOrderPlaced(true);
-    clearCart();
-    setCurrentStep('confirmation');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      setOrderNumber(orderNum);
+      setOrderPlaced(true);
+      clearCart();
+      setCurrentStep('confirmation');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error('Error placing order:', error);
+      setSubmitError('Failed to place order. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleBack = () => {
@@ -612,14 +624,29 @@ const CheckoutPage: React.FC = () => {
                   </div>
 
                   <div className="flex flex-col gap-3">
-                    <Button size="lg" className="w-full h-12" onClick={handlePlaceOrder}>
-                      Place Order - {formatPrice(finalTotal)}
+                    <Button 
+                      size="lg" 
+                      className="w-full h-12" 
+                      onClick={handlePlaceOrder}
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <span className="animate-spin mr-2">⏳</span>
+                          Processing...
+                        </>
+                      ) : (
+                        `Place Order - ${formatPrice(finalTotal)}`
+                      )}
                     </Button>
                     <Button size="lg" variant="outline" className="w-full" onClick={handleBack}>
                       <ArrowLeft className="w-4 h-4 mr-2" />
                       Back to Shipping
                     </Button>
                   </div>
+                  {submitError && (
+                    <p className="text-destructive text-sm text-center">{submitError}</p>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
