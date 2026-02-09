@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Truck, Shield, RefreshCw, Sparkles, Clock } from 'lucide-react';
+import { ArrowRight, Truck, Shield, RefreshCw, Sparkles, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { ProductGrid } from '@/components/product/ProductGrid';
 import { CategoryGrid } from '@/components/category/CategoryCard';
 import { ReviewsSlider } from '@/components/reviews/ReviewCard';
 import { PromoBannerSlider } from '@/components/promo/PromoBanner';
 import { categories, products, googleReviews, weekendOffers, getNewArrivals, getSaleProducts, isWeekendSaleActive } from '@/data/products';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/lib/supabase';
 
 const HomePage: React.FC = () => {
   const newArrivals = getNewArrivals();
@@ -16,10 +17,68 @@ const HomePage: React.FC = () => {
   const accessoriesProducts = products.filter(p => p.category === 'accessories').slice(0, 8);
   const isWeekend = isWeekendSaleActive();
 
-  // Get day name for display
-  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const today = new Date();
-  const dayName = days[today.getDay()];
+  // Newsletter state
+  const [email, setEmail] = useState('');
+  const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // Handle newsletter subscription
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email.trim()) {
+      setSubscribeStatus('error');
+      setErrorMessage('Please enter your email address');
+      return;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setSubscribeStatus('error');
+      setErrorMessage('Please enter a valid email address');
+      return;
+    }
+
+    setSubscribeStatus('loading');
+    setErrorMessage('');
+
+    try {
+      const { error } = await supabase
+        .from('newsletter_subscribers')
+        .insert([{ email: email.toLowerCase().trim(), status: 'subscribed' }]);
+
+      if (error) {
+        if (error.code === '23505') {
+          // Unique violation - email already exists
+          setSubscribeStatus('error');
+          setErrorMessage('This email is already subscribed!');
+        } else {
+          throw error;
+        }
+      } else {
+        setSubscribeStatus('success');
+        setEmail('');
+        
+        // Send confirmation email via Edge Function
+        try {
+          await supabase.functions.invoke('send-newsletter-confirmation', {
+            body: { email: email.toLowerCase().trim() }
+          });
+        } catch (edgeError) {
+          console.log('Edge Function not available or failed:', edgeError);
+          // Continue anyway - subscription was successful
+        }
+        
+        // Reset to idle after 5 seconds
+        setTimeout(() => setSubscribeStatus('idle'), 5000);
+      }
+    } catch (error) {
+      console.error('Subscription error:', error);
+      setSubscribeStatus('error');
+      setErrorMessage('Something went wrong. Please try again.');
+    }
+  };
 
   return (
     <div className="page-transition">
@@ -262,14 +321,61 @@ const HomePage: React.FC = () => {
           <p className="text-muted-foreground mt-2 max-w-md mx-auto">
             Subscribe to get exclusive offers, new arrivals, and style tips delivered to your inbox.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mt-6">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 h-12 px-4 rounded-xl bg-background border border-border focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-            />
-            <Button size="lg">Subscribe</Button>
-          </div>
+          
+          {subscribeStatus === 'success' ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex flex-col items-center justify-center max-w-md mx-auto mt-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-xl"
+            >
+              <CheckCircle className="w-10 h-10 text-green-500 mb-2" />
+              <p className="font-medium text-green-700 dark:text-green-300">
+                You're subscribed! Check your email for confirmation.
+              </p>
+            </motion.div>
+          ) : (
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mt-6">
+              <div className="flex-1 relative">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (subscribeStatus === 'error') setSubscribeStatus('idle');
+                  }}
+                  placeholder="Enter your email"
+                  disabled={subscribeStatus === 'loading'}
+                  className={`w-full h-12 px-4 rounded-xl bg-background border transition-all focus:ring-2 focus:ring-primary/20 focus:border-primary ${
+                    subscribeStatus === 'error' ? 'border-red-500 focus:border-red-500' : 'border-border'
+                  }`}
+                />
+                {subscribeStatus === 'error' && (
+                  <div className="absolute -bottom-6 left-0 flex items-center gap-1 text-red-500 text-xs">
+                    <AlertCircle className="w-3 h-3" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+              </div>
+              <Button 
+                size="lg" 
+                type="submit"
+                disabled={subscribeStatus === 'loading'}
+                className="h-12 min-w-[120px]"
+              >
+                {subscribeStatus === 'loading' ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Subscribing...
+                  </span>
+                ) : (
+                  'Subscribe'
+                )}
+              </Button>
+            </form>
+          )}
         </div>
       </section>
     </div>
