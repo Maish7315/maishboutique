@@ -6,12 +6,17 @@ export const usePWA = () => {
   const [isInstallable, setIsInstallable] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
     // Check if app is already installed
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
     const isIOSStandalone = (window.navigator as any).standalone === true;
     setIsInstalled(isStandalone || isIOSStandalone);
+
+    // Detect if desktop
+    const isDesktopBrowser = !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    setIsDesktop(isDesktopBrowser);
 
     // Listen for install prompt
     const handleBeforeInstallPrompt = (e: Event) => {
@@ -67,6 +72,7 @@ export const usePWA = () => {
     isInstallable,
     isInstalled,
     isOnline,
+    isDesktop,
     installApp,
   };
 };

@@ -10,13 +10,24 @@ import {
   Truck, 
   Wallet,
   ChevronRight,
-  CheckCircle2
+  CheckCircle2,
+  User,
+  Lock,
+  Eye,
+  EyeOff,
+  Loader2,
+  AlertCircle,
+  LogIn
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useOrders } from '@/context/OrderContext';
+import { useAuth } from '@/context/AuthContext';
 import { formatPrice } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
+import { AuthModal } from '@/components/auth/AuthModal';
+import { supabase } from '@/lib/supabase';
 
 // Delivery zones with pricing
 const DELIVERY_ZONES = [
@@ -68,6 +79,7 @@ const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
   const { items, subtotal, shipping, total, clearCart } = useCart();
   const { addOrder } = useOrders();
+  const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>('shipping');
   const [selectedZone, setSelectedZone] = useState(DELIVERY_ZONES[0]);
   const [selectedPayment, setSelectedPayment] = useState(PAYMENT_METHODS[0]);
@@ -76,6 +88,15 @@ const CheckoutPage: React.FC = () => {
   const [orderNumber, setOrderNumber] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  
+  // Account creation state - OPTIONAL
+  const [createAccount, setCreateAccount] = useState(false);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [accountError, setAccountError] = useState<string | null>(null);
+  const [isCreatingAccount, setIsCreatingAccount] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const [shippingInfo, setShippingInfo] = useState<ShippingInfo>({
     firstName: '',
@@ -117,12 +138,54 @@ const CheckoutPage: React.FC = () => {
   const handlePlaceOrder = async () => {
     setIsSubmitting(true);
     setSubmitError(null);
-    
+
     try {
       // Generate order number
       const orderNum = 'MF-' + Date.now().toString(36).toUpperCase();
       
-      // Save order to Supabase
+      // If user wants to create an account, create it now
+      if (createAccount && !user && shippingInfo.email) {
+        try {
+          // Check if profile already exists
+          const { data: existingProfile } = await supabase
+            .from('profiles')
+            .select('id')
+            .eq('email', shippingInfo.email.toLowerCase())
+            .single();
+
+          if (!existingProfile) {
+            // Create auth user
+            const { data: { user: newUser }, error: signUpError } = await supabase.auth.signUp({
+              email: shippingInfo.email.toLowerCase(),
+              password: password,
+              options: {
+                data: {
+                  full_name: `${shippingInfo.firstName} ${shippingInfo.lastName}`,
+                  phone: shippingInfo.phone,
+                },
+              },
+            });
+
+            if (newUser) {
+              // Create profile
+              await supabase.from('profiles').upsert({
+                id: newUser.id,
+                email: shippingInfo.email.toLowerCase(),
+                full_name: `${shippingInfo.firstName} ${shippingInfo.lastName}`,
+                phone: shippingInfo.phone,
+                county: shippingInfo.county,
+                town: shippingInfo.town,
+                address: shippingInfo.address,
+              });
+            }
+          }
+        } catch (accountError) {
+          console.error('Account creation error:', accountError);
+          // Continue with order even if account creation fails
+        }
+      }
+      
+      // Save order to Supabase with user_id
       await addOrder({
         orderNumber: orderNum,
         customer: {
@@ -163,6 +226,7 @@ const CheckoutPage: React.FC = () => {
           total: finalTotal,
         },
         status: 'pending',
+        userId: user?.id,
       });
       
       setOrderNumber(orderNum);
@@ -170,9 +234,21 @@ const CheckoutPage: React.FC = () => {
       clearCart();
       setCurrentStep('confirmation');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      toast.success('Order placed successfully!');
+      
     } catch (error) {
       console.error('Error placing order:', error);
-      setSubmitError('Failed to place order. Please try again.');
+      
+      // Check for table missing error
+      const errorMessage = error instanceof Error ? error.message : 'Failed to place order. Please try again.';
+      
+      if (errorMessage.includes('relation') || errorMessage.includes('does not exist') || errorMessage.includes('database')) {
+        setSubmitError('Database not set up. Please run the SQL schema in Supabase first.');
+        toast.error('Database not set up. Please contact support.');
+      } else {
+        setSubmitError(errorMessage);
+        toast.error('Failed to place order');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -260,7 +336,7 @@ const CheckoutPage: React.FC = () => {
               <Link to="/">Continue Shopping</Link>
             </Button>
             <Button size="lg" variant="outline" className="w-full" asChild>
-              <Link to="/categories">Browse Categories</Link>
+              <Link to="/orders">View My Orders</Link>
             </Button>
           </div>
         </motion.div>
@@ -270,6 +346,16 @@ const CheckoutPage: React.FC = () => {
 
   return (
     <div className="min-h-screen page-transition">
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)}
+        defaultMode="login"
+        onSuccess={() => {
+          setShowAuthModal(false);
+          toast.success('Welcome back! You can now checkout faster.');
+        }}
+      />
+      
       {/* Header */}
       <div className="sticky top-16 md:top-20 z-30 bg-background border-b border-border">
         <div className="container mx-auto px-4 py-3">
@@ -278,6 +364,7 @@ const CheckoutPage: React.FC = () => {
               <button
                 onClick={handleBack}
                 className="touch-target flex items-center justify-center hover:bg-muted rounded-lg"
+                aria-label="Go back"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
@@ -406,6 +493,94 @@ const CheckoutPage: React.FC = () => {
                     </div>
                   </div>
 
+                  {/* Create Account Section - OPTIONAL */}
+                  {!user && (
+                    <div className="bg-card rounded-xl border border-border p-5">
+                      <div className="flex items-start gap-3">
+                        <input
+                          type="checkbox"
+                          id="createAccount"
+                          checked={createAccount}
+                          onChange={(e) => setCreateAccount(e.target.checked)}
+                          className="mt-1 w-4 h-4 rounded border-border text-primary focus:ring-primary"
+                        />
+                        <div className="flex-1">
+                          <label htmlFor="createAccount" className="font-medium flex items-center gap-2 cursor-pointer">
+                            <User className="w-4 h-4" />
+                            Create an account for faster checkout
+                          </label>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Save your details and track your orders. Next time you visit, just sign in!
+                          </p>
+                          
+                          {createAccount && (
+                            <div className="mt-4 grid sm:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium mb-1">Create Password *</label>
+                                <div className="relative">
+                                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                                  <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="w-full h-11 pl-10 pr-10 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/20"
+                                    placeholder="Create password"
+                                    minLength={6}
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                                  >
+                                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                  </button>
+                                </div>
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium mb-1">Confirm Password *</label>
+                                <input
+                                  type={showPassword ? 'text' : 'password'}
+                                  value={confirmPassword}
+                                  onChange={(e) => setConfirmPassword(e.target.value)}
+                                  className="w-full h-11 px-3 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/20"
+                                  placeholder="Confirm password"
+                                />
+                              </div>
+                            </div>
+                          )}
+                          
+                          {!createAccount && (
+                            <p className="text-sm text-muted-foreground mt-3">
+                              Already have an account?{' '}
+                              <button
+                                type="button"
+                                onClick={() => setShowAuthModal(true)}
+                                className="text-primary font-medium hover:underline inline-flex items-center gap-1"
+                              >
+                                <LogIn className="w-4 h-4" />
+                                Sign in
+                              </button>
+                            </p>
+                          )}
+                          
+                          {accountError && (
+                            <p className="text-destructive text-sm mt-2">{accountError}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {user && (
+                    <div className="bg-success/10 border border-success/20 rounded-lg p-4">
+                      <p className="text-success flex items-center gap-2">
+                        <Check className="w-5 h-5" />
+                        Logged in as {user.email} - Your orders will be saved!
+                      </p>
+                    </div>
+                  )}
+
                   {/* Delivery Address */}
                   <div className="bg-card rounded-xl border border-border p-5">
                     <h2 className="font-semibold text-lg mb-4 flex items-center gap-2">
@@ -422,6 +597,7 @@ const CheckoutPage: React.FC = () => {
                             'w-full h-11 px-3 rounded-lg border bg-background focus:ring-2 focus:ring-primary/20',
                             errors.county ? 'border-destructive' : 'border-border'
                           )}
+                          aria-label="Select county"
                         >
                           <option value="">Select county</option>
                           <option value="Narok">Narok</option>
@@ -565,88 +741,80 @@ const CheckoutPage: React.FC = () => {
                               <p className="text-sm text-muted-foreground">{method.description}</p>
                             </div>
                           </div>
-                          <div
-                            className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold"
-                            style={{ backgroundColor: method.color }}
-                          >
-                            {method.icon}
-                          </div>
+                          <span className="text-lg">{method.icon}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
-                  {/* M-Pesa Instructions */}
-                  {selectedPayment.id === 'mpesa' && (
-                    <div className="bg-muted/50 rounded-xl p-5 border border-border">
-                      <h3 className="font-semibold mb-3">How to Pay with M-Pesa</h3>
-                      <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
-                        <li>Click "Place Order" below</li>
-                        <li>You will receive an STK push on your phone</li>
-                        <li>Enter your M-Pesa PIN</li>
-                        <li>Confirm the payment</li>
-                        <li>You'll receive a confirmation message</li>
-                      </ol>
-                      <p className="text-sm mt-3">
-                        <strong>Or:</strong> Send money to <strong>PayBill: 123456</strong>, Account: <strong>MAISH</strong>
-                      </p>
-                    </div>
-                  )}
-
-                  {/* COD Instructions */}
-                  {selectedPayment.id === 'cod' && (
-                    <div className="bg-muted/50 rounded-xl p-5 border border-border">
-                      <h3 className="font-semibold mb-3">Cash on Delivery</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Pay with cash when your order is delivered to your doorstep. 
-                        Please have the exact amount ready for a smoother experience.
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Order Summary Preview */}
+                  {/* Order Summary */}
                   <div className="bg-card rounded-xl border border-border p-5">
-                    <h3 className="font-semibold mb-3">Order Summary</h3>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span>Items ({items.length})</span>
-                        <span>{formatPrice(subtotal)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Delivery ({selectedZone.name})</span>
-                        <span>{selectedZone.price === 0 ? 'FREE' : formatPrice(selectedZone.price)}</span>
-                      </div>
-                      <div className="border-t border-border pt-2 flex justify-between font-semibold">
-                        <span>Total</span>
-                        <span>{formatPrice(finalTotal)}</span>
-                      </div>
+                    <h2 className="font-semibold text-lg mb-4">Order Summary</h2>
+                    <div className="space-y-3">
+                      {items.slice(0, 3).map((item) => (
+                        <div key={`${item.product.id}-${item.selectedSize}-${item.selectedColor.name}`} className="flex items-center gap-3">
+                          <img
+                            src={item.product.images[0]?.src || item.product.images[0]?.alt || '/placeholder.svg'}
+                            alt={item.product.name}
+                            className="w-12 h-12 rounded-lg object-cover"
+                          />
+                          <div className="flex-1">
+                            <p className="font-medium text-sm line-clamp-1">{item.product.name}</p>
+                            <p className="text-xs text-muted-foreground">
+                              Qty: {item.quantity} | {item.selectedSize} | {item.selectedColor.name}
+                            </p>
+                          </div>
+                          <p className="font-medium">{formatPrice(item.product.price * item.quantity)}</p>
+                        </div>
+                      ))}
+                      {items.length > 3 && (
+                        <p className="text-sm text-muted-foreground">+{items.length - 3} more items</p>
+                      )}
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-3">
-                    <Button 
-                      size="lg" 
-                      className="w-full h-12" 
-                      onClick={handlePlaceOrder}
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <span className="animate-spin mr-2">⏳</span>
-                          Processing...
-                        </>
-                      ) : (
-                        `Place Order - ${formatPrice(finalTotal)}`
-                      )}
-                    </Button>
-                    <Button size="lg" variant="outline" className="w-full" onClick={handleBack}>
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back to Shipping
-                    </Button>
+                  {/* Promo Code */}
+                  <div className="bg-card rounded-xl border border-border p-5">
+                    <h2 className="font-semibold text-lg mb-4">Promo Code</h2>
+                    {!promoApplied ? (
+                      <div className="flex gap-3">
+                        <input
+                          type="text"
+                          placeholder="Enter promo code"
+                          className="flex-1 h-11 px-3 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/20"
+                        />
+                        <Button variant="outline" onClick={() => setPromoApplied(true)}>Apply</Button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-between p-3 bg-success/10 border border-success/20 rounded-lg">
+                        <p className="text-success font-medium">40% off applied!</p>
+                        <Button variant="ghost" size="sm" onClick={() => setPromoApplied(false)}>Remove</Button>
+                      </div>
+                    )}
                   </div>
+
                   {submitError && (
-                    <p className="text-destructive text-sm text-center">{submitError}</p>
+                    <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 flex items-start gap-2">
+                      <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                      <p className="text-destructive">{submitError}</p>
+                    </div>
                   )}
+
+                  <Button 
+                    size="lg" 
+                    className="w-full h-12" 
+                    onClick={handlePlaceOrder}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Processing Order...
+                      </>
+                    ) : (
+                      `Place Order - ${formatPrice(finalTotal)}`
+                    )}
+                  </Button>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -654,79 +822,28 @@ const CheckoutPage: React.FC = () => {
 
           {/* Order Summary Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-card rounded-xl border border-border p-5 sticky top-36">
+            <div className="sticky top-36 bg-card rounded-xl border border-border p-5">
               <h2 className="font-semibold text-lg mb-4">Order Summary</h2>
-
-              {/* Items Preview */}
-              <div className="space-y-3 mb-4 max-h-48 overflow-y-auto">
-                {items.slice(0, 3).map((item) => (
-                  <div key={`${item.product.id}-${item.selectedSize}`} className="flex gap-3">
-                    <div className="w-14 h-18 rounded-lg overflow-hidden flex-shrink-0">
-                      <img
-                        src={item.product.images[0]?.src}
-                        alt={item.product.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm line-clamp-1">{item.product.name}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {item.selectedColor.name} / {item.selectedSize}
-                      </p>
-                      <p className="text-sm font-semibold">{formatPrice(item.product.price * item.quantity)}</p>
-                    </div>
-                  </div>
-                ))}
-                {items.length > 3 && (
-                  <p className="text-xs text-muted-foreground text-center">
-                    +{items.length - 3} more items
-                  </p>
-                )}
-              </div>
-
-              <div className="border-t border-border pt-4 space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Subtotal</span>
+              <div className="space-y-3 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Items ({items.length})</span>
                   <span>{formatPrice(subtotal)}</span>
                 </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Delivery</span>
+                  <span>{selectedZone.price === 0 ? 'FREE' : formatPrice(selectedZone.price)}</span>
+                </div>
                 {promoApplied && (
-                  <div className="flex justify-between text-success">
+                  <div className="flex justify-between text-sm text-success">
                     <span>Discount (40%)</span>
                     <span>-{formatPrice(discount)}</span>
                   </div>
                 )}
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Delivery</span>
-                  <span>
-                    {selectedZone.price === 0 ? 'FREE' : formatPrice(selectedZone.price)}
-                  </span>
-                </div>
-                <div className="border-t border-border pt-2 flex justify-between font-semibold text-base">
+                <div className="border-t border-border pt-3 flex justify-between font-semibold text-lg">
                   <span>Total</span>
                   <span>{formatPrice(finalTotal)}</span>
                 </div>
               </div>
-
-              {/* Promo Code */}
-              {!promoApplied && (
-                <div className="mt-4 pt-4 border-t border-border">
-                  <p className="text-sm text-muted-foreground mb-2">Have a promo code?</p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full"
-                    onClick={() => setPromoApplied(true)}
-                  >
-                    Apply MAISH40 for 40% off
-                  </Button>
-                </div>
-              )}
-
-              {promoApplied && (
-                <div className="mt-4 pt-4 border-t border-border">
-                  <p className="text-success text-sm">✓ MAISH40 applied - 40% off!</p>
-                </div>
-              )}
             </div>
           </div>
         </div>

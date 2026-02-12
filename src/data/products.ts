@@ -104,8 +104,8 @@ export const products: Product[] = [
   {
     id: 'women-dress-001',
     name: 'Elegant Ankara Maxi Dress',
-    price: 4500,
-    originalPrice: 6000,
+    price: 2500,
+    originalPrice: 4000,
     images: [
       {
         src: '/images/women/dresses/african-print-dress.webp',
@@ -133,7 +133,7 @@ export const products: Product[] = [
   {
     id: 'women-dress-002',
     name: 'Ankara Dress',
-    price: 3800,
+    price: 2599,
     images: [
       {
         src: '/images/women/dresses/ankara-dress.webp',
@@ -160,7 +160,7 @@ export const products: Product[] = [
   {
     id: 'women-dress-003',
     name: 'Floral Summer Dress',
-    price: 3200,
+    price: 2000,
     images: [
       {
         src: '/images/women/dresses/floral-dress.webp',
@@ -185,8 +185,8 @@ export const products: Product[] = [
   {
     id: 'women-dress-004',
     name: 'Stylish Evening Dress',
-    price: 5500,
-    originalPrice: 7000,
+    price: 2500,
+    originalPrice: 5000,
     images: [
       {
         src: '/images/women/dresses/stylish-dress.webp',
@@ -214,7 +214,7 @@ export const products: Product[] = [
   {
     id: 'women-dress-005',
     name: 'Elegant Dress',
-    price: 4200,
+    price: 2200,
     images: [
       {
         src: '/images/women/dresses/elegant-dress-1.webp',
@@ -240,7 +240,7 @@ export const products: Product[] = [
   {
     id: 'women-top-001',
     name: 'Crop Top',
-    price: 1500,
+    price: 500,
     images: [
       {
         src: '/images/women/tops/crop-top.webp',
@@ -267,7 +267,7 @@ export const products: Product[] = [
   {
     id: 'women-top-002',
     name: 'Long Sleeve Top',
-    price: 2200,
+    price: 999,
     images: [
       {
         src: '/images/women/tops/long-sleeve-top.webp',
@@ -293,7 +293,7 @@ export const products: Product[] = [
   {
     id: 'women-top-003',
     name: 'Casual Top',
-    price: 1800,
+    price: 999,
     images: [
       {
         src: '/images/women/tops/casual-top.webp',
@@ -318,7 +318,7 @@ export const products: Product[] = [
   {
     id: 'women-top-004',
     name: 'Design Top',
-    price: 2500,
+    price: 1500,
     images: [
       {
         src: '/images/women/tops/design-top.webp',
@@ -344,7 +344,7 @@ export const products: Product[] = [
   {
     id: 'women-top-005',
     name: 'Pink Sweater',
-    price: 3200,
+    price: 2599,
     originalPrice: 4000,
     images: [
       {
@@ -371,7 +371,7 @@ export const products: Product[] = [
   {
     id: 'women-top-006',
     name: 'White Sweater',
-    price: 3200,
+    price: 2200,
     images: [
       {
         src: '/images/women/tops/white-sweater.webp',
@@ -396,7 +396,7 @@ export const products: Product[] = [
   {
     id: 'women-top-007',
     name: 'Cardigan Sweater',
-    price: 3500,
+    price: 1299,
     images: [
       {
         src: '/images/women/tops/cardigan-sweater.webp',

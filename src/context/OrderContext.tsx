@@ -45,6 +45,7 @@ export interface Order {
   };
   createdAt: Date;
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  userId?: string;
 }
 
 interface OrderContextType {
@@ -63,6 +64,7 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined);
 const transformSupabaseOrder = (supabaseOrder: SupabaseOrder & { items?: SupabaseOrderItem[] }): Order => ({
   id: supabaseOrder.id?.toString() || '',
   orderNumber: supabaseOrder.order_number,
+  userId: supabaseOrder.user_id,
   customer: {
     firstName: supabaseOrder.customer_first_name,
     lastName: supabaseOrder.customer_last_name,
@@ -108,6 +110,7 @@ const transformSupabaseOrder = (supabaseOrder: SupabaseOrder & { items?: Supabas
 const transformToSupabaseOrder = (order: Omit<Order, 'id' | 'createdAt'>): { order: SupabaseOrder; items: SupabaseOrderItem[] } => ({
   order: {
     order_number: order.orderNumber,
+    user_id: order.userId,
     customer_first_name: order.customer.firstName,
     customer_last_name: order.customer.lastName,
     customer_phone: order.customer.phone,

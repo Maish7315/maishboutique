@@ -9,6 +9,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 // Database types
 export interface Order {
   id?: number;
+  user_id?: string;
   order_number: string;
   customer_first_name: string;
   customer_last_name: string;
@@ -44,95 +45,144 @@ export interface OrderItem {
   image?: string;
 }
 
-// Order functions
+// Order functions with better error handling
 export const saveOrder = async (order: Order, items: OrderItem[]) => {
-  // Insert order
-  const { data: orderData, error: orderError } = await supabase
-    .from('orders')
-    .insert(order)
-    .select()
-    .single();
+  try {
+    // Insert order
+    const { data: orderData, error: orderError } = await supabase
+      .from('orders')
+      .insert(order)
+      .select()
+      .single();
 
-  if (orderError) throw orderError;
+    if (orderError) {
+      console.error('Order insert error:', orderError);
+      throw new Error(`Database error: ${orderError.message}`);
+    }
 
-  // Insert order items with order_id
-  const itemsWithOrderId = items.map(item => ({
-    ...item,
-    order_id: orderData.id
-  }));
+    // Insert order items with order_id
+    const itemsWithOrderId = items.map(item => ({
+      ...item,
+      order_id: orderData.id
+    }));
 
-  const { error: itemsError } = await supabase
-    .from('order_items')
-    .insert(itemsWithOrderId);
+    const { error: itemsError } = await supabase
+      .from('order_items')
+      .insert(itemsWithOrderId);
 
-  if (itemsError) throw itemsError;
+    if (itemsError) {
+      console.error('Order items insert error:', itemsError);
+      throw new Error(`Database error: ${itemsError.message}`);
+    }
 
-  return orderData;
+    return orderData;
+  } catch (error) {
+    console.error('Save order error:', error);
+    throw error;
+  }
 };
 
 export const getOrders = async () => {
-  const { data: orders, error: ordersError } = await supabase
-    .from('orders')
-    .select('*')
-    .order('created_at', { ascending: false });
+  try {
+    const { data: orders, error: ordersError } = await supabase
+      .from('orders')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-  if (ordersError) throw ordersError;
+    if (ordersError) {
+      console.error('Get orders error:', ordersError);
+      throw new Error(`Database error: ${ordersError.message}`);
+    }
 
-  // Get items for each order
-  const ordersWithItems = await Promise.all(
-    (orders || []).map(async (order) => {
-      const { data: items, error: itemsError } = await supabase
-        .from('order_items')
-        .select('*')
-        .eq('order_id', order.id);
+    // Get items for each order
+    const ordersWithItems = await Promise.all(
+      (orders || []).map(async (order) => {
+        const { data: items, error: itemsError } = await supabase
+          .from('order_items')
+          .select('*')
+          .eq('order_id', order.id);
 
-      if (itemsError) throw itemsError;
+        if (itemsError) {
+          console.error('Get order items error:', itemsError);
+          return { ...order, items: [] };
+        }
 
-      return { ...order, items: items || [] };
-    })
-  );
+        return { ...order, items: items || [] };
+      })
+    );
 
-  return ordersWithItems;
+    return ordersWithItems;
+  } catch (error) {
+    console.error('Get orders error:', error);
+    throw error;
+  }
 };
 
 export const getOrdersByPhone = async (phone: string) => {
-  const { data: orders, error } = await supabase
-    .from('orders')
-    .select('*')
-    .ilike('customer_phone', `%${phone}%`)
-    .order('created_at', { ascending: false });
+  try {
+    const { data: orders, error } = await supabase
+      .from('orders')
+      .select('*')
+      .ilike('customer_phone', `%${phone}%`)
+      .order('created_at', { ascending: false });
 
-  if (error) throw error;
+    if (error) {
+      console.error('Get orders by phone error:', error);
+      throw new Error(`Database error: ${error.message}`);
+    }
 
-  const ordersWithItems = await Promise.all(
-    (orders || []).map(async (order) => {
-      const { data: items, error: itemsError } = await supabase
-        .from('order_items')
-        .select('*')
-        .eq('order_id', order.id);
+    const ordersWithItems = await Promise.all(
+      (orders || []).map(async (order) => {
+        const { data: items, error: itemsError } = await supabase
+          .from('order_items')
+          .select('*')
+          .eq('order_id', order.id);
 
-      if (itemsError) throw itemsError;
-      return { ...order, items: items || [] };
-    })
-  );
+        if (itemsError) {
+          console.error('Get order items error:', itemsError);
+          return { ...order, items: [] };
+        }
+        return { ...order, items: items || [] };
+      })
+    );
 
-  return ordersWithItems;
+    return ordersWithItems;
+  } catch (error) {
+    console.error('Get orders by phone error:', error);
+    throw error;
+  }
 };
 
 export const updateOrderStatus = async (orderId: number, status: string) => {
-  const { error } = await supabase
-    .from('orders')
-    .update({ status, updated_at: new Date().toISOString() })
-    .eq('id', orderId);
+  try {
+    const { error } = await supabase
+      .from('orders')
+      .update({ status, updated_at: new Date().toISOString() })
+      .eq('id', orderId);
 
-  if (error) throw error;
+    if (error) {
+      console.error('Update order status error:', error);
+      throw new Error(`Database error: ${error.message}`);
+    }
+  } catch (error) {
+    console.error('Update order status error:', error);
+    throw error;
+  }
 };
 
 export const deleteOrder = async (orderId: number) => {
-  const { error } = await supabase
-    .from('orders')
-    .delete()
-    .eq('id', orderId);
+  try {
+    const { error } = await supabase
+      .from('orders')
+      .delete()
+      .eq('id', orderId);
 
-  if (error) throw error;
+    if (error) {
+      console.error('Delete order error:', error);
+      throw new Error(`Database error: ${error.message}`);
+    }
+  } catch (error) {
+    console.error('Delete order error:', error);
+    throw error;
+  }
 };

@@ -2,6 +2,21 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin, Linkedin, X } from 'lucide-react';
 
+// Custom WhatsApp Channel Icon
+const WhatsAppChannelIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    className={className}
+    width="24" 
+    height="24"
+  >
+    <path d="M12.04 2C6.5 2 2 6.5 2 12s4.5 10 10.04 10c1.83 0 3.48-.49 4.94-1.36l-2.04-4.12c-.27.06-.55.1-.84.1-1.2 0-2.21-.67-2.74-1.67-.43-.82-.31-1.78.28-2.49l.01-.01c.52-.63 1.32-1.05 2.19-1.11.93-.06 1.8.23 2.46.78l3.26-2.6C19.8 5.03 16.15 2 12.04 2zM8.5 7.5c.28 0 .5.22.5.5s-.22.5-.5.5-.5-.22-.5-.5.22-.5.5-.5zm7 0c.28 0 .5.22.5.5s-.22.5-.5.5-.5-.22-.5-.5.22-.5.5-.5z"/>
+    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-2.14-5.63-5-5.92V4c0-.55-.45-1-1-1s-1 .45-1 1v2.08c-2.86.29-5 2.85-5 5.92v5l-2 2v1h15v-1l-2-2z"/>
+  </svg>
+);
+
 // Custom TikTok Icon component
 const TikTokIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg 
@@ -73,37 +88,13 @@ export const Footer: React.FC = () => {
     { icon: Youtube, href: 'https://youtube.com/@maishboutique', label: 'YouTube' },
     { icon: TikTokIcon, href: 'https://www.tiktok.com/@maish_boutique1?is_from_webapp=1&sender_device=pc', label: 'TikTok' },
     { icon: Linkedin, href: 'https://linkedin.com/company/maishboutique', label: 'LinkedIn' },
+    { icon: WhatsAppChannelIcon, href: 'https://whatsapp.com/channel/0029VbCGg4mK5cDLnTmJtr11', label: 'WhatsApp Channel' },
   ];
 
   return (
     <>
       <footer className="bg-muted/30 border-t border-border pt-8 pb-24 md:pb-6 mt-auto">
         <div className="container mx-auto px-4">
-          {/* Newsletter Section */}
-          <div className="bg-primary/5 rounded-xl p-5 md:p-8 mb-8">
-            <div className="max-w-xl mx-auto text-center">
-              <h3 className="font-display text-lg md:text-2xl font-semibold mb-2">
-                Join Our Newsletter
-              </h3>
-              <p className="text-muted-foreground text-sm mb-4">
-                Subscribe for exclusive deals & 10% off your first order
-              </p>
-              <form className="flex flex-col gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 h-12 px-4 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 text-base"
-                />
-                <button
-                  type="submit"
-                  className="h-12 px-6 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors touch-manipulation"
-                >
-                  Subscribe
-                </button>
-              </form>
-            </div>
-          </div>
-
           {/* Links Grid - Mobile: 1 column, Tablet: 2 columns, Desktop: 4 columns */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
             {/* Shop */}
@@ -309,9 +300,18 @@ export const Footer: React.FC = () => {
               {activeModal === 'careers' && (
                 <div className="space-y-4 text-sm">
                   <p className="text-muted-foreground">
-                    All latest jobs will be posted here. To join us, you must follow all our social media pages.
+                    Welcome to our WhatsApp channel! Follow us here for the latest job updates and career opportunities.
                   </p>
                   <div className="flex items-center justify-center gap-4 py-4">
+                    <a
+                      href="https://whatsapp.com/channel/0029VbCGg4mK5cDLnTmJtr11"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center text-white hover:bg-[#20BD5C] transition-colors"
+                      aria-label="WhatsApp Channel"
+                    >
+                      <WhatsAppChannelIcon className="w-5 h-5" />
+                    </a>
                     <a
                       href="https://instagram.com/maishboutique"
                       target="_blank"
