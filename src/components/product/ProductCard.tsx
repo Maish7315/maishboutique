@@ -105,26 +105,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, variant = 'de
           <span className="new-badge">NEW</span>
         )}
 
-        {/* Ramadan Hanging Decorations - Always visible on image */}
-        <div className="absolute top-0 left-0 right-0 pointer-events-none z-10">
-          {/* Left side - 2 Bells hanging from rope */}
-          <div className="absolute -left-2 top-0">
-            <div className="w-0.5 h-6 bg-amber-700" />
-            <div className="absolute top-4 flex flex-col gap-2">
-              <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-2xl">🔔</motion.div>
-              <motion.div animate={{ rotate: [0, -12, 12, 0] }} transition={{ duration: 2.2, repeat: Infinity, delay: 0.3 }} className="text-xl">🔔</motion.div>
-            </div>
-          </div>
-          {/* Right side - 2 Stars hanging from rope */}
-          <div className="absolute -right-2 top-0">
-            <div className="w-0.5 h-6 bg-amber-700" />
-            <div className="absolute top-4 flex flex-col gap-2">
-              <motion.div animate={{ rotate: [0, -15, 15, 0] }} transition={{ duration: 2.3, repeat: Infinity }} className="text-2xl">⭐</motion.div>
-              <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }} className="text-xl">✨</motion.div>
-            </div>
-          </div>
-        </div>
-
         {/* Quick View Overlay */}
         <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-300" />
       </Link>

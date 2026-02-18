@@ -52,48 +52,6 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category, variant = 
           className="absolute top-3 right-3 w-3 h-3 rounded-full opacity-80"
           style={{ backgroundColor: category.color }}
         />
-        
-        {/* Ramadan Decorations - Stars and Bells on Hover */}
-        <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-          {/* Top Left Corner - Star */}
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            whileHover={{ scale: 1, rotate: 0 }}
-            className="absolute top-2 left-2 text-2xl drop-shadow-lg"
-          >
-            ⭐
-          </motion.div>
-          {/* Top Right Corner - Sparkles */}
-          <motion.div
-            initial={{ scale: 0, rotate: 180 }}
-            whileHover={{ scale: 1, rotate: 0 }}
-            className="absolute top-2 right-2 text-2xl drop-shadow-lg"
-          >
-            ✨
-          </motion.div>
-          {/* Left Side - Bell */}
-          <motion.div
-            initial={{ x: -20, opacity: 0 }}
-            whileHover={{ x: 0, opacity: 1 }}
-            className="absolute left-0 top-1/2 -translate-y-1/2"
-          >
-            <motion.span
-              animate={{ x: [0, 3, 0] }}
-              transition={{ duration: 0.5, repeat: Infinity }}
-              className="text-2xl drop-shadow-lg"
-            >
-              🔔
-            </motion.span>
-          </motion.div>
-          {/* Bottom Left - Star */}
-          <motion.div
-            initial={{ scale: 0, y: 10 }}
-            whileHover={{ scale: 1, y: 0 }}
-            className="absolute bottom-2 left-2 text-xl drop-shadow-lg"
-          >
-            ⭐
-          </motion.div>
-        </div>
       </motion.article>
     </Link>
   );
