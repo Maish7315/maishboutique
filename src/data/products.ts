@@ -1605,7 +1605,7 @@ export const products: Product[] = [
   {
     id: 'men-shoes-001',
     name: 'Crafted Premium Leather Shoes',
-    price: 2500,
+    price: 6500,
     images: [
       {
         src: '/images/men/trousers/Crafted-premium-leather-shoes.webp',
@@ -1631,7 +1631,7 @@ export const products: Product[] = [
   {
     id: 'men-shoes-002',
     name: 'Italian Leather Shoe',
-    price: 2500,
+    price: 5999,
     images: [
       {
         src: '/images/men/trousers/Italian-leather-shoe.webp',
@@ -1657,7 +1657,7 @@ export const products: Product[] = [
   {
     id: 'men-shoes-003',
     name: 'Leather Men Black Shoe',
-    price: 2500,
+    price: 1099,
     images: [
       {
         src: '/images/men/trousers/Leather-men-black-shoe.webp',
@@ -1682,7 +1682,7 @@ export const products: Product[] = [
   {
     id: 'men-shoes-004',
     name: 'Men Leather Shoes',
-    price: 2500,
+    price: 6999,
     images: [
       {
         src: '/images/men/trousers/men-leather-shoes.webp',
@@ -1708,7 +1708,7 @@ export const products: Product[] = [
   {
     id: 'men-accessory-001',
     name: 'Customised Belts',
-    price: 2500,
+    price: 4999,
     images: [
       {
         src: '/images/men/trousers/customised-belts.webp',
@@ -1735,7 +1735,7 @@ export const products: Product[] = [
   {
     id: 'men-shoes-005',
     name: 'Casual Men Shoes',
-    price: 2500,
+    price: 6500,
     images: [
       {
         src: '/images/men/trousers/casual-men-shoes.webp',
