@@ -17,7 +17,8 @@ import {
   EyeOff,
   Loader2,
   AlertCircle,
-  LogIn
+  LogIn,
+  MessageCircle
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useOrders } from '@/context/OrderContext';
@@ -60,6 +61,13 @@ const PAYMENT_METHODS = [
     description: 'Visa, Mastercard',
     color: '#1a1f71',
   },
+  {
+    id: 'whatsapp',
+    name: 'Order via WhatsApp',
+    icon: '💬',
+    description: 'Send your order details via WhatsApp',
+    color: '#25D366',
+  },
 ];
 
 type CheckoutStep = 'shipping' | 'payment' | 'confirmation';
@@ -97,6 +105,9 @@ const CheckoutPage: React.FC = () => {
   const [accountError, setAccountError] = useState<string | null>(null);
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+
+  // WhatsApp number
+  const WHATSAPP_NUMBER = '0799921036';
 
   const [shippingInfo, setShippingInfo] = useState<ShippingInfo>({
     firstName: '',
@@ -261,6 +272,46 @@ const CheckoutPage: React.FC = () => {
       setCurrentStep('payment');
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Handle WhatsApp order
+  const handleWhatsAppOrder = () => {
+    // Build the order message
+    let message = `*New Order from Maish Style Shop*\n\n`;
+    message += `*Customer Details:*\n`;
+    message += `Name: ${shippingInfo.firstName} ${shippingInfo.lastName}\n`;
+    message += `Phone: ${shippingInfo.phone}\n`;
+    if (shippingInfo.email) message += `Email: ${shippingInfo.email}\n`;
+    message += `\n*Shipping Address:*\n`;
+    message += `${shippingInfo.address}, ${shippingInfo.town}, ${shippingInfo.county}\n`;
+    if (shippingInfo.instructions) message += `Instructions: ${shippingInfo.instructions}\n`;
+    message += `\n*Delivery Zone:* ${selectedZone.name}\n`;
+    message += `\n*Order Items:*\n`;
+    
+    items.forEach((item, index) => {
+      message += `${index + 1}. ${item.product.name}\n`;
+      message += `   Size: ${item.selectedSize}, Color: ${item.selectedColor.name}\n`;
+      message += `   Qty: ${item.quantity} x ${formatPrice(item.product.price)} = ${formatPrice(item.product.price * item.quantity)}\n\n`;
+    });
+    
+    message += `------------------\n`;
+    message += `*Subtotal:* ${formatPrice(subtotal)}\n`;
+    if (promoApplied) {
+      message += `*Discount (40%):* -${formatPrice(discount)}\n`;
+    }
+    message += `*Delivery:* ${selectedZone.price === 0 ? 'FREE' : formatPrice(selectedZone.price)}\n`;
+    message += `*TOTAL:* ${formatPrice(finalTotal)}\n\n`;
+    message += `Please confirm this order. Thank you!`;
+    
+    // Encode the message for WhatsApp URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Open WhatsApp with the message
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Show success message
+    toast.success('WhatsApp opened! Send your order details.');
   };
 
   if (items.length === 0 && !orderPlaced) {
@@ -803,13 +854,18 @@ const CheckoutPage: React.FC = () => {
                   <Button 
                     size="lg" 
                     className="w-full h-12" 
-                    onClick={handlePlaceOrder}
+                    onClick={selectedPayment.id === 'whatsapp' ? handleWhatsAppOrder : handlePlaceOrder}
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                         Processing Order...
+                      </>
+                    ) : selectedPayment.id === 'whatsapp' ? (
+                      <>
+                        <MessageCircle className="w-4 h-4 mr-2" />
+                        Order via WhatsApp - {formatPrice(finalTotal)}
                       </>
                     ) : (
                       `Place Order - ${formatPrice(finalTotal)}`
