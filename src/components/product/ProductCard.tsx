@@ -109,20 +109,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, variant = 'de
         <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-300" />
         
         {/* Ramadan Decorations - Stars and Bells on Hover */}
-        <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
           {/* Top Left Corner - Star */}
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
             whileHover={{ scale: 1, rotate: 0 }}
-            className="absolute top-2 left-2 text-xl"
+            className="absolute top-2 left-2 text-2xl drop-shadow-lg"
           >
             ⭐
           </motion.div>
-          {/* Top Corner - Star */}
+          {/* Top Right Corner - Sparkles */}
           <motion.div
             initial={{ scale: 0, rotate: 180 }}
             whileHover={{ scale: 1, rotate: 0 }}
-            className="absolute top-2 right-2 text-xl"
+            className="absolute top-2 right-2 text-2xl drop-shadow-lg"
           >
             ✨
           </motion.div>
@@ -135,7 +135,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, variant = 'de
             <motion.span
               animate={{ x: [0, 3, 0] }}
               transition={{ duration: 0.5, repeat: Infinity }}
-              className="text-xl"
+              className="text-2xl drop-shadow-lg"
             >
               🔔
             </motion.span>
@@ -144,9 +144,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, variant = 'de
           <motion.div
             initial={{ scale: 0, y: 10 }}
             whileHover={{ scale: 1, y: 0 }}
-            className="absolute bottom-2 left-2 text-lg"
+            className="absolute bottom-2 left-2 text-xl drop-shadow-lg"
           >
             ⭐
+          </motion.div>
+          {/* Bottom Right - Star */}
+          <motion.div
+            initial={{ scale: 0, y: -10 }}
+            whileHover={{ scale: 1, y: 0 }}
+            className="absolute bottom-2 right-2 text-xl drop-shadow-lg"
+          >
+            ✨
           </motion.div>
         </div>
       </Link>
