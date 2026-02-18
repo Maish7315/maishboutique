@@ -44,6 +44,11 @@ const ProductDetailPage: React.FC = () => {
     : 0;
   const category = categories.find(c => c.id === product.category);
 
+  // Calculate price based on selected size (for products with size-specific pricing)
+  const currentPrice = product.sizePrices && selectedSize 
+    ? product.sizePrices[selectedSize] 
+    : product.price;
+
   // Related products
   const relatedProducts = products
     .filter(p => p.category === product.category && p.id !== product.id)
@@ -60,7 +65,8 @@ const ProductDetailPage: React.FC = () => {
       return;
     }
 
-    addItem(product, selectedSize, selectedColor, quantity);
+    // Add item with the current price (which includes size-specific pricing if applicable)
+    addItem({ ...product, price: currentPrice }, selectedSize, selectedColor, quantity);
   };
 
   const handleShare = async () => {
@@ -235,7 +241,7 @@ const ProductDetailPage: React.FC = () => {
                 'text-2xl md:text-3xl font-bold',
                 product.isSale && 'text-sale'
               )}>
-                {formatPrice(product.price)}
+                {formatPrice(currentPrice)}
               </span>
               {product.originalPrice && (
                 <span className="text-lg text-muted-foreground line-through">
@@ -295,7 +301,12 @@ const ProductDetailPage: React.FC = () => {
                       sizeError && !selectedSize && 'border-destructive'
                     )}
                   >
-                    {size}
+                    <span>{size}</span>
+                    {product.sizePrices && product.sizePrices[size] && (
+                      <span className="text-xs ml-1 opacity-70">
+                        {formatPrice(product.sizePrices[size])}
+                      </span>
+                    )}
                   </button>
                 ))}
               </div>
@@ -337,7 +348,7 @@ const ProductDetailPage: React.FC = () => {
                 onClick={handleAddToCart}
               >
                 <ShoppingBag className="w-5 h-5 mr-2" />
-                Add to Cart - {formatPrice(product.price * quantity)}
+                Add to Cart - {formatPrice(currentPrice * quantity)}
               </Button>
             </div>
 

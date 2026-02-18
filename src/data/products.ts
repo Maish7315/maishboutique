@@ -104,7 +104,7 @@ export const products: Product[] = [
   {
     id: 'women-dress-001',
     name: 'Elegant Ankara Maxi Dress',
-    price: 2500,
+    price: 2599,
     originalPrice: 4000,
     images: [
       {
@@ -160,7 +160,7 @@ export const products: Product[] = [
   {
     id: 'women-dress-003',
     name: 'Floral Summer Dress',
-    price: 2000,
+    price: 2599,
     images: [
       {
         src: '/images/women/dresses/floral-dress.webp',
@@ -185,7 +185,7 @@ export const products: Product[] = [
   {
     id: 'women-dress-004',
     name: 'Stylish Evening Dress',
-    price: 2500,
+    price: 2599,
     originalPrice: 5000,
     images: [
       {
@@ -214,7 +214,7 @@ export const products: Product[] = [
   {
     id: 'women-dress-005',
     name: 'Elegant Dress',
-    price: 2200,
+    price: 2599,
     images: [
       {
         src: '/images/women/dresses/elegant-dress-1.webp',
@@ -240,7 +240,7 @@ export const products: Product[] = [
   {
     id: 'women-top-001',
     name: 'Crop Top',
-    price: 500,
+    price: 499,
     images: [
       {
         src: '/images/women/tops/crop-top.webp',
@@ -318,7 +318,7 @@ export const products: Product[] = [
   {
     id: 'women-top-004',
     name: 'Design Top',
-    price: 1500,
+    price: 999,
     images: [
       {
         src: '/images/women/tops/design-top.webp',
@@ -344,7 +344,7 @@ export const products: Product[] = [
   {
     id: 'women-top-005',
     name: 'Pink Sweater',
-    price: 2599,
+    price: 999,
     originalPrice: 4000,
     images: [
       {
@@ -371,7 +371,7 @@ export const products: Product[] = [
   {
     id: 'women-top-006',
     name: 'White Sweater',
-    price: 2200,
+    price: 999,
     images: [
       {
         src: '/images/women/tops/white-sweater.webp',
@@ -396,7 +396,7 @@ export const products: Product[] = [
   {
     id: 'women-top-007',
     name: 'Cardigan Sweater',
-    price: 1299,
+    price: 999,
     images: [
       {
         src: '/images/women/tops/cardigan-sweater.webp',
@@ -423,7 +423,7 @@ export const products: Product[] = [
   {
     id: 'women-top-008',
     name: 'Highwaist Jeans',
-    price: 3800,
+    price: 1999,
     images: [
       {
         src: '/images/women/tops/highwaist-jeans.webp',
@@ -448,7 +448,7 @@ export const products: Product[] = [
   {
     id: 'women-pants-001',
     name: 'Yoga Pants',
-    price: 2800,
+    price: 1999,
     images: [
       {
         src: '/images/women/pants/yoga-pants.webp',
@@ -474,7 +474,7 @@ export const products: Product[] = [
   {
     id: 'women-pants-002',
     name: 'Comfort Pants',
-    price: 2500,
+    price: 1999,
     images: [
       {
         src: '/images/women/pants/comfort-pants.webp',
@@ -499,8 +499,8 @@ export const products: Product[] = [
   },
   {
     id: 'women-pants-003',
-    name: 'Black Leggings',
-    price: 2200,
+    name: 'Black Bra',
+    price: 1999,
     images: [
       {
         src: '/images/women/pants/black-leggings.webp',
@@ -514,9 +514,9 @@ export const products: Product[] = [
     colors: [
       { name: 'Black', hex: '#1a1a1a', available: true },
     ],
-    tags: ['leggings', 'casual', 'versatile'],
-    useCase: ['casual', 'workout', 'casual'],
-    description: 'Classic black leggings for any occasion.',
+    tags: ['bra', 'underwear', 'comfort', 'essentials'],
+    useCase: ['casual', 'work', 'party'],
+    description: 'Comfortable black bra for everyday wear. Soft and breathable fabric.',
     rating: 4.6,
     reviewCount: 145,
     stock: 89,
@@ -525,7 +525,7 @@ export const products: Product[] = [
   {
     id: 'women-pants-004',
     name: 'Polyester Pants',
-    price: 2800,
+    price: 1999,
     images: [
       {
         src: '/images/women/pants/polyester-pants.webp',
@@ -551,7 +551,7 @@ export const products: Product[] = [
   {
     id: 'women-skirt-001',
     name: 'Church Skirt Set',
-    price: 3500,
+    price: 1299,
     originalPrice: 4500,
     images: [
       {
@@ -578,7 +578,7 @@ export const products: Product[] = [
   {
     id: 'women-skirt-002',
     name: 'Two Piece Suit',
-    price: 4500,
+    price: 1299,
     images: [
       {
         src: '/images/women/skirts/black-two-piece.webp',
@@ -604,7 +604,7 @@ export const products: Product[] = [
   {
     id: 'women-skirt-003',
     name: 'Polyester Skirt',
-    price: 1800,
+    price: 1299,
     images: [
       {
         src: '/images/women/skirts/polyester-skirt.webp',
@@ -630,7 +630,7 @@ export const products: Product[] = [
   {
     id: 'women-skirt-004',
     name: 'Casual Skirt',
-    price: 2200,
+    price: 1299,
     images: [
       {
         src: '/images/women/skirts/skirt-1.webp',
@@ -652,11 +652,273 @@ export const products: Product[] = [
     stock: 56,
     sku: 'MF-WS-004',
   },
+  // New Women Wear Products
+  {
+    id: 'women-021',
+    name: 'Microfiber Sexy Pants',
+    price: 699,
+    images: [
+      {
+        src: '/images/women/pants/Microfiber-Sexy-pants.webp',
+        alt: 'Microfiber sexy pants',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Pants',
+    gender: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+      { name: 'Navy', hex: '#1a3a5c', available: true },
+    ],
+    tags: ['microfiber', 'sexy', 'pants', 'women', 'comfort'],
+    useCase: ['casual', 'party', 'sleepwear'],
+    description: 'Comfortable microfiber sexy pants for women.',
+    rating: 4.4,
+    reviewCount: 35,
+    stock: 45,
+    sku: 'MF-WW-021',
+  },
+  {
+    id: 'women-022',
+    name: 'Customised Bra',
+    price: 999,
+    images: [
+      {
+        src: '/images/women/pants/customised-bra.webp',
+        alt: 'Customised bra',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Bras',
+    gender: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Pink', hex: '#ffafcc', available: true },
+      { name: 'White', hex: '#ffffff', available: true },
+      { name: 'Black', hex: '#1a1a1a', available: true },
+    ],
+    tags: ['bra', 'customised', 'women', 'lingerie', 'underwear'],
+    useCase: ['casual', 'sleepwear'],
+    description: 'Customised comfortable bra for women.',
+    rating: 4.5,
+    reviewCount: 42,
+    stock: 50,
+    sku: 'MF-WW-022',
+  },
+  {
+    id: 'women-023',
+    name: 'Women Biker',
+    price: 599,
+    images: [
+      {
+        src: '/images/women/pants/women-biker.webp',
+        alt: 'Women biker pants',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Pants',
+    gender: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+    ],
+    tags: ['biker', 'pants', 'women', 'leather', 'fashion'],
+    useCase: ['casual', 'party'],
+    description: 'Stylish women biker pants.',
+    rating: 4.6,
+    reviewCount: 38,
+    stock: 40,
+    sku: 'MF-WW-023',
+  },
+  {
+    id: 'women-024',
+    name: 'Swimming Costume',
+    price: 1099,
+    images: [
+      {
+        src: '/images/women/pants/swimming-costume.webp',
+        alt: 'Swimming costume',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Swimwear',
+    gender: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Blue', hex: '#0077b6', available: true },
+      { name: 'Pink', hex: '#ffafcc', available: true },
+    ],
+    tags: ['swimming', 'costume', 'swimwear', 'women', 'beach'],
+    useCase: ['swimming', 'beach', 'vacation'],
+    description: 'Beautiful swimming costume for women.',
+    rating: 4.7,
+    reviewCount: 55,
+    stock: 35,
+    sku: 'MF-WW-024',
+  },
+  {
+    id: 'women-025',
+    name: 'Swimming Costume Black',
+    price: 1099,
+    images: [
+      {
+        src: '/images/women/pants/swimming-costume-black.webp',
+        alt: 'Black swimming costume',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Swimwear',
+    gender: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+    ],
+    tags: ['swimming', 'costume', 'black', 'swimwear', 'women'],
+    useCase: ['swimming', 'beach', 'vacation'],
+    description: 'Elegant black swimming costume for women.',
+    rating: 4.6,
+    reviewCount: 48,
+    stock: 30,
+    sku: 'MF-WW-025',
+  },
+  {
+    id: 'women-026',
+    name: 'Women Pants',
+    price: 499,
+    images: [
+      {
+        src: '/images/women/pants/pants.webp',
+        alt: 'Women pants',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Pants',
+    gender: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+      { name: 'Gray', hex: '#808080', available: true },
+      { name: 'Navy', hex: '#1a3a5c', available: true },
+    ],
+    tags: ['pants', 'women', 'casual', 'fashion'],
+    useCase: ['casual', 'work'],
+    description: 'Comfortable women pants for everyday wear.',
+    rating: 4.4,
+    reviewCount: 62,
+    stock: 55,
+    sku: 'MF-WW-026',
+  },
+  {
+    id: 'women-027',
+    name: 'Bikers',
+    price: 699,
+    images: [
+      {
+        src: '/images/women/pants/bikers.webp',
+        alt: 'Women bikers pants',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Pants',
+    gender: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+    ],
+    tags: ['bikers', 'pants', 'women', 'leather', 'fashion'],
+    useCase: ['casual', 'party'],
+    description: 'Stylish bikers pants for women.',
+    rating: 4.5,
+    reviewCount: 40,
+    stock: 38,
+    sku: 'MF-WW-027',
+  },
+  {
+    id: 'women-028',
+    name: 'Boob Tops',
+    price: 499,
+    images: [
+      {
+        src: '/images/women/pants/boob-tops.webp',
+        alt: 'Boob tops',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Bras',
+    gender: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Pink', hex: '#ffafcc', available: true },
+      { name: 'White', hex: '#ffffff', available: true },
+      { name: 'Black', hex: '#1a1a1a', available: true },
+    ],
+    tags: ['boob', 'tops', 'women', 'bra', 'underwear'],
+    useCase: ['casual', 'sleepwear'],
+    description: 'Comfortable boob tops for women.',
+    rating: 4.3,
+    reviewCount: 58,
+    stock: 65,
+    sku: 'MF-WW-028',
+  },
+  {
+    id: 'women-029',
+    name: 'Bra Hard',
+    price: 899,
+    images: [
+      {
+        src: '/images/women/pants/Bra-hard.webp',
+        alt: 'Hard cup bra',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Bras',
+    gender: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+      { name: 'White', hex: '#ffffff', available: true },
+      { name: 'Skin', hex: '#e8beac', available: true },
+    ],
+    tags: ['bra', 'hard', 'women', 'support', 'underwear'],
+    useCase: ['casual', 'work'],
+    description: 'Hard cup bra with support for women.',
+    rating: 4.5,
+    reviewCount: 45,
+    stock: 42,
+    sku: 'MF-WW-029',
+  },
+  {
+    id: 'women-030',
+    name: 'Sunflower Bra',
+    price: 799,
+    images: [
+      {
+        src: '/images/women/pants/sunflower-bra.webp',
+        alt: 'Sunflower bra',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Bras',
+    gender: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Yellow', hex: '#facc15', available: true },
+      { name: 'Pink', hex: '#ffafcc', available: true },
+    ],
+    tags: ['sunflower', 'bra', 'women', 'flower', 'underwear'],
+    useCase: ['casual', 'sleepwear'],
+    description: 'Beautiful sunflower pattern bra for women.',
+    rating: 4.6,
+    reviewCount: 52,
+    stock: 48,
+    sku: 'MF-WW-030',
+  },
   // Men Wear
   {
     id: 'men-shirt-001',
-    name: 'Slim Fit Formal Shirt',
-    price: 3200,
+    name: 'Striped 3-piece Suit',
+    price: 15000,
     images: [
       {
         src: '/images/men/shirts/formal-shirt-1.webp',
@@ -683,8 +945,8 @@ export const products: Product[] = [
   },
   {
     id: 'men-shirt-002',
-    name: 'Formal Shirt Classic',
-    price: 2800,
+    name: 'Men Kaunda Suit',
+    price: 10000,
     images: [
       {
         src: '/images/men/shirts/formal-shirt-2.webp',
@@ -710,7 +972,7 @@ export const products: Product[] = [
   {
     id: 'men-shirt-003',
     name: 'Short Sleeve Shirt',
-    price: 2500,
+    price: 999,
     images: [
       {
         src: '/images/men/shirts/short-sleeve-shirt.webp',
@@ -762,7 +1024,7 @@ export const products: Product[] = [
   {
     id: 'men-shirt-005',
     name: 'Polo Shirt',
-    price: 2200,
+    price: 1099,
     images: [
       {
         src: '/images/men/shirts/polo-shirt.webp',
@@ -789,7 +1051,7 @@ export const products: Product[] = [
   {
     id: 'men-shirt-006',
     name: 'Red Polo Shirt',
-    price: 2200,
+    price: 1099,
     images: [
       {
         src: '/images/men/shirts/red-polo-shirt.webp',
@@ -843,7 +1105,7 @@ export const products: Product[] = [
   {
     id: 'men-shirt-008',
     name: 'Navy Three Piece Suit',
-    price: 9500,
+    price: 15000,
     images: [
       {
         src: '/images/men/shirts/navy-three-piece-suit.webp',
@@ -922,7 +1184,7 @@ export const products: Product[] = [
   {
     id: 'men-shirt-011',
     name: 'Kaunda Suit',
-    price: 7500,
+    price: 9999,
     images: [
       {
         src: '/images/men/shirts/kaunda-suit.webp',
@@ -946,8 +1208,8 @@ export const products: Product[] = [
   },
   {
     id: 'men-shirt-012',
-    name: 'Safari Suit',
-    price: 6500,
+    name: 'Men Kaunda Yellow',
+    price: 10000,
     images: [
       {
         src: '/images/men/shirts/safari-suit.webp',
@@ -972,8 +1234,8 @@ export const products: Product[] = [
   },
   {
     id: 'men-shirt-013',
-    name: 'Plaid Shirt',
-    price: 2400,
+    name: 'Polo Shirt',
+    price: 1099,
     images: [
       {
         src: '/images/men/shirts/plaid-shirt.webp',
@@ -998,8 +1260,8 @@ export const products: Product[] = [
   },
   {
     id: 'men-shirt-014',
-    name: 'Casual Mens Shirt',
-    price: 2200,
+    name: 'Men Trench Coat',
+    price: 5500,
     images: [
       {
         src: '/images/men/shirts/mens-casual-shirt.webp',
@@ -1052,7 +1314,7 @@ export const products: Product[] = [
   {
     id: 'men-trousers-002',
     name: 'Slim Fit Wool Trousers',
-    price: 4500,
+    price: 2599,
     images: [
       {
         src: '/images/men/trousers/slim-fit-wool.webp',
@@ -1079,7 +1341,7 @@ export const products: Product[] = [
   {
     id: 'men-trousers-003',
     name: 'Seersucker Trousers',
-    price: 3800,
+    price: 2599,
     images: [
       {
         src: '/images/men/trousers/seersucker-trousers.webp',
@@ -1105,7 +1367,7 @@ export const products: Product[] = [
   {
     id: 'men-trousers-004',
     name: 'Spring Jeans',
-    price: 4200,
+    price: 1799,
     images: [
       {
         src: '/images/men/trousers/spring-jeans.webp',
@@ -1129,7 +1391,7 @@ export const products: Product[] = [
   },
   {
     id: 'men-trousers-005',
-    name: 'Striped Trousers',
+    name: 'Black Strip Trac suit',
     price: 3800,
     images: [
       {
@@ -1155,7 +1417,7 @@ export const products: Product[] = [
   {
     id: 'men-trousers-006',
     name: 'Plus Size Trousers',
-    price: 4000,
+    price: 1799,
     images: [
       {
         src: '/images/men/trousers/plus-size-trousers.webp',
@@ -1208,7 +1470,7 @@ export const products: Product[] = [
   },
   {
     id: 'kids-dress-002',
-    name: 'Girls Ankara Dress',
+    name: 'Kids Outfit',
     price: 3200,
     images: [
       {
@@ -1234,7 +1496,7 @@ export const products: Product[] = [
   },
   {
     id: 'kids-dress-003',
-    name: 'Girls Casual Dress',
+    name: 'Kids School Dress',
     price: 2200,
     images: [
       {
@@ -1260,8 +1522,8 @@ export const products: Product[] = [
   },
   {
     id: 'kids-uniform-001',
-    name: 'Boys School Uniform Set',
-    price: 3500,
+    name: 'Kids 3 Piece Suit',
+    price: 9999,
     images: [
       {
         src: '/images/kids/boys/blue-suit-boys.webp',
@@ -1287,7 +1549,7 @@ export const products: Product[] = [
   {
     id: 'kids-uniform-002',
     name: 'Boys Formal Suit',
-    price: 4500,
+    price: 12999,
     images: [
       {
         src: '/images/kids/boys/boys-formal-suit.webp',
@@ -1365,7 +1627,7 @@ export const products: Product[] = [
   },
   {
     id: 'kids-uniform-006',
-    name: 'Boys Party Wear',
+    name: 'Kids Home Full Outfit',
     price: 3200,
     images: [
       {
@@ -1571,87 +1833,8 @@ export const products: Product[] = [
   },
   // Girls School Uniforms
   {
-    id: 'uniform-girls-002',
-    name: 'Girls School Blouse - White',
-    price: 1200,
-    images: [
-      {
-        src: '/images/uniforms/girls/girls-uniform-blouse-1.webp',
-        alt: 'White girls school blouse',
-      },
-    ],
-    category: 'kids-wear',
-    subCategory: 'Girls Uniforms',
-    gender: 'Girls',
-    sizes: ['2-3Y', '4-5Y', '6-7Y', '8-9Y', '10-11Y', '12-14Y'],
-    colors: [
-      { name: 'White', hex: '#ffffff', available: true },
-    ],
-    tags: ['school uniform', 'girls', 'blouse', 'white', 'formal'],
-    useCase: ['school', 'formal'],
-    description: 'Quality white school blouse for girls. Easy iron fabric.',
-    rating: 4.7,
-    reviewCount: 89,
-    stock: 180,
-    sku: 'MF-UG-002',
-  },
-  {
-    id: 'uniform-girls-003',
-    name: 'Girls School Skirt - Navy',
-    price: 1400,
-    images: [
-      {
-        src: '/images/uniforms/girls/girls-uniform-skirt-1.webp',
-        alt: 'Navy girls school skirt',
-      },
-    ],
-    category: 'kids-wear',
-    subCategory: 'Girls Uniforms',
-    gender: 'Girls',
-    sizes: ['2-3Y', '4-5Y', '6-7Y', '8-9Y', '10-11Y', '12-14Y'],
-    colors: [
-      { name: 'Navy', hex: '#14213d', available: true },
-      { name: 'Grey', hex: '#6c757d', available: true },
-    ],
-    tags: ['school uniform', 'girls', 'skirt', 'navy'],
-    useCase: ['school', 'formal'],
-    description: 'Classic pleated navy school skirt for girls.',
-    rating: 4.6,
-    reviewCount: 78,
-    stock: 140,
-    sku: 'MF-UG-003',
-  },
-  {
-    id: 'uniform-girls-004',
-    name: 'Girls School Cardigan',
-    price: 1800,
-    originalPrice: 2200,
-    images: [
-      {
-        src: '/images/uniforms/girls/girls-cardigan.webp',
-        alt: 'Blue girls school cardigan',
-      },
-    ],
-    category: 'kids-wear',
-    subCategory: 'Girls Uniforms',
-    gender: 'Girls',
-    sizes: ['2-3Y', '4-5Y', '6-7Y', '8-9Y', '10-11Y', '12-14Y'],
-    colors: [
-      { name: 'Blue', hex: '#0077b6', available: true },
-      { name: 'Grey', hex: '#6c757d', available: true },
-    ],
-    tags: ['school uniform', 'girls', 'cardigan', 'sweater', 'winter'],
-    useCase: ['school', 'casual'],
-    description: 'Warm school cardigan for girls. Perfect for cooler days.',
-    rating: 4.5,
-    reviewCount: 67,
-    isSale: true,
-    stock: 90,
-    sku: 'MF-UG-004',
-  },
-  {
     id: 'uniform-girls-005',
-    name: 'Girls School Shoes',
+    name: 'Kindergarten School Shoes',
     price: 2500,
     images: [
       {
@@ -1677,7 +1860,7 @@ export const products: Product[] = [
   },
   {
     id: 'uniform-girls-006',
-    name: 'Girls School Bag',
+    name: 'School Bag',
     price: 2800,
     images: [
       {
@@ -1703,7 +1886,8 @@ export const products: Product[] = [
   },
   {
     id: 'uniform-girls-007',
-    name: 'Girls School Tie',
+    name: 'School Tie',
+    price: 199,
     price: 400,
     images: [
       {
@@ -1729,7 +1913,7 @@ export const products: Product[] = [
   },
   {
     id: 'uniform-girls-008',
-    name: 'Girls School Belt',
+    name: 'Scout Belts',
     price: 500,
     images: [
       {
@@ -1751,115 +1935,6 @@ export const products: Product[] = [
     reviewCount: 45,
     stock: 120,
     sku: 'MF-UG-008',
-  },
-  // School Sports Uniforms
-  {
-    id: 'uniform-sports-001',
-    name: 'School Sports Jersey - Red',
-    price: 1500,
-    images: [
-      {
-        src: '/images/uniforms/School sports/school-sports-1.webp',
-        alt: 'Red school sports jersey',
-      },
-    ],
-    category: 'uniform-center',
-    subCategory: 'School Sports',
-    gender: 'Unisex',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    colors: [
-      { name: 'Red', hex: '#dc143c', available: true },
-      { name: 'Blue', hex: '#0077b6', available: true },
-      { name: 'Green', hex: '#228b22', available: true },
-      { name: 'Yellow', hex: '#ffd700', available: true },
-    ],
-    tags: ['school sports', 'jersey', 'PE uniform', 'sportswear'],
-    useCase: ['sports', 'PE'],
-    description: 'Quality red sports jersey for school PE classes. Breathable fabric.',
-    rating: 4.6,
-    reviewCount: 78,
-    stock: 100,
-    sku: 'MF-US-001',
-  },
-  {
-    id: 'uniform-sports-002',
-    name: 'School Sports Shorts',
-    price: 1200,
-    images: [
-      {
-        src: '/images/uniforms/School sports/school-sports-2.webp',
-        alt: 'Blue school sports shorts',
-      },
-    ],
-    category: 'kids-wear',
-    subCategory: 'School Sports',
-    gender: 'Unisex',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    colors: [
-      { name: 'Blue', hex: '#0077b6', available: true },
-      { name: 'Black', hex: '#1a1a1a', available: true },
-    ],
-    tags: ['school sports', 'shorts', 'PE uniform', 'sportswear'],
-    useCase: ['sports', 'PE'],
-    description: 'Comfortable blue sports shorts for school PE classes.',
-    rating: 4.5,
-    reviewCount: 67,
-    stock: 120,
-    sku: 'MF-US-002',
-  },
-  {
-    id: 'uniform-sports-003',
-    name: 'School Sports Track Pants',
-    price: 2000,
-    originalPrice: 2500,
-    images: [
-      {
-        src: '/images/uniforms/School sports/school-sports-3.webp',
-        alt: 'Navy school sports track pants',
-      },
-    ],
-    category: 'kids-wear',
-    subCategory: 'School Sports',
-    gender: 'Unisex',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    colors: [
-      { name: 'Navy', hex: '#14213d', available: true },
-      { name: 'Black', hex: '#1a1a1a', available: true },
-    ],
-    tags: ['school sports', 'track pants', 'PE uniform', 'joggers'],
-    useCase: ['sports', 'PE'],
-    description: 'Warm navy track pants for school sports and activities.',
-    rating: 4.6,
-    reviewCount: 56,
-    isSale: true,
-    stock: 80,
-    sku: 'MF-US-003',
-  },
-  {
-    id: 'uniform-sports-004',
-    name: 'School Sports T-Shirt',
-    price: 1000,
-    images: [
-      {
-        src: '/images/uniforms/School sports/school-sports-4.webp',
-        alt: 'White school sports t-shirt',
-      },
-    ],
-    category: 'kids-wear',
-    subCategory: 'School Sports',
-    gender: 'Unisex',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    colors: [
-      { name: 'White', hex: '#ffffff', available: true },
-      { name: 'Blue', hex: '#0077b6', available: true },
-    ],
-    tags: ['school sports', 't-shirt', 'PE uniform', 'sportswear'],
-    useCase: ['sports', 'PE'],
-    description: 'Cotton school sports t-shirt for physical education.',
-    rating: 4.4,
-    reviewCount: 89,
-    stock: 150,
-    sku: 'MF-US-004',
   },
   // Scouts Uniforms
   {
@@ -2168,7 +2243,7 @@ export const products: Product[] = [
   },
   {
     id: 'uniform-boys-015',
-    name: 'Boys School Uniform',
+    name: 'Boys Full School Uniform',
     price: 2800,
     images: [
       {
@@ -2394,7 +2469,7 @@ export const products: Product[] = [
   },
   {
     id: 'uniform-boys-024',
-    name: 'Girls Uniform Dress',
+    name: 'school socks',
     price: 1800,
     images: [
       {
@@ -2419,7 +2494,7 @@ export const products: Product[] = [
   },
   {
     id: 'uniform-boys-025',
-    name: 'Girls Uniform Dress',
+    name: 'School shoes black',
     price: 1800,
     images: [
       {
@@ -2444,8 +2519,8 @@ export const products: Product[] = [
   },
   {
     id: 'uniform-boys-026',
-    name: 'Girls Uniform Dress',
-    price: 1800,
+    name: 'School socks',
+    price: 350,
     images: [
       {
         src: '/images/uniforms/boys/girls-uniform-dress-6.webp',
@@ -2469,7 +2544,7 @@ export const products: Product[] = [
   },
   {
     id: 'uniform-boys-027',
-    name: 'Girls Uniform Dress',
+    name: 'school tie',
     price: 1800,
     images: [
       {
@@ -2595,7 +2670,7 @@ export const products: Product[] = [
   },
   {
     id: 'uniform-boys-032',
-    name: 'Boys School Uniform',
+    name: 'Boys Full School Uniform',
     price: 2800,
     images: [
       {
@@ -2617,57 +2692,6 @@ export const products: Product[] = [
     reviewCount: 55,
     stock: 65,
     sku: 'MF-UB-032',
-  },
-  // Additional Girls Uniform Products
-  {
-    id: 'uniform-girls-010',
-    name: 'Girls School Uniform Dress - Blue',
-    price: 1800,
-    images: [
-      {
-        src: '/images/uniforms/girls/girls-uniform-dress-3.webp',
-        alt: 'Blue girls school uniform dress',
-      },
-    ],
-    category: 'uniform-center',
-    subCategory: 'Girls Uniforms',
-    gender: 'Girls',
-    sizes: ['2-3Y', '4-5Y', '6-7Y', '8-9Y', '10-11Y', '12-14Y'],
-    colors: [
-      { name: 'Blue', hex: '#0077b6', available: true },
-    ],
-    tags: ['school uniform', 'girls', 'dress', 'blue'],
-    useCase: ['school', 'formal'],
-    description: 'Blue school uniform dress for girls. Easy care fabric.',
-    rating: 4.6,
-    reviewCount: 78,
-    stock: 100,
-    sku: 'MF-UG-010',
-  },
-  {
-    id: 'uniform-girls-011',
-    name: 'Girls School Uniform Blouse',
-    price: 1200,
-    images: [
-      {
-        src: '/images/uniforms/girls/girls-uniform-blouse-6.webp',
-        alt: 'Girls school uniform blouse',
-      },
-    ],
-    category: 'uniform-center',
-    subCategory: 'Girls Uniforms',
-    gender: 'Girls',
-    sizes: ['2-3Y', '4-5Y', '6-7Y', '8-9Y', '10-11Y', '12-14Y'],
-    colors: [
-      { name: 'White', hex: '#ffffff', available: true },
-    ],
-    tags: ['school uniform', 'girls', 'blouse', 'white'],
-    useCase: ['school', 'formal'],
-    description: 'White school blouse for girls. Crisp and professional.',
-    rating: 4.5,
-    reviewCount: 67,
-    stock: 130,
-    sku: 'MF-UG-011',
   },
   {
     id: 'uniform-girls-012',
@@ -2718,158 +2742,6 @@ export const products: Product[] = [
     reviewCount: 65,
     stock: 85,
     sku: 'MF-UG-013',
-  },
-  // Scouts Uniforms
-  {
-    id: 'uniform-sports-006',
-    name: 'School Sports Shorts - Black',
-    price: 1200,
-    images: [
-      {
-        src: '/images/uniforms/School sports/school-sports-6.webp',
-        alt: 'Black school sports shorts',
-      },
-    ],
-    category: 'uniform-center',
-    subCategory: 'School Sports',
-    gender: 'Unisex',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    colors: [
-      { name: 'Black', hex: '#1a1a1a', available: true },
-    ],
-    tags: ['school sports', 'shorts', 'PE uniform', 'black'],
-    useCase: ['sports', 'PE'],
-    description: 'Black sports shorts for school activities.',
-    rating: 4.5,
-    reviewCount: 48,
-    stock: 90,
-    sku: 'MF-US-006',
-  },
-  {
-    id: 'uniform-sports-007',
-    name: 'School Sports Jersey - Green',
-    price: 1500,
-    images: [
-      {
-        src: '/images/uniforms/School sports/school-sports-7.webp',
-        alt: 'Green school sports jersey',
-      },
-    ],
-    category: 'uniform-center',
-    subCategory: 'School Sports',
-    gender: 'Unisex',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    colors: [
-      { name: 'Green', hex: '#228b22', available: true },
-    ],
-    tags: ['school sports', 'jersey', 'PE uniform', 'green'],
-    useCase: ['sports', 'PE'],
-    description: 'Green sports jersey for school teams.',
-    rating: 4.6,
-    reviewCount: 42,
-    stock: 80,
-    sku: 'MF-US-007',
-  },
-  {
-    id: 'uniform-sports-008',
-    name: 'School Sports Track Pants - Black',
-    price: 2000,
-    images: [
-      {
-        src: '/images/uniforms/School sports/school-sports-8.webp',
-        alt: 'Black school sports track pants',
-      },
-    ],
-    category: 'uniform-center',
-    subCategory: 'School Sports',
-    gender: 'Unisex',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    colors: [
-      { name: 'Black', hex: '#1a1a1a', available: true },
-    ],
-    tags: ['school sports', 'track pants', 'PE uniform', 'black'],
-    useCase: ['sports', 'PE'],
-    description: 'Black track pants for school sports and warm-ups.',
-    rating: 4.6,
-    reviewCount: 52,
-    stock: 70,
-    sku: 'MF-US-008',
-  },
-  // Additional Girls Uniform Products
-  {
-    id: 'uniform-girls-014',
-    name: 'Girls School Uniform Dress - Blue',
-    price: 1800,
-    images: [
-      {
-        src: '/images/uniforms/girls/girls-uniform-dress-4.webp',
-        alt: 'Blue girls school uniform dress',
-      },
-    ],
-    category: 'uniform-center',
-    subCategory: 'Girls Uniforms',
-    gender: 'Girls',
-    sizes: ['2-3Y', '4-5Y', '6-7Y', '8-9Y', '10-11Y', '12-14Y'],
-    colors: [
-      { name: 'Blue', hex: '#0077b6', available: true },
-    ],
-    tags: ['school uniform', 'girls', 'dress', 'blue'],
-    useCase: ['school', 'formal'],
-    description: 'Blue school uniform dress for girls. Classic style.',
-    rating: 4.6,
-    reviewCount: 65,
-    stock: 95,
-    sku: 'MF-UG-014',
-  },
-  {
-    id: 'uniform-girls-015',
-    name: 'Girls School Uniform Dress - Navy',
-    price: 1800,
-    images: [
-      {
-        src: '/images/uniforms/girls/girls-uniform-dress-5.webp',
-        alt: 'Navy girls school uniform dress',
-      },
-    ],
-    category: 'uniform-center',
-    subCategory: 'Girls Uniforms',
-    gender: 'Girls',
-    sizes: ['2-3Y', '4-5Y', '6-7Y', '8-9Y', '10-11Y', '12-14Y'],
-    colors: [
-      { name: 'Navy', hex: '#14213d', available: true },
-    ],
-    tags: ['school uniform', 'girls', 'dress', 'navy'],
-    useCase: ['school', 'formal'],
-    description: 'Navy school uniform dress for girls. Professional look.',
-    rating: 4.7,
-    reviewCount: 72,
-    stock: 100,
-    sku: 'MF-UG-015',
-  },
-  {
-    id: 'uniform-girls-016',
-    name: 'Girls School Uniform Blouse',
-    price: 1200,
-    images: [
-      {
-        src: '/images/uniforms/girls/girls-uniform-blouse-6.webp',
-        alt: 'Girls school uniform blouse',
-      },
-    ],
-    category: 'uniform-center',
-    subCategory: 'Girls Uniforms',
-    gender: 'Girls',
-    sizes: ['2-3Y', '4-5Y', '6-7Y', '8-9Y', '10-11Y', '12-14Y'],
-    colors: [
-      { name: 'White', hex: '#ffffff', available: true },
-    ],
-    tags: ['school uniform', 'girls', 'blouse', 'white'],
-    useCase: ['school', 'formal'],
-    description: 'White school blouse for girls. Crisp cotton.',
-    rating: 4.5,
-    reviewCount: 80,
-    stock: 140,
-    sku: 'MF-UG-016',
   },
   {
     id: 'uniform-girls-017',
@@ -3047,31 +2919,6 @@ export const products: Product[] = [
     sku: 'MF-UG-023',
   },
   {
-    id: 'uniform-girls-024',
-    name: 'Girls School Uniform Blouse',
-    price: 1200,
-    images: [
-      {
-        src: '/images/uniforms/girls/girls-uniform-blouse-6.webp',
-        alt: 'Girls school uniform blouse',
-      },
-    ],
-    category: 'uniform-center',
-    subCategory: 'Girls Uniforms',
-    gender: 'Girls',
-    sizes: ['2-3Y', '4-5Y', '6-7Y', '8-9Y', '10-11Y', '12-14Y'],
-    colors: [
-      { name: 'Blue', hex: '#0077b6', available: true },
-    ],
-    tags: ['school uniform', 'girls', 'blouse', 'blue'],
-    useCase: ['school', 'formal'],
-    description: 'Blue school blouse for girls.',
-    rating: 4.4,
-    reviewCount: 52,
-    stock: 110,
-    sku: 'MF-UG-024',
-  },
-  {
     id: 'uniform-girls-025',
     name: 'Girls School Uniform Skirt',
     price: 1400,
@@ -3175,40 +3022,11 @@ export const products: Product[] = [
     sku: 'MF-SC-009',
   },
   // Work Wear
-  {
-    id: 'work-suit-001',
-    name: 'Women\'s Business Suit',
-    price: 8500,
-    originalPrice: 10000,
-    images: [
-      {
-        src: '/images/work-wear/women/business-suit/front.svg',
-        alt: "Black women's business suit blazer and trousers front view",
-      },
-    ],
-    category: 'work-wear',
-    subCategory: 'Suits',
-    gender: 'Women',
-    sizes: ['S', 'M', 'L', 'XL'],
-    colors: [
-      { name: 'Black', hex: '#1a1a1a', available: true },
-      { name: 'Navy', hex: '#14213d', available: true },
-      { name: 'Grey', hex: '#6c757d', available: true },
-    ],
-    tags: ['business suit', 'formal', 'professional', 'blazer', 'office'],
-    useCase: ['work', 'formal'],
-    description: 'Professional women\'s business suit. Blazer and trouser set, perfect for the modern professional.',
-    rating: 4.8,
-    reviewCount: 89,
-    isSale: true,
-    stock: 23,
-    sku: 'MF-WWS-001',
-  },
   // Work Wear Products - Men
   {
     id: 'work-men-safety-001',
-    name: 'Safety Helmet - White',
-    price: 1500,
+    name: 'Safety Helmet',
+    price: 1499,
     images: [
       {
         src: '/images/work-wear/Men/safety-helmet.webp',
@@ -3315,8 +3133,8 @@ export const products: Product[] = [
   },
   {
     id: 'work-men-vest-001',
-    name: 'Safety Vest - Hi-Vis Orange',
-    price: 1200,
+    name: 'Safety Vest Reflector',
+    price: 799,
     images: [
       {
         src: '/images/work-wear/Men/safety-vest.webp',
@@ -3341,7 +3159,7 @@ export const products: Product[] = [
   },
   {
     id: 'work-men-overalls-001',
-    name: 'Work Overalls - Denim',
+    name: 'Work Overalls-Denim Customized',
     price: 3800,
     originalPrice: 4500,
     images: [
@@ -3369,7 +3187,7 @@ export const products: Product[] = [
   // Work Wear Products - Women
   {
     id: 'work-women-uniform-001',
-    name: 'Women Corporate Uniform - Navy',
+    name: 'Corporate Uniform',
     price: 4800,
     images: [
       {
@@ -3396,8 +3214,8 @@ export const products: Product[] = [
   },
   {
     id: 'work-women-safety-001',
-    name: 'Women Safety Helmet - Pink',
-    price: 1500,
+    name: 'Security Wears',
+    price: 2999,
     images: [
       {
         src: '/images/work-wear/women/women-workwear-2.webp',
@@ -3423,8 +3241,8 @@ export const products: Product[] = [
   },
   {
     id: 'work-women-wearpack-001',
-    name: 'Women Safety Wearpack - White',
-    price: 4200,
+    name: 'Scrubs and Labcoats Customized',
+    price: 1299,
     images: [
       {
         src: '/images/work-wear/women/women-workwear-3.webp',
@@ -3450,7 +3268,7 @@ export const products: Product[] = [
   },
   {
     id: 'work-women-boots-001',
-    name: 'Women Safety Shoes - Black',
+    name: 'Overall Reflectors',
     price: 3800,
     originalPrice: 4500,
     images: [
@@ -3478,8 +3296,8 @@ export const products: Product[] = [
   },
   {
     id: 'work-women-uniform-set-001',
-    name: 'Women Office Uniform Set',
-    price: 5500,
+    name: 'Scrubs Customized',
+    price: 2499,
     images: [
       {
         src: '/images/work-wear/women/women-workwear-5.webp',
@@ -3507,8 +3325,8 @@ export const products: Product[] = [
   // Accessories
   {
     id: 'accessory-cuban-necklace-001',
-    name: 'Cuban Link Chain',
-    price: 3500,
+    name: 'Silver and Gold Chains',
+    price: 1999,
     images: [
       {
         src: '/images/accessories/jewelry/cuban-necklace.webp',
@@ -3535,7 +3353,7 @@ export const products: Product[] = [
   {
     id: 'accessory-gold-chain-001',
     name: 'Gold Chain',
-    price: 2800,
+    price: 999,
     images: [
       {
         src: '/images/accessories/jewelry/gold-chain.webp',
@@ -3560,7 +3378,7 @@ export const products: Product[] = [
   {
     id: 'accessory-rope-chain-001',
     name: 'Rope Chain Necklace',
-    price: 3200,
+    price: 999,
     images: [
       {
         src: '/images/accessories/jewelry/rope-chain-necklace.webp',
@@ -3584,8 +3402,8 @@ export const products: Product[] = [
   },
   {
     id: 'accessory-cuban-bracelet-001',
-    name: 'Cuban Bracelet',
-    price: 2500,
+    name: 'gold bracelet',
+    price: 999,
     images: [
       {
         src: '/images/accessories/jewelry/cuban-bracelet.webp',
@@ -3611,8 +3429,8 @@ export const products: Product[] = [
   },
   {
     id: 'accessory-jewelry-set-001',
-    name: 'Jewelry Set',
-    price: 4500,
+    name: 'women earings',
+    price: 999,
     images: [
       {
         src: '/images/accessories/jewelry/jewelry-set.webp',
@@ -3638,7 +3456,7 @@ export const products: Product[] = [
   {
     id: 'accessory-neutral-rings-001',
     name: 'Neutral Rings Set',
-    price: 1200,
+    price: 999,
     images: [
       {
         src: '/images/accessories/jewelry/neutral-rings.webp',
@@ -3689,7 +3507,7 @@ export const products: Product[] = [
   {
     id: 'accessory-watch-seiko-001',
     name: 'Seiko Watch',
-    price: 8500,
+    price: 5000,
     images: [
       {
         src: '/images/accessories/jewelry/seiko-watch.webp',
@@ -3714,7 +3532,7 @@ export const products: Product[] = [
   {
     id: 'accessory-watch-silver-001',
     name: 'Silver Watch',
-    price: 4500,
+    price: 3000,
     images: [
       {
         src: '/images/accessories/jewelry/silver-watch.webp',
@@ -3739,7 +3557,7 @@ export const products: Product[] = [
   {
     id: 'accessory-watch-unisex-001',
     name: 'Unisex Watch',
-    price: 5500,
+    price: 1999,
     images: [
       {
         src: '/images/accessories/jewelry/unisex-watch.webp',
@@ -3764,7 +3582,7 @@ export const products: Product[] = [
   {
     id: 'accessory-watch-womens-001',
     name: "Women's Watch",
-    price: 4800,
+    price: 2500,
     images: [
       {
         src: '/images/accessories/jewelry/womens-watch.webp',
@@ -3843,7 +3661,7 @@ export const products: Product[] = [
   },
   {
     id: 'accessory-leather-bracelet-001',
-    name: 'Leather Bracelet',
+    name: 'leather belt',
     price: 1500,
     images: [
       {
@@ -3870,7 +3688,7 @@ export const products: Product[] = [
   {
     id: 'accessory-womens-necklace-001',
     name: "Women's Necklace",
-    price: 2200,
+    price: 999,
     images: [
       {
         src: '/images/accessories/jewelry/womens-necklace.webp',
@@ -3975,7 +3793,7 @@ export const products: Product[] = [
   {
     id: 'accessory-flag-pin-001',
     name: 'Kenyan Flag Pin',
-    price: 300,
+    price: 1200,
     images: [
       {
         src: '/images/accessories/jewelry/kenyan-flag-pin.webp',
@@ -4000,8 +3818,8 @@ export const products: Product[] = [
   },
   {
     id: 'accessory-clutch-bag-001',
-    name: "Women's Clutch Bag",
-    price: 2800,
+    name: 'customised mavin',
+    price: 999,
     images: [
       {
         src: '/images/accessories/jewelry/womens-clutch-bag.webp',
@@ -4054,8 +3872,8 @@ export const products: Product[] = [
   },
   {
     id: 'accessory-sandals-001',
-    name: "Men's Comfort Sandals",
-    price: 3500,
+    name: 'men comfort belt',
+    price: 1999,
     images: [
       {
         src: '/images/accessories/jewelry/mens-comfort-sandals.webp',
@@ -4079,33 +3897,6 @@ export const products: Product[] = [
     sku: 'MF-AN-023',
   },
   // Handbags
-  {
-    id: 'handbag-tote-001',
-    name: 'Leather Tote Bag',
-    price: 5500,
-    images: [
-      {
-        src: '/images/handbags/totes/leather-tote/front.svg',
-        alt: 'Brown genuine leather tote bag front view',
-      },
-    ],
-    category: 'women-handbags',
-    subCategory: 'Totes',
-    gender: 'Women',
-    sizes: ['One Size'],
-    colors: [
-      { name: 'Brown', hex: '#8b4513', available: true },
-      { name: 'Black', hex: '#1a1a1a', available: true },
-      { name: 'Tan', hex: '#d2691e', available: true },
-    ],
-    tags: ['leather', 'tote', 'genuine', 'spacious', 'professional'],
-    useCase: ['work', 'casual'],
-    description: 'Genuine leather tote bag. Spacious interior with multiple pockets.',
-    rating: 4.7,
-    reviewCount: 123,
-    stock: 34,
-    sku: 'MF-HB-001',
-  },
   // Sports Equipment - Footwear
   {
     id: 'sports-footwear-001',
@@ -4243,7 +4034,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-001',
     name: 'Arsenal Home Jersey',
-    price: 2800,
+    price: 1099,
     images: [
       {
         src: '/images/sports/jerseys/Arsenal-home-jersey.webp',
@@ -4268,7 +4059,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-002',
     name: 'Chelsea Jersey',
-    price: 2800,
+    price: 1099,
     images: [
       {
         src: '/images/sports/jerseys/chelsea-jersey.webp',
@@ -4293,7 +4084,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-003',
     name: 'Manchester United Jersey',
-    price: 3000,
+    price: 1099,
     originalPrice: 3500,
     images: [
       {
@@ -4320,7 +4111,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-004',
     name: 'Manchester City Jersey',
-    price: 2800,
+    price: 1099,
     images: [
       {
         src: '/images/sports/jerseys/manchester-jersey.webp',
@@ -4345,7 +4136,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-005',
     name: 'Liverpool Jersey',
-    price: 2800,
+    price: 1099,
     images: [
       {
         src: '/images/sports/jerseys/liverpool-jesrsey.webp',
@@ -4370,7 +4161,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-006',
     name: 'Tottenham Jersey',
-    price: 2800,
+    price: 1099,
     images: [
       {
         src: '/images/sports/jerseys/Totenham-jersey.webp',
@@ -4395,7 +4186,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-007',
     name: 'Real Madrid Jersey',
-    price: 3200,
+    price: 1099,
     images: [
       {
         src: '/images/sports/jerseys/realmadrid-jersey.webp',
@@ -4420,7 +4211,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-008',
     name: 'Manchester City Away Jersey 2024-25',
-    price: 3000,
+    price: 1099,
     originalPrice: 3500,
     images: [
       {
@@ -4447,7 +4238,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-009',
     name: 'Basketball Jersey',
-    price: 2500,
+    price: 1099,
     images: [
       {
         src: '/images/sports/jerseys/basket-jersey.webp',
@@ -4473,7 +4264,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-010',
     name: 'Football Jersey',
-    price: 2200,
+    price: 1099,
     images: [
       {
         src: '/images/sports/jerseys/football-jersey.webp',
@@ -4500,7 +4291,7 @@ export const products: Product[] = [
   {
     id: 'sports-jersey-011',
     name: 'Referee Jersey',
-    price: 1800,
+    price: 1099,
     images: [
       {
         src: '/images/sports/jerseys/men-referee-jersey.webp',
@@ -4527,7 +4318,7 @@ export const products: Product[] = [
   {
     id: 'sports-ball-001',
     name: 'Soccer Ball',
-    price: 1500,
+    price: 2599,
     originalPrice: 1800,
     images: [
       {
@@ -4682,7 +4473,7 @@ export const products: Product[] = [
   {
     id: 'sports-trophy-002',
     name: 'Large Gold Trophy',
-    price: 12000,
+    price: 8500,
     images: [
       {
         src: '/images/sports/balls & Tropphies/large-gold-trophy.webp',
@@ -4757,7 +4548,7 @@ export const products: Product[] = [
   {
     id: 'sports-trophy-005',
     name: 'Soccer Medals',
-    price: 350,
+    price: 599,
     images: [
       {
         src: '/images/sports/balls & Tropphies/soccer-medals.webp',
@@ -5247,7 +5038,7 @@ export const products: Product[] = [
   {
     id: 'hotel-013',
     name: 'Maasai Shuka',
-    price: 2200,
+    price: 899,
     images: [
       {
         src: '/images/hotel/hotel-maasai-shukas.webp',
@@ -5297,7 +5088,7 @@ export const products: Product[] = [
   },
   {
     id: 'hotel-015',
-    name: 'Hotel Reception',
+    name: 'Full Hotel Reception Wear Customised',
     price: 15000,
     images: [
       {
@@ -5322,8 +5113,8 @@ export const products: Product[] = [
   },
   {
     id: 'hotel-016',
-    name: 'Hotel Room Setup',
-    price: 25000,
+    name: 'Room Maids Uniform',
+    price: 9999,
     images: [
       {
         src: '/images/hotel/hotel-room-men-women.webp',
@@ -5345,11 +5136,88 @@ export const products: Product[] = [
     stock: 2,
     sku: 'MF-HS-016',
   },
+  {
+    id: 'hotel-017',
+    name: 'Mattress Protector',
+    price: 2850,
+    images: [
+      {
+        src: '/images/hotel/mattress-protector (1).webp',
+        alt: 'Mattress protector',
+      },
+    ],
+    category: 'hotel-supplies',
+    subCategory: 'Bedding',
+    gender: 'Unisex',
+    sizes: ['King', 'Queen', 'Single'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['mattress', 'protector', 'hotel', 'bedding', 'hygiene'],
+    useCase: ['hotel', 'home', 'bedroom'],
+    description: 'Premium mattress protector for hygiene and comfort.',
+    rating: 4.5,
+    reviewCount: 28,
+    stock: 50,
+    sku: 'MF-HS-017',
+  },
+  {
+    id: 'hotel-018',
+    name: 'Duvet Cover',
+    price: 2599,
+    images: [
+      {
+        src: '/images/hotel/Duvet-cover.webp',
+        alt: 'Duvet cover',
+      },
+    ],
+    category: 'hotel-supplies',
+    subCategory: 'Bedding',
+    gender: 'Unisex',
+    sizes: ['King', 'Queen', 'Single'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+      { name: 'Cream', hex: '#fffdd0', available: true },
+    ],
+    tags: ['duvet', 'cover', 'hotel', 'bedding', 'bed'],
+    useCase: ['hotel', 'home', 'bedroom'],
+    description: 'Elegant duvet cover for hotel beds.',
+    rating: 4.6,
+    reviewCount: 35,
+    stock: 45,
+    sku: 'MF-HS-018',
+  },
+  {
+    id: 'hotel-019',
+    name: 'Bed Cover',
+    price: 3500,
+    images: [
+      {
+        src: '/images/hotel/bed-cover.webp',
+        alt: 'Bed cover',
+      },
+    ],
+    category: 'hotel-supplies',
+    subCategory: 'Bedding',
+    gender: 'Unisex',
+    sizes: ['King', 'Queen', 'Single'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+      { name: 'Beige', hex: '#f5f5dc', available: true },
+    ],
+    tags: ['bed', 'cover', 'hotel', 'bedding', 'decor'],
+    useCase: ['hotel', 'home', 'bedroom'],
+    description: 'Luxurious bed cover for hotels and homes.',
+    rating: 4.7,
+    reviewCount: 42,
+    stock: 38,
+    sku: 'MF-HS-019',
+  },
   // Women Handbags
   {
     id: 'handbag-001',
     name: 'Women Handbag',
-    price: 3500,
+    price: 3999,
     originalPrice: 4500,
     images: [
       {
@@ -5378,7 +5246,7 @@ export const products: Product[] = [
   {
     id: 'handbag-002',
     name: 'Women Bag',
-    price: 2800,
+    price: 3999,
     images: [
       {
         src: '/images/handbags/totes/women bag.jpg',
@@ -5403,7 +5271,7 @@ export const products: Product[] = [
   {
     id: 'handbag-003',
     name: 'Canvas Tote Bag',
-    price: 1800,
+    price: 3999,
     images: [
       {
         src: '/images/handbags/totes/canvas-tote.jpeg',
@@ -5454,7 +5322,7 @@ export const products: Product[] = [
   {
     id: 'handbag-005',
     name: 'Safari Bag',
-    price: 4500,
+    price: 3999,
     originalPrice: 5500,
     images: [
       {
@@ -5506,13 +5374,13 @@ export const products: Product[] = [
   },
   {
     id: 'handbag-007',
-    name: 'Business Laptop Rucksack',
-    price: 6500,
+    name: 'laptop bag',
+    price: 3500,
     originalPrice: 8000,
     images: [
       {
         src: '/images/handbags/totes/Business Laptop Rucksack.jpeg',
-        alt: 'Business laptop rucksack',
+        alt: 'laptop bag',
       },
     ],
     category: 'women-handbags',
@@ -5535,7 +5403,7 @@ export const products: Product[] = [
   {
     id: 'handbag-008',
     name: 'Laptop Bag',
-    price: 4200,
+    price: 2999,
     images: [
       {
         src: '/images/handbags/totes/laptop bag.jpeg',
@@ -5588,8 +5456,13 @@ export const products: Product[] = [
   {
     id: 'handbag-010',
     name: 'Luggage Set',
-    price: 12000,
+    price: 4999,
     originalPrice: 15000,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4999,
+      'Small': 2599
+    },
     images: [
       {
         src: '/images/handbags/totes/luggage-set.jpeg',
@@ -5599,7 +5472,7 @@ export const products: Product[] = [
     category: 'women-handbags',
     subCategory: 'Luggage',
     gender: 'Unisex',
-    sizes: ['3 Piece Set'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Black', hex: '#1a1a1a', available: true },
     ],
@@ -5616,7 +5489,7 @@ export const products: Product[] = [
   {
     id: 'handbag-011',
     name: 'Bag Back Pack',
-    price: 3800,
+    price: 1999,
     images: [
       {
         src: '/images/handbags/totes/bag back pack.jpg',
@@ -5641,7 +5514,7 @@ export const products: Product[] = [
   {
     id: 'handbag-012',
     name: 'Back to School Backpack',
-    price: 3200,
+    price: 2800,
     originalPrice: 4000,
     images: [
       {
@@ -5670,7 +5543,7 @@ export const products: Product[] = [
   {
     id: 'handbag-013',
     name: 'Wallet Black',
-    price: 1500,
+    price: 999,
     images: [
       {
         src: '/images/handbags/totes/wallet black.jpg',
@@ -5695,7 +5568,12 @@ export const products: Product[] = [
   {
     id: 'handbag-014',
     name: 'Budget Luggage',
-    price: 5500,
+    price: 3999,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 3999,
+      'Small': 2999
+    },
     images: [
       {
         src: '/images/handbags/totes/budget-luggage.jpeg',
@@ -5705,7 +5583,7 @@ export const products: Product[] = [
     category: 'women-handbags',
     subCategory: 'Luggage',
     gender: 'Unisex',
-    sizes: ['One Size'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Navy', hex: '#1a3a5c', available: true },
     ],
@@ -5721,7 +5599,7 @@ export const products: Product[] = [
   {
     id: 'handbag-015',
     name: 'Business & Travel Bags',
-    price: 8500,
+    price: 3999,
     originalPrice: 10000,
     images: [
       {
@@ -5777,8 +5655,13 @@ export const products: Product[] = [
   {
     id: 'luggage-001',
     name: 'Luggage Bags',
-    price: 8500,
+    price: 4599,
     originalPrice: 10000,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4599,
+      'Small': 2999
+    },
     images: [
       {
         src: '/images/luggage/luggage bags.webp',
@@ -5788,7 +5671,7 @@ export const products: Product[] = [
     category: 'bags-suitcases',
     subCategory: 'Luggage',
     gender: 'Unisex',
-    sizes: ['One Size'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Black', hex: '#1a1a1a', available: true },
     ],
@@ -5805,8 +5688,13 @@ export const products: Product[] = [
   {
     id: 'luggage-002',
     name: 'Safari Bag Best',
-    price: 5500,
+    price: 4599,
     originalPrice: 7000,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4599,
+      'Small': 3999
+    },
     images: [
       {
         src: '/images/luggage/safari bag best.webp',
@@ -5816,7 +5704,7 @@ export const products: Product[] = [
     category: 'bags-suitcases',
     subCategory: 'Safari Bags',
     gender: 'Unisex',
-    sizes: ['One Size'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Brown', hex: '#8b4513', available: true },
     ],
@@ -5833,7 +5721,12 @@ export const products: Product[] = [
   {
     id: 'luggage-003',
     name: 'Safari Bag Green',
-    price: 4800,
+    price: 4599,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4599,
+      'Small': 2999
+    },
     images: [
       {
         src: '/images/luggage/safari bag-green.webp',
@@ -5843,7 +5736,7 @@ export const products: Product[] = [
     category: 'bags-suitcases',
     subCategory: 'Safari Bags',
     gender: 'Unisex',
-    sizes: ['One Size'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Green', hex: '#228b22', available: true },
     ],
@@ -5859,7 +5752,12 @@ export const products: Product[] = [
   {
     id: 'luggage-004',
     name: 'Safari Bag Pink',
-    price: 4500,
+    price: 4599,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4599,
+      'Small': 2999
+    },
     images: [
       {
         src: '/images/luggage/safari bag-pink.jpg',
@@ -5869,7 +5767,7 @@ export const products: Product[] = [
     category: 'bags-suitcases',
     subCategory: 'Safari Bags',
     gender: 'Women',
-    sizes: ['One Size'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Pink', hex: '#f8bbd9', available: true },
     ],
@@ -5885,7 +5783,12 @@ export const products: Product[] = [
   {
     id: 'luggage-005',
     name: 'Safari Bag Red',
-    price: 4800,
+    price: 4599,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4599,
+      'Small': 2999
+    },
     images: [
       {
         src: '/images/luggage/safari bag-red.jpg',
@@ -5895,7 +5798,7 @@ export const products: Product[] = [
     category: 'bags-suitcases',
     subCategory: 'Safari Bags',
     gender: 'Unisex',
-    sizes: ['One Size'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Red', hex: '#dc143c', available: true },
     ],
@@ -5911,8 +5814,13 @@ export const products: Product[] = [
   {
     id: 'luggage-006',
     name: 'Safari Bags',
-    price: 6500,
+    price: 4599,
     originalPrice: 8000,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4599,
+      'Small': 2999
+    },
     images: [
       {
         src: '/images/luggage/safari bags.webp',
@@ -5922,13 +5830,13 @@ export const products: Product[] = [
     category: 'bags-suitcases',
     subCategory: 'Safari Bags',
     gender: 'Unisex',
-    sizes: ['Set of 3'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Mixed', hex: '#8b4513', available: true },
     ],
     tags: ['safari', 'bags', 'set', 'travel', 'adventure', 'collection'],
     useCase: ['safari', 'travel', 'family'],
-    description: 'Complete safari bags collection with multiple sizes for all your needs.',
+    description: 'Complete safari bags collection with multiple sizes.',
     features: ['3-Piece Set', 'Matching Design', 'Premium Quality'],
     rating: 4.9,
     reviewCount: 22,
@@ -5939,7 +5847,12 @@ export const products: Product[] = [
   {
     id: 'luggage-007',
     name: 'Safari Bag Black',
-    price: 5200,
+    price: 4599,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4599,
+      'Small': 2999
+    },
     images: [
       {
         src: '/images/luggage/safari-bag-black.webp',
@@ -5949,7 +5862,7 @@ export const products: Product[] = [
     category: 'bags-suitcases',
     subCategory: 'Safari Bags',
     gender: 'Unisex',
-    sizes: ['One Size'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Black', hex: '#1a1a1a', available: true },
     ],
@@ -5991,8 +5904,13 @@ export const products: Product[] = [
   {
     id: 'luggage-009',
     name: 'Trolley Safari Bag Black',
-    price: 7800,
+    price: 4599,
     originalPrice: 9500,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4599,
+      'Small': 2999
+    },
     images: [
       {
         src: '/images/luggage/trolley-safari-bag-black.webp',
@@ -6002,7 +5920,7 @@ export const products: Product[] = [
     category: 'bags-suitcases',
     subCategory: 'Trolley Bags',
     gender: 'Unisex',
-    sizes: ['One Size'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Black', hex: '#1a1a1a', available: true },
     ],
@@ -6019,8 +5937,13 @@ export const products: Product[] = [
   {
     id: 'luggage-010',
     name: 'Trolley Green Set',
-    price: 12000,
+    price: 4599,
     originalPrice: 15000,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4599,
+      'Small': 2999
+    },
     images: [
       {
         src: '/images/luggage/trolley-084-green-set-2.jpg',
@@ -6030,7 +5953,7 @@ export const products: Product[] = [
     category: 'bags-suitcases',
     subCategory: 'Trolley Sets',
     gender: 'Unisex',
-    sizes: ['2 Piece Set'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Green', hex: '#228b22', available: true },
     ],
@@ -6047,8 +5970,13 @@ export const products: Product[] = [
   {
     id: 'luggage-011',
     name: 'Cnet Best Luggage Carry-On',
-    price: 9800,
+    price: 4599,
     originalPrice: 12000,
+    sizePrices: {
+      'Large': 7500,
+      'Medium': 4599,
+      'Small': 2999
+    },
     images: [
       {
         src: '/images/luggage/cnet-best-luggage-suitcase-carry-on-9.webp',
@@ -6058,7 +5986,7 @@ export const products: Product[] = [
     category: 'bags-suitcases',
     subCategory: 'Carry-On',
     gender: 'Unisex',
-    sizes: ['One Size'],
+    sizes: ['Large', 'Medium', 'Small'],
     colors: [
       { name: 'Navy', hex: '#1a3a5c', available: true },
     ],
@@ -6076,7 +6004,7 @@ export const products: Product[] = [
   {
     id: 'mattress-001',
     name: 'Amara Mattress',
-    price: 25000,
+    price: 10999,
     originalPrice: 30000,
     images: [
       {
@@ -6104,7 +6032,7 @@ export const products: Product[] = [
   {
     id: 'mattress-002',
     name: 'Amara 5x6 Mattress',
-    price: 18000,
+    price: 9999,
     originalPrice: 22000,
     images: [
       {
@@ -6132,7 +6060,7 @@ export const products: Product[] = [
   {
     id: 'mattress-003',
     name: 'Amara 6x6 Mattress',
-    price: 22000,
+    price: 15999,
     originalPrice: 26000,
     images: [
       {
@@ -6216,7 +6144,7 @@ export const products: Product[] = [
   {
     id: 'mattress-006',
     name: 'Foam Mattress',
-    price: 12000,
+    price: 10000,
     originalPrice: 15000,
     images: [
       {
@@ -6491,7 +6419,7 @@ export const products: Product[] = [
   {
     id: 'mattress-016',
     name: 'Morning Glory Mattress',
-    price: 22000,
+    price: 20000,
     originalPrice: 27000,
     images: [
       {
@@ -6601,7 +6529,7 @@ export const products: Product[] = [
   {
     id: 'boys-ankara-suit-001',
     name: 'Boys Ankara Suit',
-    price: 3500,
+    price: 9999,
     originalPrice: 4500,
     images: [
       {

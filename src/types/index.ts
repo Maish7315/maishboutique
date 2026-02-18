@@ -29,6 +29,7 @@ export interface Product {
   isSale?: boolean;
   stock: number;
   sku: string;
+  sizePrices?: Record<string, number>; // For products with size-based pricing
 }
 
 export interface ProductColor {
