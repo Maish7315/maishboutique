@@ -9,26 +9,26 @@ interface ReviewCardProps {
 
 export const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   return (
-    <article className="review-card min-w-[280px] md:min-w-[320px] flex-shrink-0">
+    <article className="review-card w-[85vw] max-w-[320px] md:min-w-[320px] flex-shrink-0">
       <div className="flex items-start gap-3">
         {review.avatar ? (
           <img
             src={review.avatar}
             alt={review.name}
-            className="w-10 h-10 rounded-full object-cover"
+            className="w-10 h-10 rounded-full object-cover flex-shrink-0"
             loading="lazy"
           />
         ) : (
-          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
+          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold flex-shrink-0">
             {review.name.charAt(0)}
           </div>
         )}
         
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <h4 className="font-medium text-sm">{review.name}</h4>
+            <h4 className="font-medium text-sm truncate">{review.name}</h4>
             {review.verified && (
-              <span className="flex items-center gap-0.5 text-success text-xs">
+              <span className="flex items-center gap-0.5 text-success text-xs whitespace-nowrap">
                 <CheckCircle className="w-3 h-3" />
                 Verified
               </span>
@@ -49,7 +49,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
           </div>
         </div>
         
-        <span className="text-xs text-muted-foreground">{review.date}</span>
+        <span className="text-xs text-muted-foreground whitespace-nowrap">{review.date}</span>
       </div>
       
       <p className="text-sm text-muted-foreground mt-3 line-clamp-3">
