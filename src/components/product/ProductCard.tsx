@@ -105,58 +105,45 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, variant = 'de
           <span className="new-badge">NEW</span>
         )}
 
-        {/* Quick View Overlay */}
-        <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-300" />
-        
-        {/* Ramadan Decorations - Stars and Bells on Hover */}
-        <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-          {/* Top Left Corner - Star */}
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            whileHover={{ scale: 1, rotate: 0 }}
-            className="absolute top-2 left-2 text-2xl drop-shadow-lg"
-          >
-            ⭐
-          </motion.div>
-          {/* Top Right Corner - Sparkles */}
-          <motion.div
-            initial={{ scale: 0, rotate: 180 }}
-            whileHover={{ scale: 1, rotate: 0 }}
-            className="absolute top-2 right-2 text-2xl drop-shadow-lg"
-          >
-            ✨
-          </motion.div>
-          {/* Left Side - Bell */}
-          <motion.div
-            initial={{ x: -20, opacity: 0 }}
-            whileHover={{ x: 0, opacity: 1 }}
-            className="absolute left-0 top-1/2 -translate-y-1/2"
-          >
-            <motion.span
-              animate={{ x: [0, 3, 0] }}
-              transition={{ duration: 0.5, repeat: Infinity }}
-              className="text-2xl drop-shadow-lg"
+        {/* Ramadan Hanging Decorations - Always visible on image */}
+        <div className="absolute top-0 left-0 right-0 pointer-events-none z-10">
+          {/* Left side - Bell hanging from rope */}
+          <div className="absolute -left-1 top-0">
+            <div className="w-0.5 h-6 bg-amber-600" />
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="absolute -bottom-1 -left-2 text-2xl"
             >
               🔔
-            </motion.span>
-          </motion.div>
-          {/* Bottom Left - Star */}
-          <motion.div
-            initial={{ scale: 0, y: 10 }}
-            whileHover={{ scale: 1, y: 0 }}
-            className="absolute bottom-2 left-2 text-xl drop-shadow-lg"
-          >
-            ⭐
-          </motion.div>
-          {/* Bottom Right - Star */}
-          <motion.div
-            initial={{ scale: 0, y: -10 }}
-            whileHover={{ scale: 1, y: 0 }}
-            className="absolute bottom-2 right-2 text-xl drop-shadow-lg"
-          >
-            ✨
-          </motion.div>
+            </motion.div>
+          </div>
+          {/* Right side - Star hanging from rope */}
+          <div className="absolute -right-1 top-0">
+            <div className="w-0.5 h-6 bg-amber-600" />
+            <motion.div
+              animate={{ rotate: [0, -10, 10, 0] }}
+              transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
+              className="absolute -bottom-1 -right-2 text-2xl"
+            >
+              ⭐
+            </motion.div>
+          </div>
+          {/* Top center - Star */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-0">
+            <div className="w-0.5 h-4 bg-amber-600" />
+            <motion.div
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="absolute -bottom-1 -left-2 text-xl"
+            >
+              ✨
+            </motion.div>
+          </div>
         </div>
+
+        {/* Quick View Overlay */}
+        <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-300" />
       </Link>
 
       {/* Wishlist Button */}
