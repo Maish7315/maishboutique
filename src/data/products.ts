@@ -1444,7 +1444,7 @@ export const products: Product[] = [
   {
     id: 'men-trousers-007',
     name: 'Premium Mens Trousers 1',
-    price: 6500,
+    price: 2500,
     images: [
       {
         src: '/images/men/trousers/mens-trousers-1.webp',
@@ -1471,7 +1471,7 @@ export const products: Product[] = [
   {
     id: 'men-trousers-008',
     name: 'Premium Mens Trousers 2',
-    price: 5999,
+    price: 2500,
     images: [
       {
         src: '/images/men/trousers/mens-trousers-2.webp',
@@ -1497,7 +1497,7 @@ export const products: Product[] = [
   {
     id: 'men-trousers-009',
     name: 'Classic Mens Trousers',
-    price: 1099,
+    price: 2500,
     images: [
       {
         src: '/images/men/trousers/mens-trousers-3.webp',
@@ -1523,7 +1523,7 @@ export const products: Product[] = [
   {
     id: 'men-trousers-010',
     name: 'Luxury Mens Trousers',
-    price: 6999,
+    price: 2500,
     images: [
       {
         src: '/images/men/trousers/mens-trousers-4.webp',
@@ -1550,7 +1550,7 @@ export const products: Product[] = [
   {
     id: 'men-trousers-011',
     name: 'Designer Mens Trousers',
-    price: 4999,
+    price: 2500,
     images: [
       {
         src: '/images/men/trousers/mens-trousers-5.webp',
@@ -1577,7 +1577,7 @@ export const products: Product[] = [
   {
     id: 'men-trousers-012',
     name: 'Executive Mens Trousers',
-    price: 6500,
+    price: 2500,
     images: [
       {
         src: '/images/men/trousers/mens-trousers-6.webp',
@@ -1600,6 +1600,164 @@ export const products: Product[] = [
     reviewCount: 40,
     stock: 40,
     sku: 'MF-MT-012',
+  },
+  // Men's Shoes and Accessories
+  {
+    id: 'men-shoes-001',
+    name: 'Crafted Premium Leather Shoes',
+    price: 2500,
+    images: [
+      {
+        src: '/images/men/trousers/Crafted-premium-leather-shoes.webp',
+        alt: 'Crafted premium leather shoes',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shoes',
+    gender: 'Men',
+    sizes: ['40', '41', '42', '43', '44', '45'],
+    colors: [
+      { name: 'Brown', hex: '#8b4513', available: true },
+      { name: 'Black', hex: '#1a1a1a', available: true },
+    ],
+    tags: ['shoes', 'mens', 'leather', 'premium', 'formal', 'shoes', 'footwear'],
+    useCase: ['formal', 'office', 'wedding', 'business'],
+    description: 'Premium crafted leather shoes for the sophisticated gentleman.',
+    rating: 4.8,
+    reviewCount: 20,
+    stock: 35,
+    sku: 'MF-MS-001',
+  },
+  {
+    id: 'men-shoes-002',
+    name: 'Italian Leather Shoe',
+    price: 2500,
+    images: [
+      {
+        src: '/images/men/trousers/Italian-leather-shoe.webp',
+        alt: 'Italian leather shoe',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shoes',
+    gender: 'Men',
+    sizes: ['40', '41', '42', '43', '44', '45'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+      { name: 'Brown', hex: '#8b4513', available: true },
+    ],
+    tags: ['shoes', 'mens', 'leather', 'italian', 'formal', 'shoes', 'footwear'],
+    useCase: ['formal', 'office', 'business'],
+    description: 'Elegant Italian leather shoes.',
+    rating: 4.7,
+    reviewCount: 25,
+    stock: 40,
+    sku: 'MF-MS-002',
+  },
+  {
+    id: 'men-shoes-003',
+    name: 'Leather Men Black Shoe',
+    price: 2500,
+    images: [
+      {
+        src: '/images/men/trousers/Leather-men-black-shoe.webp',
+        alt: 'Leather men black shoe',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shoes',
+    gender: 'Men',
+    sizes: ['40', '41', '42', '43', '44', '45'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+    ],
+    tags: ['shoes', 'mens', 'leather', 'black', 'formal', 'shoes', 'footwear'],
+    useCase: ['formal', 'office', 'business'],
+    description: 'Classic black leather shoes for men.',
+    rating: 4.6,
+    reviewCount: 30,
+    stock: 50,
+    sku: 'MF-MS-003',
+  },
+  {
+    id: 'men-shoes-004',
+    name: 'Men Leather Shoes',
+    price: 2500,
+    images: [
+      {
+        src: '/images/men/trousers/men-leather-shoes.webp',
+        alt: 'Men leather shoes',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shoes',
+    gender: 'Men',
+    sizes: ['40', '41', '42', '43', '44', '45'],
+    colors: [
+      { name: 'Brown', hex: '#8b4513', available: true },
+      { name: 'Black', hex: '#1a1a1a', available: true },
+    ],
+    tags: ['shoes', 'mens', 'leather', 'casual', 'formal', 'shoes', 'footwear'],
+    useCase: ['formal', 'casual', 'office'],
+    description: 'Quality leather shoes for men.',
+    rating: 4.5,
+    reviewCount: 35,
+    stock: 45,
+    sku: 'MF-MS-004',
+  },
+  {
+    id: 'men-accessory-001',
+    name: 'Customised Belts',
+    price: 2500,
+    images: [
+      {
+        src: '/images/men/trousers/customised-belts.webp',
+        alt: 'Customised belts',
+      },
+    ],
+    category: 'accessories',
+    subCategory: 'Belts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+      { name: 'Brown', hex: '#8b4513', available: true },
+      { name: 'Tan', hex: '#d2b48c', available: true },
+    ],
+    tags: ['belt', 'belts', 'accessories', 'customised', 'mens', 'fashion', 'leather'],
+    useCase: ['formal', 'casual', 'work'],
+    description: 'Customised belts for men.',
+    rating: 4.4,
+    reviewCount: 15,
+    stock: 60,
+    sku: 'MF-MB-001',
+  },
+  {
+    id: 'men-shoes-005',
+    name: 'Casual Men Shoes',
+    price: 2500,
+    images: [
+      {
+        src: '/images/men/trousers/casual-men-shoes.webp',
+        alt: 'Casual men shoes',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shoes',
+    gender: 'Men',
+    sizes: ['40', '41', '42', '43', '44', '45'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+      { name: 'Grey', hex: '#6b7280', available: true },
+      { name: 'Navy', hex: '#14213d', available: true },
+    ],
+    tags: ['shoes', 'mens', 'casual', 'sneakers', 'shoes', 'footwear'],
+    useCase: ['casual', 'daily', 'weekend'],
+    description: 'Comfortable casual shoes for men.',
+    rating: 4.3,
+    reviewCount: 40,
+    stock: 55,
+    sku: 'MF-MS-005',
   },
   // Kids Wear
   {
