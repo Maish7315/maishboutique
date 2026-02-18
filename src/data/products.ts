@@ -1496,8 +1496,8 @@ export const products: Product[] = [
   },
   {
     id: 'men-trousers-009',
-    name: 'Classic Mens Trousers',
-    price: 2500,
+    name: 'Classic Men Sweatpants',
+    price: 1999,
     images: [
       {
         src: '/images/men/trousers/mens-trousers-3.webp',
@@ -1657,7 +1657,7 @@ export const products: Product[] = [
   {
     id: 'men-shoes-003',
     name: 'Leather Men Black Shoe',
-    price: 1099,
+    price: 4999,
     images: [
       {
         src: '/images/men/trousers/Leather-men-black-shoe.webp',
@@ -1708,7 +1708,7 @@ export const products: Product[] = [
   {
     id: 'men-accessory-001',
     name: 'Customised Belts',
-    price: 4999,
+    price: 1099,
     images: [
       {
         src: '/images/men/trousers/customised-belts.webp',
