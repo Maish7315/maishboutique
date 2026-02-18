@@ -82,6 +82,126 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="page-transition">
+      {/* Ramadan Decorations Banner */}
+      <div className="relative bg-gradient-to-r from-emerald-800 via-green-700 to-emerald-800 overflow-hidden">
+        {/* Decorative Lights String */}
+        <div className="absolute top-0 left-0 right-0 flex justify-around items-center px-4 py-2">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ 
+                duration: 1.5, 
+                repeat: Infinity, 
+                delay: i * 0.1 
+              }}
+              className="text-xl md:text-2xl"
+              style={{ color: ['#FFD700', '#FF6B6B', '#4ECDC4', '#FF9F43', '#A3E635'][i % 5] }}
+            >
+              🏮
+            </motion.div>
+          ))}
+        </div>
+        
+        {/* Main Ramadan Greeting */}
+        <div className="relative pt-10 pb-6 md:pt-14 md:pb-8 px-4">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            {/* Decorative Stars */}
+            <div className="flex justify-center gap-2 mb-3">
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1, repeat: Infinity }}
+                className="text-2xl"
+              >
+                ✨
+              </motion.span>
+              <motion.span
+                animate={{ scale: [1, 1.3, 1] }}
+                transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}
+                className="text-2xl"
+              >
+                ⭐
+              </motion.span>
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
+                className="text-2xl"
+              >
+                ✨
+              </motion.span>
+            </div>
+            
+            <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg">
+              <span className="text-amber-300">Ramadhan Kareem</span>
+            </h2>
+            <p className="text-lg md:text-xl lg:text-2xl text-emerald-100 mt-2 font-medium">
+              🌙 سُوْمٌ مَقْبُولٌ 🌙
+            </p>
+            <p className="text-white text-sm md:text-base mt-2 max-w-2xl mx-auto">
+              May your fast be accepted. Wishing you a blessed and peaceful Ramadan!
+            </p>
+            
+            {/* Decorative Elements */}
+            <div className="flex justify-center items-center gap-4 mt-4">
+              <motion.span
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="text-3xl"
+              >
+                🔔
+              </motion.span>
+              <motion.span
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="text-3xl"
+              >
+                🧧
+              </motion.span>
+              <motion.span
+                animate={{ rotate: [0, -10, 10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                className="text-3xl"
+              >
+                🔔
+              </motion.span>
+              <motion.span
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+                className="text-3xl"
+              >
+                🧧
+              </motion.span>
+            </div>
+          </motion.div>
+        </div>
+        
+        {/* Bottom decorative lights */}
+        <div className="absolute bottom-0 left-0 right-0 flex justify-around items-center px-4 py-2">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0.5 }}
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ 
+                duration: 1.5, 
+                repeat: Infinity, 
+                delay: i * 0.1 + 0.5
+              }}
+              className="text-xl md:text-2xl"
+              style={{ color: ['#FFD700', '#FF6B6B', '#4ECDC4', '#FF9F43', '#A3E635'][(i + 2) % 5] }}
+            >
+              🏮
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="hero-section relative overflow-hidden">
         <div className="container mx-auto px-4 py-6 md:py-12">
