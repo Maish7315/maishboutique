@@ -107,24 +107,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, variant = 'de
 
         {/* Ramadan Hanging Decorations - Always visible on image */}
         <div className="absolute top-0 left-0 right-0 pointer-events-none z-10">
-          {/* Left side - Multiple Bells hanging from rope */}
+          {/* Left side - 2 Bells hanging from rope */}
           <div className="absolute -left-2 top-0">
-            <div className="w-0.5 h-8 bg-amber-700" />
-            <div className="absolute top-6 flex flex-col gap-1">
+            <div className="w-0.5 h-6 bg-amber-700" />
+            <div className="absolute top-4 flex flex-col gap-2">
               <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-2xl">🔔</motion.div>
               <motion.div animate={{ rotate: [0, -12, 12, 0] }} transition={{ duration: 2.2, repeat: Infinity, delay: 0.3 }} className="text-xl">🔔</motion.div>
-              <motion.div animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 1.8, repeat: Infinity, delay: 0.6 }} className="text-xl">🔔</motion.div>
-              <motion.div animate={{ rotate: [0, -8, 8, 0] }} transition={{ duration: 2.5, repeat: Infinity, delay: 0.9 }} className="text-lg">🔔</motion.div>
             </div>
           </div>
-          {/* Right side - Multiple Stars hanging from rope */}
+          {/* Right side - 2 Stars hanging from rope */}
           <div className="absolute -right-2 top-0">
-            <div className="w-0.5 h-8 bg-amber-700" />
-            <div className="absolute top-6 flex flex-col gap-1">
+            <div className="w-0.5 h-6 bg-amber-700" />
+            <div className="absolute top-4 flex flex-col gap-2">
               <motion.div animate={{ rotate: [0, -15, 15, 0] }} transition={{ duration: 2.3, repeat: Infinity }} className="text-2xl">⭐</motion.div>
               <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }} className="text-xl">✨</motion.div>
-              <motion.div animate={{ rotate: [0, 12, -12, 0] }} transition={{ duration: 2, repeat: Infinity, delay: 0.4 }} className="text-xl">⭐</motion.div>
-              <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 1.8, repeat: Infinity, delay: 0.7 }} className="text-lg">✨</motion.div>
             </div>
           </div>
         </div>
