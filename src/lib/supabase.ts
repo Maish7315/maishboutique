@@ -1,10 +1,44 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 // Supabase credentials
 const supabaseUrl = 'https://crbtwikhkqbhqkimyqay.supabase.co';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyYnR3aWtoa3FiaHFraW15cWF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA2MjYxMDksImV4cCI6MjA4NjIwMjEwOX0.rcAdNQyKYYRnWpuSifQZ4SgPp0JbIcZY1quzTAG0a14';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Custom fetch with timeout
+const fetchWithTimeout = (url: string | URL | Request, options: RequestInit = {}): Promise<Response> => {
+  const controller = new AbortController();
+  const timeoutMs = 10000; // 10 second timeout
+  
+  const timeoutId = setTimeout(() => {
+    controller.abort();
+  }, timeoutMs);
+
+  return fetch(url, {
+    ...options,
+    signal: controller.signal,
+  }).catch((error) => {
+    if (error.name === 'AbortError') {
+      throw new Error('Request timed out. Please check your connection and try again.');
+    }
+    throw error;
+  }).finally(() => {
+    clearTimeout(timeoutId);
+  });
+};
+
+// Create Supabase client with timeout settings
+const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+  global: {
+    fetch: fetchWithTimeout,
+  },
+});
+
+export { supabase };
 
 // Database types
 export interface Order {
@@ -149,6 +183,81 @@ export const getOrdersByPhone = async (phone: string) => {
     return ordersWithItems;
   } catch (error) {
     console.error('Get orders by phone error:', error);
+    throw error;
+  }
+};
+
+// Get orders by user ID (for logged-in users)
+export const getOrdersByUserId = async (userId: string) => {
+  try {
+    const { data: orders, error: ordersError } = await supabase
+      .from('orders')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
+
+    if (ordersError) {
+      console.error('Get orders by user error:', ordersError);
+      throw new Error(`Database error: ${ordersError.message}`);
+    }
+
+    // Get items for each order
+    const ordersWithItems = await Promise.all(
+      (orders || []).map(async (order) => {
+        const { data: items, error: itemsError } = await supabase
+          .from('order_items')
+          .select('*')
+          .eq('order_id', order.id);
+
+        if (itemsError) {
+          console.error('Get order items error:', itemsError);
+          return { ...order, items: [] };
+        }
+
+        return { ...order, items: items || [] };
+      })
+    );
+
+    return ordersWithItems;
+  } catch (error) {
+    console.error('Get orders by user error:', error);
+    throw error;
+  }
+};
+
+// Get all orders (for admin view only)
+export const getAllOrders = async () => {
+  try {
+    const { data: orders, error: ordersError } = await supabase
+      .from('orders')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (ordersError) {
+      console.error('Get all orders error:', ordersError);
+      throw new Error(`Database error: ${ordersError.message}`);
+    }
+
+    // Get items for each order
+    const ordersWithItems = await Promise.all(
+      (orders || []).map(async (order) => {
+        const { data: items, error: itemsError } = await supabase
+          .from('order_items')
+          .select('*')
+          .eq('order_id', order.id);
+
+        if (itemsError) {
+          console.error('Get order items error:', itemsError);
+          return { ...order, items: [] };
+        }
+
+        return { ...order, items: items || [] };
+      })
+    );
+
+    return ordersWithItems;
+  } catch (error) {
+    console.error('Get all orders error:', error);
     throw error;
   }
 };

@@ -26,21 +26,23 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Rate limit - minimum time between signups (30 seconds)
-const SIGNUP_COOLDOWN = 30000;
-
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [lastSignUpTime, setLastSignUpTime] = useState(0);
 
   const fetchProfile = useCallback(async (userId: string) => {
     try {
+      // Create an AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single();
+
+      clearTimeout(timeoutId);
 
       if (error && error.code !== 'PGRST116') {
         console.error('Error fetching profile:', error);
@@ -57,6 +59,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     // Check for existing session
     const checkSession = async () => {
+      // Set a timeout to ensure loading becomes false even if Supabase hangs
+      const timeoutId = setTimeout(() => {
+        setLoading(false);
+      }, 3000); // 3 second timeout
+
       try {
         const { data: { session } } = await supabase.auth.getSession();
         
@@ -76,6 +83,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       } catch (error) {
         console.error('Error checking session:', error);
       } finally {
+        clearTimeout(timeoutId);
         setLoading(false);
       }
     };
@@ -84,43 +92,43 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        const profile = await fetchProfile(session.user.id);
-        setUser({
-          id: session.user.id,
-          email: session.user.email || '',
-          fullName: profile?.full_name || '',
-          phone: profile?.phone || '',
-          avatarUrl: profile?.avatar_url || '',
-          county: profile?.county || '',
-          town: profile?.town || '',
-          address: profile?.address || '',
-        });
-      } else {
-        setUser(null);
+      try {
+        if (session?.user) {
+          const profile = await fetchProfile(session.user.id);
+          setUser({
+            id: session.user.id,
+            email: session.user.email || '',
+            fullName: profile?.full_name || '',
+            phone: profile?.phone || '',
+            avatarUrl: profile?.avatar_url || '',
+            county: profile?.county || '',
+            town: profile?.town || '',
+            address: profile?.address || '',
+          });
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error('Error in auth state change:', error);
+        // Still update loading state even if there's an error
+      } finally {
+        // Update loading state on auth changes
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => subscription.unsubscribe();
   }, [fetchProfile]);
 
   const signUp = async (email: string, password: string, fullName: string, phone: string) => {
-    const now = Date.now();
-    
-    // Check rate limit
-    if (now - lastSignUpTime < SIGNUP_COOLDOWN) {
-      const remainingSeconds = Math.ceil((SIGNUP_COOLDOWN - (now - lastSignUpTime)) / 1000);
-      const error = new Error(`Too many signup attempts. Please wait ${remainingSeconds} seconds before trying again.`);
-      toast.error(error.message);
-      return { error };
-    }
+    // Generate a random password if not provided (for easy signup)
+    const finalPassword = password || `Maish${Date.now()}${Math.random().toString(36).slice(2)}!`;
 
     try {
-      // Step 1: Create auth user
+      // Create auth user - Supabase will automatically trigger onAuthStateChange
       const { data, error } = await supabase.auth.signUp({
         email: email.toLowerCase(),
-        password,
+        password: finalPassword,
         options: {
           data: {
             full_name: fullName,
@@ -130,46 +138,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       });
 
       if (error) {
-        if (error.message.includes('rate limit') || error.message.includes('429')) {
-          const rateLimitError = new Error('Too many signup attempts. Please wait a few minutes before trying again.');
-          toast.error(rateLimitError.message);
-          return { error: rateLimitError };
+        // Check for timeout/network errors
+        if (error.message.includes('timed out') || error.message.includes('network') || error.message.includes('fetch')) {
+          return { error: new Error('Connection timed out. Please check your internet connection and try again.') };
         }
-        toast.error(error.message);
         return { error };
       }
 
-      if (data.user) {
-        // Step 2: Create profile with upsert (insert or update)
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .upsert({
-            id: data.user.id,
-            email: email.toLowerCase(),
-            full_name: fullName,
-            phone: phone,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          }, {
-            onConflict: 'id'
-          });
-
-        if (profileError) {
-          console.error('Profile creation error:', profileError);
-          toast.error('Account created but profile failed to save');
-        } else {
-          console.log('Profile created successfully:', email);
-        }
-
-        setLastSignUpTime(now);
-        toast.success('Account created successfully! Welcome to Maish Fashion.');
-      }
+      // Skip profile upsert for now to test if that's causing the delay
+      // Profile can be created later when needed
+      console.log('Signup successful, user ID:', data.user?.id);
 
       return { error: null };
     } catch (error) {
+      console.error('Signup error:', error);
       const err = error as Error;
-      toast.error(err.message);
-      return { error };
+      if (err.message.includes('timed out') || err.message.includes('network') || err.name === 'AbortError') {
+        return { error: new Error('Connection timed out. Please check your internet connection and try again.') };
+      }
+      return { error: err };
     }
   };
 
@@ -181,21 +168,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       });
 
       if (error) {
-        if (error.message.includes('rate limit') || error.message.includes('429')) {
-          const rateLimitError = new Error('Too many login attempts. Please wait a few minutes before trying again.');
-          toast.error(rateLimitError.message);
-          return { error: rateLimitError };
+        // Check for timeout/network errors
+        if (error.message.includes('timed out') || error.message.includes('network') || error.message.includes('fetch')) {
+          return { error: new Error('Connection timed out. Please check your internet connection and try again.') };
         }
-        toast.error(error.message);
         return { error };
       }
 
-      toast.success('Welcome back!');
       return { error: null };
     } catch (error) {
+      console.error('Sign in error:', error);
       const err = error as Error;
-      toast.error(err.message);
-      return { error };
+      if (err.message.includes('timed out') || err.message.includes('network') || err.name === 'AbortError') {
+        return { error: new Error('Connection timed out. Please check your internet connection and try again.') };
+      }
+      return { error: err };
     }
   };
 

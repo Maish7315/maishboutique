@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -81,6 +81,7 @@ interface ShippingInfo {
   town: string;
   address: string;
   instructions: string;
+  otherCounty: string;
 }
 
 const CheckoutPage: React.FC = () => {
@@ -97,8 +98,8 @@ const CheckoutPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   
-  // Account creation state - OPTIONAL
-  const [createAccount, setCreateAccount] = useState(false);
+  // Account creation - Required for checkout
+  const [createAccount, setCreateAccount] = useState(true);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -107,7 +108,7 @@ const CheckoutPage: React.FC = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   // WhatsApp number
-  const WHATSAPP_NUMBER = '0799921036';
+  const WHATSAPP_NUMBER = '254799921036';
 
   const [shippingInfo, setShippingInfo] = useState<ShippingInfo>({
     firstName: '',
@@ -118,6 +119,7 @@ const CheckoutPage: React.FC = () => {
     town: '',
     address: '',
     instructions: '',
+    otherCounty: '',
   });
 
   const [errors, setErrors] = useState<Partial<ShippingInfo>>({});
@@ -135,6 +137,11 @@ const CheckoutPage: React.FC = () => {
     if (!shippingInfo.town.trim()) newErrors.town = 'Town is required';
     if (!shippingInfo.address.trim()) newErrors.address = 'Address is required';
 
+    // Validate other county if Other Counties is selected
+    if (selectedZone.id === 'other' && !shippingInfo.otherCounty.trim()) {
+      newErrors.otherCounty = 'Please specify your county';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -147,6 +154,13 @@ const CheckoutPage: React.FC = () => {
   };
 
   const handlePlaceOrder = async () => {
+    // Validate that user is logged in or will create account
+    if (!user && createAccount && !password) {
+      setSubmitError('Please create a password to continue');
+      toast.error('Please create a password');
+      return;
+    }
+    
     setIsSubmitting(true);
     setSubmitError(null);
 
@@ -154,8 +168,10 @@ const CheckoutPage: React.FC = () => {
       // Generate order number
       const orderNum = 'MF-' + Date.now().toString(36).toUpperCase();
       
-      // If user wants to create an account, create it now
-      if (createAccount && !user && shippingInfo.email) {
+      // If user wants to create account and is not logged in
+      let userId = user?.id;
+      
+      if (createAccount && !user && shippingInfo.email && password) {
         try {
           // Check if profile already exists
           const { data: existingProfile } = await supabase
@@ -178,6 +194,7 @@ const CheckoutPage: React.FC = () => {
             });
 
             if (newUser) {
+              userId = newUser.id;
               // Create profile
               await supabase.from('profiles').upsert({
                 id: newUser.id,
@@ -192,11 +209,10 @@ const CheckoutPage: React.FC = () => {
           }
         } catch (accountError) {
           console.error('Account creation error:', accountError);
-          // Continue with order even if account creation fails
         }
       }
       
-      // Save order to Supabase with user_id
+      // Save order to Supabase - userId will be null if not logged in
       await addOrder({
         orderNumber: orderNum,
         customer: {
@@ -206,7 +222,7 @@ const CheckoutPage: React.FC = () => {
           email: shippingInfo.email,
         },
         shipping: {
-          county: shippingInfo.county,
+          county: selectedZone.id === 'other' && shippingInfo.otherCounty ? shippingInfo.otherCounty : shippingInfo.county,
           town: shippingInfo.town,
           address: shippingInfo.address,
           instructions: shippingInfo.instructions,
@@ -237,7 +253,7 @@ const CheckoutPage: React.FC = () => {
           total: finalTotal,
         },
         status: 'pending',
-        userId: user?.id,
+        userId: userId,
       });
       
       setOrderNumber(orderNum);
@@ -285,7 +301,7 @@ const CheckoutPage: React.FC = () => {
     message += `\n*Shipping Address:*\n`;
     message += `${shippingInfo.address}, ${shippingInfo.town}, ${shippingInfo.county}\n`;
     if (shippingInfo.instructions) message += `Instructions: ${shippingInfo.instructions}\n`;
-    message += `\n*Delivery Zone:* ${selectedZone.name}\n`;
+    message += `\n*Delivery Zone:* ${selectedZone.name}${selectedZone.id === 'other' && shippingInfo.otherCounty ? ` (${shippingInfo.otherCounty})` : ''}\n`;
     message += `\n*Order Items:*\n`;
     
     items.forEach((item, index) => {
@@ -746,6 +762,31 @@ const CheckoutPage: React.FC = () => {
                     </div>
                   </div>
 
+                  {/* Show county input when "Other Counties" is selected */}
+                  {selectedZone.id === 'other' && (
+                    <div className="bg-muted/30 rounded-lg p-4">
+                      <label className="block text-sm font-medium mb-2">
+                        Which county are you in? *
+                      </label>
+                      <input
+                        type="text"
+                        value={shippingInfo.otherCounty}
+                        onChange={(e) => setShippingInfo({ ...shippingInfo, otherCounty: e.target.value })}
+                        className={cn(
+                          'w-full h-11 px-3 rounded-lg border bg-background focus:ring-2 focus:ring-primary/20',
+                          errors.otherCounty ? 'border-destructive' : 'border-border'
+                        )}
+                        placeholder="Enter your county name"
+                      />
+                      {errors.otherCounty && (
+                        <p className="text-destructive text-sm mt-1">{errors.otherCounty}</p>
+                      )}
+                      <p className="text-sm text-muted-foreground mt-2">
+                        We'll contact you about delivery to your county.
+                      </p>
+                    </div>
+                  )}
+
                   <Button size="lg" className="w-full h-12" onClick={handleContinueToPayment}>
                     Continue to Payment
                     <ChevronRight className="w-4 h-4 ml-2" />
@@ -854,7 +895,18 @@ const CheckoutPage: React.FC = () => {
                   <Button 
                     size="lg" 
                     className="w-full h-12" 
-                    onClick={selectedPayment.id === 'whatsapp' ? handleWhatsAppOrder : handlePlaceOrder}
+                    onClick={() => {
+                      if (!user) {
+                        // Show auth modal if not logged in
+                        setShowAuthModal(true);
+                        return;
+                      }
+                      if (selectedPayment.id === 'whatsapp') {
+                        handleWhatsAppOrder();
+                      } else {
+                        handlePlaceOrder();
+                      }
+                    }}
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (

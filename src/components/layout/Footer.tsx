@@ -82,13 +82,13 @@ export const Footer: React.FC = () => {
   };
 
   const socialLinks = [
-    { icon: Instagram, href: 'https://instagram.com/maishboutique', label: 'Instagram' },
-    { icon: Facebook, href: 'https://facebook.com/maishboutique', label: 'Facebook' },
-    { icon: Twitter, href: 'https://twitter.com/maishboutique', label: 'Twitter' },
+    { icon: Instagram, href: 'https://www.instagram.com/maishboutique/#', label: 'Instagram' },
+    { icon: Facebook, href: 'https://www.facebook.com/samuel.mwangi.0722?__tn__=%3C', label: 'Facebook' },
+    { icon: X, href: 'https://x.com/boutique_m57875', label: 'X' },
     { icon: Youtube, href: 'https://youtube.com/@maishboutique', label: 'YouTube' },
     { icon: TikTokIcon, href: 'https://www.tiktok.com/@maish_boutique1?is_from_webapp=1&sender_device=pc', label: 'TikTok' },
-    { icon: Linkedin, href: 'https://linkedin.com/company/maishboutique', label: 'LinkedIn' },
-    { icon: WhatsAppChannelIcon, href: 'https://whatsapp.com/channel/0029VbCGg4mK5cDLnTmJtr11', label: 'WhatsApp Channel' },
+    { icon: Linkedin, href: 'https://linkedin.com/company/maish-boutique', label: 'LinkedIn' },
+    { icon: WhatsAppChannelIcon, href: 'https://wa.me/254799921036', label: 'WhatsApp' },
   ];
 
   return (
@@ -304,7 +304,7 @@ export const Footer: React.FC = () => {
                   </p>
                   <div className="flex items-center justify-center gap-4 py-4">
                     <a
-                      href="https://whatsapp.com/channel/0029VbCGg4mK5cDLnTmJtr11"
+                      href="https://wa.me/254799921036"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center text-white hover:bg-[#20BD5C] transition-colors"

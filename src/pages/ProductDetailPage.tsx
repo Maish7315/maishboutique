@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Heart, Share2, Minus, Plus, ShoppingBag, Check, Star, Truck, RefreshCw, Shield } from 'lucide-react';
@@ -26,6 +26,9 @@ const ProductDetailPage: React.FC = () => {
   );
   const [quantity, setQuantity] = useState(1);
   const [sizeError, setSizeError] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+  const imageRef = useRef<HTMLDivElement>(null);
 
   if (!product) {
     return (
@@ -82,6 +85,26 @@ const ProductDetailPage: React.FC = () => {
     }
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!imageRef.current) return;
+    const rect = imageRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePosition({ x, y });
+  };
+
+  const handleMouseEnter = () => {
+    setIsZoomed(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsZoomed(false);
+  };
+
+  const handleImageClick = () => {
+    setIsZoomed(!isZoomed);
+  };
+
   return (
     <div className="page-transition">
       {/* Breadcrumb */}
@@ -126,13 +149,25 @@ const ProductDetailPage: React.FC = () => {
             </div>
 
             {/* Main Image */}
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-muted">
+            <div 
+              ref={imageRef}
+              className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-muted cursor-zoom-in"
+              onMouseMove={handleMouseMove}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={handleImageClick}
+            >
               <AnimatePresence mode="wait">
                 <motion.img
                   key={selectedImage}
                   src={product.images[selectedImage]?.src}
                   alt={product.images[selectedImage]?.alt || product.name}
                   className="w-full h-full object-cover"
+                  style={{
+                    transform: isZoomed ? 'scale(2)' : 'scale(1)',
+                    transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
+                    transition: isZoomed ? 'none' : 'transform 0.3s ease-out'
+                  }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}

@@ -55,27 +55,19 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMo
       if (mode === 'login') {
         const { error } = await signIn(email, password);
         if (error) {
-          if (error.message.includes('rate limit') || error.message.includes('429')) {
-            setError('Too many login attempts. Please wait a moment and try again.');
-          } else if (error.message.includes('Invalid')) {
-            setError('Invalid email or password. Please try again.');
-          } else {
-            setError(error.message);
-          }
+          setError(error.message || 'Invalid email or password');
         } else {
           setSuccess('Welcome back!');
           onSuccess?.();
           setTimeout(() => {
             onClose();
             resetForm();
-          }, 1500);
+          }, 500);
         }
       } else {
         const { error } = await signUp(email, password, fullName, phone);
         if (error) {
-          if (error.message.includes('rate limit') || error.message.includes('429')) {
-            setError('Too many signup attempts. Please wait a few minutes before trying again.');
-          } else if (error.message.includes('already')) {
+          if (error.message.includes('already')) {
             setError('An account with this email already exists. Please sign in instead.');
             setMode('login');
           } else {
@@ -84,12 +76,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMo
         } else {
           const name = getFirstName(fullName);
           setFirstName(name);
-          setSuccess(`Welcome ${name}! Your account has been created successfully.`);
+          setSuccess(`Welcome ${name}! Your account has been created.`);
           onSuccess?.();
           setTimeout(() => {
             onClose();
             resetForm();
-          }, 2000);
+          }, 500);
         }
       }
     } catch (err) {
@@ -228,7 +220,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMo
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Password *</label>
+              <label className="block text-sm font-medium mb-1">
+                Password {mode === 'login' && '*'}
+              </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
@@ -239,9 +233,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMo
                     'w-full h-11 pl-10 pr-10 rounded-lg border bg-background focus:ring-2 focus:ring-primary/20',
                     error ? 'border-destructive' : 'border-border'
                   )}
-                  placeholder="••••••••"
-                  required
-                  minLength={6}
+                  placeholder={mode === 'signup' ? 'Optional - will be created automatically' : '••••••••'}
+                  required={mode === 'login'}
+                  minLength={mode === 'login' ? 6 : 0}
                 />
                 <button
                   type="button"
@@ -252,6 +246,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultMo
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
+              {mode === 'signup' && (
+                <p className="text-xs text-muted-foreground mt-1">Leave blank to create account without password</p>
+              )}
             </div>
 
             {mode === 'login' && (

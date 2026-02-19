@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { saveOrder as saveOrderToSupabase, getOrders, getOrdersByPhone, updateOrderStatus as updateOrderStatusSupabase, Order as SupabaseOrder, OrderItem as SupabaseOrderItem } from '@/lib/supabase';
+import { saveOrder as saveOrderToSupabase, getOrders, getOrdersByPhone, getOrdersByUserId, getAllOrders, updateOrderStatus as updateOrderStatusSupabase, Order as SupabaseOrder, OrderItem as SupabaseOrderItem } from '@/lib/supabase';
 
 export interface OrderItem {
   productId: string;
@@ -54,6 +54,8 @@ interface OrderContextType {
   updateOrderStatus: (orderId: string, status: Order['status']) => Promise<void>;
   getOrder: (orderId: string) => Order | undefined;
   getOrdersByPhone: (phone: string) => Order[];
+  fetchUserOrders: (userId: string) => Promise<void>;
+  fetchAllOrders: () => Promise<void>;
   loading: boolean;
   error: string | null;
 }
@@ -205,6 +207,32 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     );
   };
 
+  const fetchUserOrders = async (userId: string) => {
+    try {
+      setLoading(true);
+      const supabaseOrders = await getOrdersByUserId(userId);
+      setOrders(supabaseOrders.map(transformSupabaseOrder));
+    } catch (err) {
+      console.error('Error fetching user orders:', err);
+      setError('Failed to load your orders');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchAllOrders = async () => {
+    try {
+      setLoading(true);
+      const supabaseOrders = await getAllOrders();
+      setOrders(supabaseOrders.map(transformSupabaseOrder));
+    } catch (err) {
+      console.error('Error fetching all orders:', err);
+      setError('Failed to load orders');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <OrderContext.Provider
       value={{
@@ -213,6 +241,8 @@ export const OrderProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         updateOrderStatus,
         getOrder,
         getOrdersByPhone,
+        fetchUserOrders,
+        fetchAllOrders,
         loading,
         error,
       }}

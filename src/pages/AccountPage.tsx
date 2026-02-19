@@ -297,7 +297,8 @@ const AccountPage: React.FC = () => {
             </div>
           )}
 
-          {!user && !loading && (
+          {/* Sign In / Create Account Buttons - Always show when no user (ignore loading) */}
+          {!user && (
             <div className="mt-4 flex gap-3">
               <Button variant="outline" className="flex-1" onClick={handleSignIn}>
                 Sign In
@@ -307,7 +308,8 @@ const AccountPage: React.FC = () => {
               </Button>
             </div>
           )}
-          
+
+          {/* Sign Out Button - Show when user is logged in */}
           {user && (
             <div className="mt-4 flex gap-3">
               <Button variant="outline" className="flex-1" onClick={handleSignOut}>

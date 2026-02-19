@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Package, 
@@ -14,12 +14,15 @@ import {
   ChevronDown,
   ChevronUp,
   Eye,
-  MessageSquare
+  MessageSquare,
+  AlertCircle
 } from 'lucide-react';
 import { useOrders, Order, OrderItem } from '@/context/OrderContext';
+import { useAuth } from '@/context/AuthContext';
 import { formatPrice } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 const ORDER_STATUSES = [
   { id: 'all', name: 'All Orders' },
@@ -45,12 +48,34 @@ const STATUS_ICONS: Record<string, React.ReactNode> = {
 };
 
 const OrdersPage: React.FC = () => {
-  const { orders, updateOrderStatus } = useOrders();
+  const { orders, updateOrderStatus, fetchUserOrders, fetchAllOrders } = useOrders();
+  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
+  const [isAdminView, setIsAdminView] = useState(false);
+
+  // Admin email - change this to your email to see all orders
+  const ADMIN_EMAIL = 'maishboutiquemarketing@gmail.com'; // Change to your admin email
+  const isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+
+  useEffect(() => {
+    // If admin, fetch all orders. Otherwise, fetch user's orders if logged in
+    if (isAdmin) {
+      fetchAllOrders();
+      setIsAdminView(true);
+    } else if (user) {
+      fetchUserOrders(user.id);
+      setIsAdminView(false);
+    }
+  }, [user, isAdmin]);
 
   const filteredOrders = orders.filter((order) => {
+    // For non-admin users, hide cancelled orders
+    if (!isAdminView && order.status === 'cancelled') {
+      return false;
+    }
+    
     const matchesSearch = 
       order.orderNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
       order.customer.phone.includes(searchQuery) ||
@@ -89,6 +114,30 @@ Ready to process!`;
     window.open(getWhatsAppLink(order), '_blank');
   };
 
+  // Show message when user is not logged in
+  if (!user && !isAdminView) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center max-w-md"
+        >
+          <div className="w-24 h-24 mx-auto rounded-full bg-muted flex items-center justify-center mb-6">
+            <AlertCircle className="w-12 h-12 text-muted-foreground" />
+          </div>
+          <h1 className="font-display text-2xl font-bold">Login Required</h1>
+          <p className="text-muted-foreground mt-2">
+            Please login to view your orders
+          </p>
+          <p className="text-sm text-muted-foreground mt-4">
+            You need to be logged in to see your order history.
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
+
   if (orders.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
@@ -100,12 +149,12 @@ Ready to process!`;
           <div className="w-24 h-24 mx-auto rounded-full bg-muted flex items-center justify-center mb-6">
             <Package className="w-12 h-12 text-muted-foreground" />
           </div>
-          <h1 className="font-display text-2xl font-bold">No Orders Yet</h1>
+          <h1 className="font-display text-2xl font-bold">{isAdminView ? 'No Orders Yet' : 'No Orders Found'}</h1>
           <p className="text-muted-foreground mt-2">
-            Orders placed by customers will appear here
+            {isAdminView ? 'Orders placed by customers will appear here' : 'You have not placed any orders yet'}
           </p>
           <p className="text-sm text-muted-foreground mt-4">
-            Current total orders: 0
+            {isAdminView ? `Current total orders: 0` : 'Start shopping to place your first order'}
           </p>
         </motion.div>
       </div>
@@ -229,32 +278,87 @@ Ready to process!`;
                         <div className="p-4 space-y-4">
                           {/* Status & Actions */}
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm text-muted-foreground">Update Status:</span>
-                              <select
-                                value={order.status}
-                                onChange={(e) => updateOrderStatus(order.id, e.target.value as Order['status'])}
-                                className="h-8 px-3 rounded-lg border border-border bg-background text-sm cursor-pointer"
-                              >
-                                <option value="pending">Pending</option>
-                                <option value="processing">Processing</option>
-                                <option value="shipped">Shipped</option>
-                                <option value="delivered">Delivered</option>
-                                <option value="cancelled">Cancelled</option>
-                              </select>
-                            </div>
+                            {isAdminView ? (
+                              // Admin: Can update status
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm text-muted-foreground">Update Status:</span>
+                                <select
+                                  value={order.status}
+                                  onChange={(e) => updateOrderStatus(order.id, e.target.value as Order['status'])}
+                                  className="h-8 px-3 rounded-lg border border-border bg-background text-sm cursor-pointer"
+                                  title="Update order status"
+                                >
+                                  <option value="pending">Pending</option>
+                                  <option value="processing">Processing</option>
+                                  <option value="shipped">Shipped</option>
+                                  <option value="delivered">Delivered</option>
+                                  <option value="cancelled">Cancelled</option>
+                                </select>
+                              </div>
+                            ) : (
+                              // User: View status and can cancel or mark delivered
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm text-muted-foreground">Status:</span>
+                                <span className={cn(
+                                  'px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1',
+                                  order.status === 'pending' && 'bg-yellow-100 text-yellow-800',
+                                  order.status === 'processing' && 'bg-blue-100 text-blue-800',
+                                  order.status === 'shipped' && 'bg-purple-100 text-purple-800',
+                                  order.status === 'delivered' && 'bg-green-100 text-green-800',
+                                  order.status === 'cancelled' && 'bg-red-100 text-red-800'
+                                )}>
+                                  {STATUS_ICONS[order.status]}
+                                  {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                                </span>
+                              </div>
+                            )}
 
-                            <Button
-                              size="sm"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                sendOrderToWhatsApp(order);
-                              }}
-                              className="bg-[#25D366] hover:bg-[#20BD5C]"
-                            >
-                              <MessageSquare className="w-4 h-4 mr-2" />
-                              Contact Customer
-                            </Button>
+                            {isAdminView ? (
+                              <Button
+                                size="sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  sendOrderToWhatsApp(order);
+                                }}
+                                className="bg-[#25D366] hover:bg-[#20BD5C]"
+                              >
+                                <MessageSquare className="w-4 h-4 mr-2" />
+                                Contact Customer
+                              </Button>
+                            ) : (
+                              // User actions: Cancel order or Mark as delivered
+                              <div className="flex gap-2">
+                                {order.status !== 'cancelled' && order.status !== 'delivered' && (
+                                  <>
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        updateOrderStatus(order.id, 'cancelled');
+                                        toast.success('Order cancelled');
+                                      }}
+                                      className="text-red-600 border-red-200 hover:bg-red-50"
+                                    >
+                                      <XCircle className="w-4 h-4 mr-1" />
+                                      Cancel
+                                    </Button>
+                                    <Button
+                                      size="sm"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        updateOrderStatus(order.id, 'delivered');
+                                        toast.success('Order marked as delivered');
+                                      }}
+                                      className="bg-green-600 hover:bg-green-700"
+                                    >
+                                      <CheckCircle2 className="w-4 h-4 mr-1" />
+                                      Delivered
+                                    </Button>
+                                  </>
+                                )}
+                              </div>
+                            )}
                           </div>
 
                           {/* Customer Details */}
