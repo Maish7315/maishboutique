@@ -3153,7 +3153,6 @@ export const products: Product[] = [
   {
     id: 'uniform-girls-007',
     name: 'School Tie',
-    price: 199,
     price: 400,
     images: [
       {
