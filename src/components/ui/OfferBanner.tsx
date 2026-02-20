@@ -36,12 +36,13 @@ const OfferBanner: React.FC<OfferBannerProps> = ({ onClose }) => {
             {/* Offer Text */}
             <div className="text-center">
               <p className="font-bold text-sm md:text-base">
-                <span className="mr-2">🔥 WEEKEND OFFER 🔥</span>
-                <span className="hidden md:inline">20% OFF Everything!</span>
-                <span className="md:hidden">20% OFF!</span>
+                <span className="mr-2">🔥 WEEKEND FLASH SALE 🔥</span>
+                <span className="hidden md:inline">15% OFF Everything!</span>
+                <span className="md:hidden">15% OFF!</span>
               </p>
               <p className="text-xs md:text-sm opacity-90">
-                Use code: <span className="font-bold bg-white/20 px-2 py-0.5 rounded">MAISH20</span>
+                Use code: <span className="font-bold bg-white/20 px-2 py-0.5 rounded">332211</span>
+                <span className="ml-2 text-xs">(Fri-Sun)</span>
               </p>
             </div>
 
@@ -71,7 +72,7 @@ const OfferBanner: React.FC<OfferBannerProps> = ({ onClose }) => {
           to="/sale"
           className="sm:hidden block text-center py-2 bg-white/10 hover:bg-white/20 transition-colors font-medium text-sm"
         >
-          Shop Now & Save 20% →
+          Shop Now & Save 15% →
         </Link>
       </motion.div>
     </AnimatePresence>

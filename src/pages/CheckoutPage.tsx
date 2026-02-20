@@ -93,6 +93,8 @@ const CheckoutPage: React.FC = () => {
   const [selectedZone, setSelectedZone] = useState(DELIVERY_ZONES[0]);
   const [selectedPayment, setSelectedPayment] = useState(PAYMENT_METHODS[0]);
   const [promoApplied, setPromoApplied] = useState(false);
+  const [promoCode, setPromoCode] = useState('');
+  const [promoError, setPromoError] = useState('');
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -124,7 +126,7 @@ const CheckoutPage: React.FC = () => {
 
   const [errors, setErrors] = useState<Partial<ShippingInfo>>({});
 
-  const discount = promoApplied ? subtotal * 0.4 : 0;
+  const discount = promoApplied ? subtotal * 0.15 : 0;
   const finalTotal = subtotal - discount + selectedZone.price;
 
   const validateShipping = () => {
@@ -313,7 +315,7 @@ const CheckoutPage: React.FC = () => {
     message += `------------------\n`;
     message += `*Subtotal:* ${formatPrice(subtotal)}\n`;
     if (promoApplied) {
-      message += `*Discount (40%):* -${formatPrice(discount)}\n`;
+      message += `*Discount (15%):* -${formatPrice(discount)}\n`;
     }
     message += `*Delivery:* ${selectedZone.price === 0 ? 'FREE' : formatPrice(selectedZone.price)}\n`;
     message += `*TOTAL:* ${formatPrice(finalTotal)}\n\n`;
@@ -869,18 +871,39 @@ const CheckoutPage: React.FC = () => {
                   <div className="bg-card rounded-xl border border-border p-5">
                     <h2 className="font-semibold text-lg mb-4">Promo Code</h2>
                     {!promoApplied ? (
-                      <div className="flex gap-3">
-                        <input
-                          type="text"
-                          placeholder="Enter promo code"
-                          className="flex-1 h-11 px-3 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/20"
-                        />
-                        <Button variant="outline" onClick={() => setPromoApplied(true)}>Apply</Button>
+                      <div className="space-y-2">
+                        <div className="flex gap-3">
+                          <input
+                            type="text"
+                            placeholder="Enter promo code"
+                            value={promoCode}
+                            onChange={(e) => setPromoCode(e.target.value)}
+                            className="flex-1 h-11 px-3 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/20"
+                          />
+                          <Button 
+                            variant="outline" 
+                            onClick={() => {
+                              const day = new Date().getDay();
+                              const isWeekend = day === 5 || day === 6 || day === 0;
+                              if (promoCode.toUpperCase() === '332211') {
+                                if (isWeekend) {
+                                  setPromoApplied(true);
+                                  setPromoError('');
+                                } else {
+                                  setPromoError('Code 332211 is only valid on Friday, Saturday, and Sunday');
+                                }
+                              } else {
+                                setPromoError('Invalid promo code');
+                              }
+                            }}
+                          >Apply</Button>
+                        </div>
+                        {promoError && <p className="text-destructive text-sm">{promoError}</p>}
                       </div>
                     ) : (
                       <div className="flex items-center justify-between p-3 bg-success/10 border border-success/20 rounded-lg">
-                        <p className="text-success font-medium">40% off applied!</p>
-                        <Button variant="ghost" size="sm" onClick={() => setPromoApplied(false)}>Remove</Button>
+                        <p className="text-success font-medium">15% off applied!</p>
+                        <Button variant="ghost" size="sm" onClick={() => { setPromoApplied(false); setPromoCode(''); }}>Remove</Button>
                       </div>
                     )}
                   </div>
@@ -943,7 +966,7 @@ const CheckoutPage: React.FC = () => {
                 </div>
                 {promoApplied && (
                   <div className="flex justify-between text-sm text-success">
-                    <span>Discount (40%)</span>
+                    <span>Discount (15%)</span>
                     <span>-{formatPrice(discount)}</span>
                   </div>
                 )}

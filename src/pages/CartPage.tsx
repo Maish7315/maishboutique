@@ -12,14 +12,27 @@ const CartPage: React.FC = () => {
   const { items, itemCount, subtotal, shipping, total, updateQuantity, removeItem, clearCart } = useCart();
   const [promoCode, setPromoCode] = React.useState('');
   const [promoApplied, setPromoApplied] = React.useState(false);
+  const [promoError, setPromoError] = React.useState('');
 
   const handleApplyPromo = () => {
-    if (promoCode.toUpperCase() === 'MAISH40') {
-      setPromoApplied(true);
+    // Weekend flash sale: Only Friday (5), Saturday (6), and Sunday (0)
+    const day = new Date().getDay();
+    const isWeekend = day === 5 || day === 6 || day === 0;
+    
+    setPromoError('');
+    
+    if (promoCode.toUpperCase() === '332211') {
+      if (isWeekend) {
+        setPromoApplied(true);
+      } else {
+        setPromoError('Code 332211 is only valid on Friday, Saturday, and Sunday');
+      }
+    } else {
+      setPromoError('Invalid promo code');
     }
   };
 
-  const discount = promoApplied ? subtotal * 0.4 : 0;
+  const discount = promoApplied ? subtotal * 0.15 : 0;
   const finalTotal = total - discount;
 
   if (items.length === 0) {
@@ -200,7 +213,10 @@ const CartPage: React.FC = () => {
                   </Button>
                 </div>
                 {promoApplied && (
-                  <p className="text-success text-sm mt-2">✓ MAISH40 applied - 40% off!</p>
+                  <p className="text-success text-sm mt-2">✓ 332211 applied - 15% off!</p>
+                )}
+                {promoError && (
+                  <p className="text-destructive text-sm mt-2">{promoError}</p>
                 )}
               </div>
 
@@ -211,7 +227,7 @@ const CartPage: React.FC = () => {
                 </div>
                 {promoApplied && (
                   <div className="flex justify-between text-success">
-                    <span>Discount (40%)</span>
+                    <span>Discount (15%)</span>
                     <span>-{formatPrice(discount)}</span>
                   </div>
                 )}

@@ -25,7 +25,7 @@ export const DesktopHeader: React.FC = () => {
     <>
       {/* Promo Banner */}
       <div className="promo-banner hidden md:block">
-        <p>🎉 Weekend Special: Free delivery on orders over KES 5,000 | Use code: <strong>MAISH40</strong> for 40% off</p>
+        <p>🎉 Weekend Flash Sale: Use code <strong>332211</strong> for 15% off - Friday, Saturday & Sunday only!</p>
       </div>
 
       {/* Main Header */}
