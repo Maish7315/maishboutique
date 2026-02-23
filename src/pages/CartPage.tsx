@@ -16,7 +16,10 @@ const CartPage: React.FC = () => {
 
   const handleApplyPromo = () => {
     // Weekend flash sale: Only Friday (5), Saturday (6), and Sunday (0)
-    const day = new Date().getDay();
+    // Using Kenya timezone (UTC+3)
+    const now = new Date();
+    const kenyaTime = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+    const day = kenyaTime.getDay();
     const isWeekend = day === 5 || day === 6 || day === 0;
     
     setPromoError('');

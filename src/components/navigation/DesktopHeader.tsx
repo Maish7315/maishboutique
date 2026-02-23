@@ -141,6 +141,16 @@ export const DesktopHeader: React.FC = () => {
               >
                 New Arrivals
               </NavLink>
+
+              <NavLink
+                to="/location"
+                className={({ isActive }) => cn(
+                  'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
+                )}
+              >
+                Location 📍
+              </NavLink>
             </nav>
 
             {/* Search Bar - Desktop */}
@@ -151,7 +161,20 @@ export const DesktopHeader: React.FC = () => {
                   type="text"
                   placeholder="Search for products..."
                   className="search-input"
-                  onFocus={() => navigate('/search')}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value) {
+                      navigate(`/search?q=${encodeURIComponent(value)}`);
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      const value = e.currentTarget.value;
+                      if (value.trim()) {
+                        navigate(`/search?q=${encodeURIComponent(value.trim())}`);
+                      }
+                    }
+                  }}
                 />
               </div>
             </div>

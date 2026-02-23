@@ -29,7 +29,11 @@ const SearchPage: React.FC = () => {
   }, [query, selectedCategory]);
 
   useEffect(() => {
-    inputRef.current?.focus();
+    // Get initial query from URL params if present
+    const urlQuery = searchParams.get('q');
+    if (urlQuery && !query) {
+      setQuery(urlQuery);
+    }
   }, []);
 
   // Update URL when query changes
@@ -86,6 +90,11 @@ const SearchPage: React.FC = () => {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && query.trim()) {
+                    handleSearch(query.trim());
+                  }
+                }}
                 placeholder="Search for products..."
                 className="search-input pr-10"
                 autoComplete="off"

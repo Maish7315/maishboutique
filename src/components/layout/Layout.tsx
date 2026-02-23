@@ -12,8 +12,12 @@ export const Layout: React.FC = () => {
   const location = useLocation();
   const { itemCount } = useCart();
 
-  // Show promo code only when 2+ items in cart and it's weekend
-  const showPromoCode = itemCount >= 2;
+  // Show promo code only when 2+ items in cart and it's weekend (Kenya timezone)
+  const now = new Date();
+  const kenyaTime = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+  const day = kenyaTime.getDay();
+  const isWeekend = day === 5 || day === 6 || day === 0;
+  const showPromoCode = itemCount >= 2 && isWeekend;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">

@@ -26,6 +26,11 @@ import ShippingInfoPage from "./pages/ShippingInfoPage";
 import FAQPage from "./pages/FAQPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrdersPage from "./pages/OrdersPage";
+import LocationPage from "./pages/LocationPage";
+import SavedAddressesPage from "./pages/SavedAddressesPage";
+import PaymentMethodsPage from "./pages/PaymentMethodsPage";
+import NotificationsPage from "./pages/NotificationsPage";
+import HelpSupportPage from "./pages/HelpSupportPage";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +63,11 @@ const App = () => (
                     <Route path="/orders" element={<OrdersPage />} />
                     <Route path="/shipping" element={<ShippingInfoPage />} />
                     <Route path="/faqs" element={<FAQPage />} />
+                    <Route path="/location" element={<LocationPage />} />
+                    <Route path="/addresses" element={<SavedAddressesPage />} />
+                    <Route path="/payments" element={<PaymentMethodsPage />} />
+                    <Route path="/notifications" element={<NotificationsPage />} />
+                    <Route path="/help" element={<HelpSupportPage />} />
                     <Route path="*" element={<NotFound />} />
                   </Route>
                 </Routes>

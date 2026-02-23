@@ -883,7 +883,10 @@ const CheckoutPage: React.FC = () => {
                           <Button 
                             variant="outline" 
                             onClick={() => {
-                              const day = new Date().getDay();
+                              // Using Kenya timezone (UTC+3)
+                              const now = new Date();
+                              const kenyaTime = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+                              const day = kenyaTime.getDay();
                               const isWeekend = day === 5 || day === 6 || day === 0;
                               if (promoCode.toUpperCase() === '332211') {
                                 if (isWeekend) {

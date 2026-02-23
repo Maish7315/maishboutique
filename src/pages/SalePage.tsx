@@ -1,13 +1,88 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ProductGrid } from '@/components/product/ProductGrid';
-import { getSaleProducts, products, formatPrice } from '@/data/products';
+import { getSaleProducts, products } from '@/data/products';
 import { PromoBanner } from '@/components/promo/PromoBanner';
+import { Button } from '@/components/ui/button';
 
 const SalePage: React.FC = () => {
+  const navigate = useNavigate();
+  
+  // Check if today is a weekend day (Friday=5, Saturday=6, Sunday=0)
+  // Kenya is UTC+3, so we need to adjust for that
+  const isWeekend = useMemo(() => {
+    const now = new Date();
+    // Get Kenya time (UTC+3)
+    const kenyaTime = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+    const day = kenyaTime.getDay();
+    return day === 5 || day === 6 || day === 0; // Friday, Saturday, Sunday
+  }, []);
+
+  // Get day name for display
+  const getDayName = () => {
+    const now = new Date();
+    const kenyaTime = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return days[kenyaTime.getDay()];
+  };
+
+  // If it's not weekend (Monday to Thursday), show no sale page
+  if (!isWeekend) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-md mx-auto">
+            {/* Icon */}
+            <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-muted flex items-center justify-center">
+              <span className="text-5xl">😔</span>
+            </div>
+            
+            {/* Message */}
+            <h1 className="font-display text-3xl md:text-4xl font-bold mb-4">
+              No Weekend Flash Sale Today
+            </h1>
+            
+            <p className="text-lg text-muted-foreground mb-2">
+              Today's is <strong>{getDayName()}</strong>
+            </p>
+            
+            <p className="text-muted-foreground mb-8">
+              Our weekend flash sales are only available on <strong>Friday, Saturday, and Sunday</strong>. 
+              Come back during the weekend for amazing deals up to 75% OFF!
+            </p>
+            
+            {/* Promo info */}
+            <div className="bg-muted rounded-xl p-4 mb-8">
+              <p className="text-sm text-muted-foreground mb-2">
+                💡 <strong>Tip:</strong> Use code <span className="font-mono font-bold text-primary">332211</span> for extra 15% off during the weekend!
+              </p>
+              <p className="text-xs text-muted-foreground">
+                (Valid Friday, Saturday & Sunday only)
+              </p>
+            </div>
+            
+            {/* Back to Home Button */}
+            <Button 
+              onClick={() => navigate('/')}
+              className="inline-flex items-center gap-2 px-6 py-3 text-lg"
+              size="lg"
+            >
+              ← Click Here to Go Back to Homepage
+            </Button>
+            
+            {/* Weekend countdown hint */}
+            <p className="mt-6 text-sm text-muted-foreground">
+              🎉 Don't miss out the offers. See you during the weekend! 🎉
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // It's weekend (Friday, Saturday, Sunday) - show the sale page
   const saleProducts = getSaleProducts();
-  // Get weekend flash sale products specifically
   const weekendSaleProducts = products.filter(p => p.id.startsWith('weekend-sale-'));
-  // Combine weekend sale products with regular sale products
   const allProducts = [...weekendSaleProducts, ...saleProducts, ...products.slice(0, 6)];
 
   return (
