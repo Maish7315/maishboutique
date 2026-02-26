@@ -8,6 +8,8 @@ import { WishlistProvider } from "@/context/WishlistContext";
 import { OrderProvider } from "@/context/OrderContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { Layout } from "@/components/layout/Layout";
+import { PageLoader } from "@/components/ui/PageLoader";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import HomePage from "./pages/HomePage";
 import CategoryPage from "./pages/CategoryPage";
 import CategoriesPage from "./pages/CategoriesPage";
@@ -44,6 +46,8 @@ const App = () => (
               <Toaster />
               <Sonner position="top-center" />
               <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+                <ScrollToTop />
+                <PageLoader />
                 <Routes>
                   <Route element={<Layout />}>
                     <Route path="/" element={<HomePage />} />

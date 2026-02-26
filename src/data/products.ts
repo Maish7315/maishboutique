@@ -422,6 +422,47 @@ export const products: Product[] = [
   },
   {
     id: 'women-top-008',
+    name: 'Warm Oversized Sweater',
+    price: 4500,
+    isNew: true,
+    images: [
+      {
+        src: '/images/women/tops/sweater-warm.webp',
+        alt: 'Warm oversized sweater - Cream',
+      },
+      {
+        src: '/images/women/tops/warm-hooded-sweater (2).webp',
+        alt: 'Warm oversized sweater - Pink',
+      },
+      {
+        src: '/images/women/tops/warm-hooded-sweater-black.webp',
+        alt: 'Warm oversized sweater - Black',
+      },
+      {
+        src: '/images/women/tops/Warm-hooded-sweater.webp',
+        alt: 'Warm oversized sweater - Beige',
+      },
+    ],
+    category: 'women-wear',
+    subCategory: 'Tops',
+    gender: 'Women',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'Cream', hex: '#f5f5dc', available: true },
+      { name: 'Pink', hex: '#f8bbd0', available: true },
+      { name: 'Black', hex: '#1a1a1a', available: true },
+      { name: 'Beige', hex: '#f5f5dc', available: true },
+    ],
+    tags: ['sweater', 'warm', 'oversized', 'cozy', 'winter', 'new', 'hoodie'],
+    useCase: ['casual', 'loungewear', 'work'],
+    description: 'Stay warm and stylish with this cozy oversized sweater. Features multiple colors - Cream, Pink, Black, and Beige. Perfect for the cold season.',
+    rating: 4.8,
+    reviewCount: 45,
+    stock: 150,
+    sku: 'MF-WT-008',
+  },
+  {
+    id: 'women-top-009',
     name: 'Highwaist Jeans',
     price: 1999,
     images: [

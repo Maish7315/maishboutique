@@ -4,6 +4,51 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Page Loader Animations */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(50px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-10px);
+  }
+  70% {
+    transform: scale(0.95) translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes bounce-out {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  30% {
+    transform: scale(1.1) translateY(-10px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) translateY(50px);
+  }
+}
+
+.animate-bounce-in {
+  animation-name: bounce-in;
+  animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation-fill-mode: forwards;
+}
+
+.animate-bounce-out {
+  animation-name: bounce-out;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
 /* Maish Fashion Boutique - Design System
    A modern, elegant fashion e-commerce experience
    Mobile-first, touch-optimized, PWA-ready

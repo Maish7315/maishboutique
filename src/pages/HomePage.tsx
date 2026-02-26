@@ -105,7 +105,7 @@ const HomePage: React.FC = () => {
         </div>
         
         {/* Main Ramadan Greeting */}
-        <div className="relative pt-10 pb-6 md:pt-14 md:pb-8 px-4">
+        <div className="relative pt-6 pb-4 md:pt-10 md:pb-6 px-4">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}

@@ -48,28 +48,44 @@ const HelpSupportPage: React.FC = () => {
 
   const contactMethods = [
     {
-      id: 'whatsapp',
+      id: 'whatsapp1',
       name: 'WhatsApp',
       icon: MessageCircle,
       description: 'Chat with us on WhatsApp',
-      contact: '+254 XXX XXX XXX',
+      contact: '+254-799-921-036',
       available: 'Mon-Sat, 8am-8pm',
+      action: 'https://wa.me/254799921036',
+      isButton: true,
+    },
+    {
+      id: 'whatsapp2',
+      name: 'WhatsApp',
+      icon: MessageCircle,
+      description: 'Chat with us on WhatsApp',
+      contact: '+254-706-397-660',
+      available: 'Mon-Sat, 8am-8pm',
+      action: 'https://wa.me/254706397660',
+      isButton: true,
     },
     {
       id: 'phone',
       name: 'Phone',
       icon: Phone,
       description: 'Call our customer service',
-      contact: '+254 XXX XXX XXX',
+      contact: '+254-799-921-036',
       available: 'Mon-Sat, 9am-6pm',
+      action: 'tel:+254799921036',
+      isButton: true,
     },
     {
       id: 'email',
       name: 'Email',
       icon: Mail,
       description: 'Send us an email',
-      contact: 'support@maishfashion.com',
+      contact: 'maishboutiquemarketing@gmail.com',
       available: 'We respond within 24 hours',
+      action: 'mailto:maishboutiquemarketing@gmail.com',
+      isButton: true,
     },
   ];
 
@@ -147,9 +163,12 @@ const HelpSupportPage: React.FC = () => {
           <h2 className="font-semibold mb-4">Contact Us</h2>
           <div className="space-y-3">
             {contactMethods.map((method) => (
-              <div
+              <a
                 key={method.id}
-                className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border"
+                href={method.action}
+                target={method.id === 'email' ? '_self' : '_blank'}
+                rel={method.id !== 'email' ? 'noopener noreferrer' : undefined}
+                className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-primary transition-colors cursor-pointer"
               >
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <method.icon className="w-6 h-6 text-primary" />
@@ -157,10 +176,10 @@ const HelpSupportPage: React.FC = () => {
                 <div className="flex-1">
                   <p className="font-medium">{method.name}</p>
                   <p className="text-sm text-muted-foreground">{method.description}</p>
-                  <p className="text-sm font-medium mt-1">{method.contact}</p>
+                  <p className="text-sm font-medium mt-1 text-primary">{method.contact}</p>
                   <p className="text-xs text-muted-foreground">{method.available}</p>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
