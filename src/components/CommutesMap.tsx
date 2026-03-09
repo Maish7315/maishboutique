@@ -266,7 +266,7 @@ const CommutesMap: React.FC<CommutesMapProps> = ({
 
     const directionsService = new google.maps.DirectionsService();
     const request: google.maps.DirectionsRequest = {
-      origin,
+      origin: center,
       destination: { placeId: destination.place_id },
       travelMode: destination.travelModeEnum as google.maps.TravelMode,
       unitSystem: distanceMeasurementType === 'METRIC' ? google.maps.UnitSystem.METRIC : google.maps.UnitSystem.IMPERIAL,

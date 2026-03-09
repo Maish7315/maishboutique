@@ -2754,6 +2754,383 @@ export const products: Product[] = [
     stock: 40,
     sku: 'MF-MS-010',
   },
+  // Kanzus - Traditional African Wear
+  {
+    id: 'men-kanzu-001',
+    name: 'Traditional Kanzu - Style 1',
+    price: 2500,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (1).webp',
+        alt: 'Traditional kanzu style 1',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions.',
+    rating: 4.5,
+    reviewCount: 25,
+    stock: 30,
+    sku: 'MF-KANZU-001',
+  },
+  {
+    id: 'men-kanzu-002',
+    name: 'Traditional Kanzu - Style 2',
+    price: 2750,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (2).webp',
+        alt: 'Traditional kanzu style 2',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions.',
+    rating: 4.5,
+    reviewCount: 25,
+    stock: 30,
+    sku: 'MF-KANZU-002',
+  },
+  {
+    id: 'men-kanzu-003',
+    name: 'Traditional Kanzu - Style 3',
+    price: 3000,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (3).webp',
+        alt: 'Traditional kanzu style 3',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions.',
+    rating: 4.5,
+    reviewCount: 25,
+    stock: 30,
+    sku: 'MF-KANZU-003',
+  },
+  {
+    id: 'men-kanzu-004',
+    name: 'Traditional Kanzu - Style 4',
+    price: 3250,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (4).webp',
+        alt: 'Traditional kanzu style 4',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions.',
+    rating: 4.5,
+    reviewCount: 25,
+    stock: 30,
+    sku: 'MF-KANZU-004',
+  },
+  {
+    id: 'men-kanzu-005',
+    name: 'Traditional Kanzu - Style 5',
+    price: 3500,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (5).webp',
+        alt: 'Traditional kanzu style 5',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions.',
+    rating: 4.5,
+    reviewCount: 25,
+    stock: 30,
+    sku: 'MF-KANZU-005',
+  },
+  {
+    id: 'men-kanzu-006',
+    name: 'Traditional Kanzu - Style 6',
+    price: 3750,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (6).webp',
+        alt: 'Traditional kanzu style 6',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions.',
+    rating: 4.5,
+    reviewCount: 25,
+    stock: 30,
+    sku: 'MF-KANZU-006',
+  },
+  {
+    id: 'men-kanzu-007',
+    name: 'Traditional Kanzu - Style 7',
+    price: 4000,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (7).webp',
+        alt: 'Traditional kanzu style 7',
+      },
+      {
+        src: '/images/men/shirts/kanzus (1).webp',
+        alt: 'Traditional kanzu style 1',
+      },
+      {
+        src: '/images/men/shirts/kanzus (2).webp',
+        alt: 'Traditional kanzu style 2',
+      },
+      {
+        src: '/images/men/shirts/kanzus (3).webp',
+        alt: 'Traditional kanzu style 3',
+      },
+      {
+        src: '/images/men/shirts/kanzus (4).webp',
+        alt: 'Traditional kanzu style 4',
+      },
+      {
+        src: '/images/men/shirts/kanzus (5).webp',
+        alt: 'Traditional kanzu style 5',
+      },
+      {
+        src: '/images/men/shirts/kanzus (6).webp',
+        alt: 'Traditional kanzu style 6',
+      },
+      {
+        src: '/images/men/shirts/kanzus (8).webp',
+        alt: 'Traditional kanzu style 8',
+      },
+      {
+        src: '/images/men/shirts/kanzus (9).webp',
+        alt: 'Traditional kanzu style 9',
+      },
+      {
+        src: '/images/men/shirts/kanzus (10).webp',
+        alt: 'Traditional kanzu style 10',
+      },
+      {
+        src: '/images/men/shirts/kanzus (11).webp',
+        alt: 'Traditional kanzu style 11',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions. Multiple styles available.',
+    rating: 4.7,
+    reviewCount: 50,
+    isNew: true,
+    stock: 50,
+    sku: 'MF-KANZU-007',
+  },
+  {
+    id: 'men-kanzu-008',
+    name: 'Traditional Kanzu - Style 8',
+    price: 4250,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (8).webp',
+        alt: 'Traditional kanzu style 8',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions.',
+    rating: 4.5,
+    reviewCount: 25,
+    stock: 30,
+    sku: 'MF-KANZU-008',
+  },
+  {
+    id: 'men-kanzu-009',
+    name: 'Traditional Kanzu - Style 9',
+    price: 4500,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (9).webp',
+        alt: 'Traditional kanzu style 9',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions.',
+    rating: 4.5,
+    reviewCount: 25,
+    stock: 30,
+    sku: 'MF-KANZU-009',
+  },
+  {
+    id: 'men-kanzu-010',
+    name: 'Traditional Kanzu - Style 10',
+    price: 4750,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (10).webp',
+        alt: 'Traditional kanzu style 10',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions.',
+    rating: 4.5,
+    reviewCount: 25,
+    stock: 30,
+    sku: 'MF-KANZU-010',
+  },
+  {
+    id: 'men-kanzu-011',
+    name: 'Traditional Kanzu - Style 11',
+    price: 5000,
+    images: [
+      {
+        src: '/images/men/shirts/kanzus (11).webp',
+        alt: 'Traditional kanzu style 11',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'White', hex: '#ffffff', available: true },
+    ],
+    tags: ['kanzu', 'traditional', 'cultural', 'formal', 'church', 'wedding'],
+    useCase: ['formal', 'church', 'wedding'],
+    description: 'Elegant traditional kanzu for cultural and formal occasions.',
+    rating: 4.5,
+    reviewCount: 25,
+    stock: 30,
+    sku: 'MF-KANZU-011',
+  },
+  // Men's Pullovers
+  {
+    id: 'men-pullover-001',
+    name: 'Men Pullover Sweater',
+    price: 2500,
+    images: [
+      {
+        src: '/images/pullneck-boys.webp',
+        alt: 'Men pullover sweater style 1',
+      },
+      {
+        src: '/images/pullneck-boys (2).webp',
+        alt: 'Men pullover sweater style 2',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'Navy', hex: '#14213d', available: true },
+      { name: 'Black', hex: '#1a1a1a', available: true },
+      { name: 'Grey', hex: '#6c757d', available: true },
+    ],
+    tags: ['pullover', 'sweater', 'hoodie', 'men', 'winter', 'casual', 'warm'],
+    useCase: ['casual', 'winter', 'outdoor'],
+    description: 'Comfortable men pullover sweater. Multiple styles available.',
+    rating: 4.5,
+    reviewCount: 30,
+    isNew: true,
+    stock: 40,
+    sku: 'MF-MP-001',
+  },
+  // Rangers Half Uniform
+  {
+    id: 'men-rangers-001',
+    name: 'Rangers Half Uniform',
+    price: 3500,
+    images: [
+      {
+        src: '/images/rangers-half.webp',
+        alt: 'Rangers half uniform',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'Khaki', hex: '#c3cb91', available: true },
+    ],
+    tags: ['rangers', 'uniform', 'safari', 'outdoor', 'work', 'corporate'],
+    useCase: ['work', 'outdoor', 'safari'],
+    description: 'Rangers half uniform for outdoor and safari work.',
+    rating: 4.6,
+    reviewCount: 20,
+    isNew: true,
+    stock: 25,
+    sku: 'MF-MR-001',
+  },
   // Kids Wear
   {
     id: 'kids-dress-001',
@@ -6775,6 +7152,93 @@ export const products: Product[] = [
     stock: 50,
     sku: 'MF-SA-005',
   },
+  // Football Shoes - All variants available for selection
+  {
+    id: 'football-shoes-001',
+    name: 'Football Shoes - Multiple Styles',
+    price: 2500,
+    images: [
+      {
+        src: '/images/sports/footwear/football-shoes (1).webp',
+        alt: 'Football shoes style 1',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (2).webp',
+        alt: 'Football shoes style 2',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (3).webp',
+        alt: 'Football shoes style 3',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (4).webp',
+        alt: 'Football shoes style 4',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (5).webp',
+        alt: 'Football shoes style 5',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (6).webp',
+        alt: 'Football shoes style 6',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (7).webp',
+        alt: 'Football shoes style 7',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (8).webp',
+        alt: 'Football shoes style 8',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (9).webp',
+        alt: 'Football shoes style 9',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (10).webp',
+        alt: 'Football shoes style 10',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (12).webp',
+        alt: 'Football shoes style 12',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (13).webp',
+        alt: 'Football shoes style 13',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (14).webp',
+        alt: 'Football shoes style 14',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (15).webp',
+        alt: 'Football shoes style 15',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (16).webp',
+        alt: 'Football shoes style 16',
+      },
+      {
+        src: '/images/sports/footwear/football-shoes (17).webp',
+        alt: 'Football shoes style 17',
+      },
+    ],
+    category: 'sports-equipment',
+    subCategory: 'Footwear',
+    gender: 'Men',
+    sizes: ['40', '41', '42', '43', '44', '45'],
+    colors: [
+      { name: 'Multi', hex: '#e76f51', available: true },
+    ],
+    tags: ['football', 'soccer', 'shoes', 'sports', 'footwear', 'cleats', 'training', 'match'],
+    useCase: ['sports', 'football', 'training'],
+    description: 'Premium football shoes with multiple style options. Choose your preferred style - prices vary from KES 2,500 to KES 7,000 depending on style selected.',
+    rating: 4.6,
+    reviewCount: 80,
+    isNew: true,
+    stock: 100,
+    sku: 'MF-FB-001',
+  },
 
   // Hotel Supplies
   {
@@ -7898,6 +8362,64 @@ export const products: Product[] = [
     reviewCount: 38,
     stock: 28,
     sku: 'MF-HB-023',
+  },
+  // Ladies Handbags - Multiple styles available for selection
+  {
+    id: 'ladies-bags-001',
+    name: 'Ladies Handbag - Multiple Styles',
+    price: 3000,
+    images: [
+      {
+        src: '/images/handbags/totes/ladies-bags (1).webp',
+        alt: 'Ladies handbag style 1',
+      },
+      {
+        src: '/images/handbags/totes/ladies-bags (2).webp',
+        alt: 'Ladies handbag style 2',
+      },
+      {
+        src: '/images/handbags/totes/ladies-bags (3).webp',
+        alt: 'Ladies handbag style 3',
+      },
+      {
+        src: '/images/handbags/totes/ladies-bags (4).webp',
+        alt: 'Ladies handbag style 4',
+      },
+      {
+        src: '/images/handbags/totes/ladies-bags (5).webp',
+        alt: 'Ladies handbag style 5',
+      },
+      {
+        src: '/images/handbags/totes/ladies-bags (6).webp',
+        alt: 'Ladies handbag style 6',
+      },
+      {
+        src: '/images/handbags/totes/ladies-bags (7).webp',
+        alt: 'Ladies handbag style 7',
+      },
+      {
+        src: '/images/handbags/totes/ladies-bags (8).webp',
+        alt: 'Ladies handbag style 8',
+      },
+    ],
+    category: 'women-handbags',
+    subCategory: 'Handbags',
+    gender: 'Women',
+    sizes: ['One Size'],
+    colors: [
+      { name: 'Black', hex: '#1a1a1a', available: true },
+      { name: 'Brown', hex: '#8B4513', available: true },
+      { name: 'Tan', hex: '#D2B48C', available: true },
+    ],
+    tags: ['handbag', 'ladies', 'women', 'fashion', 'bag', 'purse', 'tote', 'casual', 'formal'],
+    useCase: ['casual', 'work', 'formal', 'party'],
+    description: 'Elegant ladies handbag with multiple style options. Choose your preferred style - prices vary from KES 3,000 to KES 6,150 depending on style selected.',
+    features: ['Multiple Compartments', 'Durable Material', 'Adjustable Strap'],
+    rating: 4.7,
+    reviewCount: 65,
+    isNew: true,
+    stock: 80,
+    sku: 'MF-LHB-001',
   },
   // Bags & Suitcases / Luggage
   {
