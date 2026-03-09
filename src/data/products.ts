@@ -3131,6 +3131,62 @@ export const products: Product[] = [
     stock: 25,
     sku: 'MF-MR-001',
   },
+  {
+    id: 'men-jumper-001',
+    name: 'Guides Jumper',
+    price: 3500,
+    images: [
+      {
+        src: '/images/men/shirts/guides-jumper.webp',
+        alt: 'Guides jumper front view',
+      },
+      {
+        src: '/images/men/shirts/guides-jumper2.webp',
+        alt: 'Guides jumper side view',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'Green', hex: '#2d5016', available: true },
+    ],
+    tags: ['jumper', 'guides', 'uniform', 'safari', 'outdoor'],
+    useCase: ['work', 'outdoor', 'safari'],
+    description: 'Premium guides jumper for outdoor and safari work. Comfortable and durable.',
+    rating: 4.5,
+    reviewCount: 15,
+    isNew: true,
+    stock: 30,
+    sku: 'MF-MJ-001',
+  },
+  {
+    id: 'men-jumper-002',
+    name: 'Brown Jumper',
+    price: 3500,
+    images: [
+      {
+        src: '/images/men/shirts/jumper-brown.webp',
+        alt: 'Brown jumper',
+      },
+    ],
+    category: 'men-wear',
+    subCategory: 'Shirts',
+    gender: 'Men',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: [
+      { name: 'Brown', hex: '#8B4513', available: true },
+    ],
+    tags: ['jumper', 'casual', 'outdoor', 'cozy'],
+    useCase: ['casual', 'outdoor'],
+    description: 'Comfortable brown jumper for casual and outdoor occasions.',
+    rating: 4.4,
+    reviewCount: 12,
+    isNew: true,
+    stock: 25,
+    sku: 'MF-MJ-002',
+  },
   // Kids Wear
   {
     id: 'kids-dress-001',
