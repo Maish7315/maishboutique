@@ -120,8 +120,8 @@ const ProductDetailPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 pb-8">
-        <div className="grid md:grid-cols-2 gap-6 md:gap-10">
+      <div className="container mx-auto px-2 md:px-4 pb-8">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-10">
           {/* Image Gallery */}
           <div className="relative">
             {/* Back Button - Mobile */}
@@ -148,10 +148,10 @@ const ProductDetailPage: React.FC = () => {
               </button>
             </div>
 
-            {/* Main Image */}
+            {/* Main Image - Fixed aspect ratio for mobile */}
             <div 
               ref={imageRef}
-              className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-muted cursor-zoom-in"
+              className="relative aspect-square md:aspect-[3/4] rounded-2xl overflow-hidden bg-muted cursor-zoom-in"
               onMouseMove={handleMouseMove}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -206,15 +206,15 @@ const ProductDetailPage: React.FC = () => {
               )}
             </div>
 
-            {/* Thumbnail Gallery */}
+            {/* Thumbnail Gallery - Properly sized for mobile */}
             {product.images.length > 1 && (
-              <div className="flex gap-2 mt-3 overflow-x-auto scrollbar-hide">
+              <div className="flex gap-1.5 md:gap-2 mt-2 md:mt-3 overflow-x-auto scrollbar-hide pb-1">
                 {product.images.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setSelectedImage(i)}
                     className={cn(
-                      'w-16 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all',
+                      'w-12 h-14 md:w-16 md:h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all',
                       i === selectedImage ? 'border-primary' : 'border-transparent opacity-60'
                     )}
                   >
