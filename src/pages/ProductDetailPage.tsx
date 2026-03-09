@@ -27,6 +27,7 @@ const ProductDetailPage: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const [sizeError, setSizeError] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [isMobileZoomed, setIsMobileZoomed] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const imageRef = useRef<HTMLDivElement>(null);
 
@@ -102,7 +103,12 @@ const ProductDetailPage: React.FC = () => {
   };
 
   const handleImageClick = () => {
-    setIsZoomed(!isZoomed);
+    // On mobile, open fullscreen zoom
+    if (window.innerWidth < 768) {
+      setIsMobileZoomed(true);
+    } else {
+      setIsZoomed(!isZoomed);
+    }
   };
 
   return (
@@ -151,7 +157,11 @@ const ProductDetailPage: React.FC = () => {
             {/* Main Image - Fixed aspect ratio for mobile - show full image */}
             <div 
               ref={imageRef}
-              className="relative aspect-square md:aspect-[3/4] rounded-xl overflow-hidden bg-muted"
+              className="relative aspect-square md:aspect-[3/4] rounded-xl overflow-hidden bg-muted cursor-zoom-in"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={handleImageClick}
+              onMouseMove={handleMouseMove}
             >
               <AnimatePresence mode="wait">
                 <motion.img
@@ -182,6 +192,17 @@ const ProductDetailPage: React.FC = () => {
                   NEW
                 </span>
               )}
+
+              {/* Zoom Indicator */}
+              <div className="absolute bottom-4 right-4 z-10 flex items-center gap-1 px-2 py-1 bg-background/80 backdrop-blur-sm rounded-lg text-xs text-muted-foreground md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.3-4.3"/>
+                  <path d="M11 8v6"/>
+                  <path d="M8 11h6"/>
+                </svg>
+                <span>Tap to zoom</span>
+              </div>
 
               {/* Image Navigation */}
               {product.images.length > 1 && (
@@ -427,6 +448,46 @@ const ProductDetailPage: React.FC = () => {
           />
         )}
       </div>
+
+      {/* Mobile Fullscreen Zoom Modal */}
+      <AnimatePresence>
+        {isMobileZoomed && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center md:hidden"
+            onClick={() => setIsMobileZoomed(false)}
+          >
+            {/* Close button */}
+            <button
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white z-10"
+              onClick={() => setIsMobileZoomed(false)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+              </svg>
+            </button>
+
+            {/* Image */}
+            <motion.img
+              src={product.images[selectedImage]?.src}
+              alt={product.images[selectedImage]?.alt || product.name}
+              className="w-full h-full object-contain"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+            />
+
+            {/* Image counter */}
+            {product.images.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 bg-white/20 rounded-full text-white text-sm">
+                {selectedImage + 1} / {product.images.length}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
