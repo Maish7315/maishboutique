@@ -261,6 +261,23 @@
     .product-image-container {
       aspect-ratio: 1/1;
     }
+    
+    /* Ensure images fit properly on mobile */
+    .product-image-container img {
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  /* Ensure images never overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  body {
+    overflow-x: hidden;
   }
 
   /* Sale Badge */

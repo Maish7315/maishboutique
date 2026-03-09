@@ -179,11 +179,11 @@ export const DesktopHeader: React.FC = () => {
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex items-center gap-1">
+            {/* Actions - Properly spaced on mobile */}
+            <div className="flex items-center gap-0.5 md:gap-1 absolute right-0 md:relative">
               <button
                 onClick={() => navigate('/search')}
-                className="lg:hidden touch-target flex items-center justify-center hover:bg-muted rounded-lg"
+                className="lg:hidden touch-target flex items-center justify-center hover:bg-muted rounded-lg p-2"
                 aria-label="Search"
               >
                 <Search className="w-5 h-5" />
@@ -191,7 +191,7 @@ export const DesktopHeader: React.FC = () => {
 
               <button
                 onClick={toggleTheme}
-                className="hidden md:flex touch-target items-center justify-center hover:bg-muted rounded-lg"
+                className="hidden md:flex touch-target items-center justify-center hover:bg-muted rounded-lg p-2"
                 aria-label="Toggle theme"
               >
                 {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
@@ -199,7 +199,7 @@ export const DesktopHeader: React.FC = () => {
 
               <Link
                 to="/wishlist"
-                className="hidden md:flex touch-target items-center justify-center hover:bg-muted rounded-lg relative"
+                className="hidden md:flex touch-target items-center justify-center hover:bg-muted rounded-lg relative p-2"
                 aria-label="Wishlist"
               >
                 <Heart className="w-5 h-5" />
@@ -212,7 +212,7 @@ export const DesktopHeader: React.FC = () => {
 
               <Link
                 to="/cart"
-                className="touch-target flex items-center justify-center hover:bg-muted rounded-lg relative"
+                className="touch-target flex items-center justify-center hover:bg-muted rounded-lg relative p-2"
                 aria-label="Cart"
               >
                 <ShoppingBag className="w-5 h-5" />
@@ -229,7 +229,7 @@ export const DesktopHeader: React.FC = () => {
 
               <Link
                 to="/account"
-                className="hidden md:flex touch-target items-center justify-center hover:bg-muted rounded-lg"
+                className="hidden md:flex touch-target items-center justify-center hover:bg-muted rounded-lg p-2"
                 aria-label="Account"
               >
                 <User className="w-5 h-5" />

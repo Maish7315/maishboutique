@@ -94,7 +94,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, variant = 'de
         <LazyImage
           src={primaryImage.src}
           alt={primaryImage.alt}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover md:object-cover"
         />
 
         {/* Badges */}
