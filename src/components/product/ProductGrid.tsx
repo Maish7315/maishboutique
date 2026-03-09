@@ -53,7 +53,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       )}
 
       <div className={cn(
-        'grid gap-3 md:gap-4 px-2 md:px-0',
+        'grid gap-2 md:gap-4 px-1 md:px-0',
         columns === 2 && 'grid-cols-2 sm:grid-cols-2 md:grid-cols-4',
         columns === 3 && 'grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4',
         columns === 4 && 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4'

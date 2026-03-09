@@ -31,18 +31,18 @@ export const DesktopHeader: React.FC = () => {
       {/* Main Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Mobile Menu Button */}
+          <div className="flex items-center justify-between h-16 md:h-20 relative">
+            {/* Mobile Menu Button - Absolute positioned on mobile */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden touch-target flex items-center justify-center"
+              className="md:hidden touch-target flex items-center justify-center absolute left-0 z-10"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
 
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-2">
+            {/* Logo - Centered on mobile */}
+            <Link to="/" className="flex items-center gap-2 md:justify-start justify-center flex-1 md:flex-none absolute left-1/2 md:relative md:left-0 transform md:transform-none -translate-x-1/2 md:translate-x-0">
               {/* Dark mode logo - shows when isDark is true */}
               <img 
                 src="/maish-logo-dark-mode.webp" 

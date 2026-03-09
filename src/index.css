@@ -229,7 +229,7 @@
 @layer components {
   /* Fashion Card Styles */
   .fashion-card {
-    @apply bg-card rounded-xl overflow-hidden transition-all duration-300;
+    @apply bg-card rounded-lg overflow-hidden transition-all duration-300;
     box-shadow: var(--card-shadow);
   }
 
@@ -252,21 +252,53 @@
     @apply scale-105;
   }
 
+  /* Mobile-optimized product card */
+  @media (max-width: 640px) {
+    .fashion-card {
+      @apply rounded-md;
+    }
+    
+    .product-image-container {
+      aspect-ratio: 1/1;
+    }
+  }
+
   /* Sale Badge */
   .sale-badge {
-    @apply absolute top-3 left-3 px-2 py-1 text-xs font-semibold rounded-md;
+    @apply absolute top-2 left-2 px-1.5 py-0.5 text-xs font-semibold rounded-md;
     background-color: hsl(var(--sale));
     color: white;
   }
 
   /* New Badge */
   .new-badge {
-    @apply absolute top-3 left-3 px-2 py-1 text-xs font-semibold rounded-md bg-foreground text-background;
+    @apply absolute top-2 left-2 px-1.5 py-0.5 text-xs font-semibold rounded-md bg-foreground text-background;
+  }
+
+  /* Mobile-optimized badges */
+  @media (max-width: 640px) {
+    .sale-badge, .new-badge {
+      @apply text-[10px] px-1 py-0.5;
+      top: 0.25rem;
+      left: 0.25rem;
+    }
   }
 
   /* Wishlist Button */
   .wishlist-btn {
-    @apply absolute top-3 right-3 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center transition-all duration-200 hover:bg-background hover:scale-110;
+    @apply absolute top-2 right-2 w-8 h-8 md:w-9 md:h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center transition-all duration-200 hover:bg-background hover:scale-110;
+  }
+
+  /* Mobile-optimized wishlist button */
+  @media (max-width: 640px) {
+    .wishlist-btn {
+      @apply w-7 h-7;
+      top: 0.25rem;
+      right: 0.25rem;
+    }
+    .wishlist-btn svg {
+      @apply w-4 h-4;
+    }
   }
 
   /* Bottom Navigation */
