@@ -148,21 +148,17 @@ const ProductDetailPage: React.FC = () => {
               </button>
             </div>
 
-            {/* Main Image - Fixed aspect ratio for mobile */}
+            {/* Main Image - Fixed aspect ratio for mobile - show full image */}
             <div 
               ref={imageRef}
-              className="relative aspect-square md:aspect-[3/4] rounded-2xl overflow-hidden bg-muted cursor-zoom-in"
-              onMouseMove={handleMouseMove}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onClick={handleImageClick}
+              className="relative aspect-square md:aspect-[3/4] rounded-xl overflow-hidden bg-muted"
             >
               <AnimatePresence mode="wait">
                 <motion.img
                   key={selectedImage}
                   src={product.images[selectedImage]?.src}
                   alt={product.images[selectedImage]?.alt || product.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   style={{
                     transform: isZoomed ? 'scale(2)' : 'scale(1)',
                     transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
@@ -218,7 +214,7 @@ const ProductDetailPage: React.FC = () => {
                       i === selectedImage ? 'border-primary' : 'border-transparent opacity-60'
                     )}
                   >
-                    <img src={img.src} alt="" className="w-full h-full object-cover" />
+                    <img src={img.src} alt="" className="w-full h-full object-contain" />
                   </button>
                 ))}
               </div>
@@ -375,14 +371,13 @@ const ProductDetailPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Add to Cart */}
-            <div className="mt-8 flex gap-3">
+            {/* Add to Cart - Smaller on mobile */}
+            <div className="mt-4 md:mt-8 flex gap-2 md:gap-3">
               <Button
-                size="lg"
-                className="flex-1 h-14 text-base"
+                className="flex-1 h-11 md:h-14 text-sm md:text-base"
                 onClick={handleAddToCart}
               >
-                <ShoppingBag className="w-5 h-5 mr-2" />
+                <ShoppingBag className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" />
                 Add to Cart - {formatPrice(currentPrice * quantity)}
               </Button>
             </div>
