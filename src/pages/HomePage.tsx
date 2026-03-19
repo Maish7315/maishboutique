@@ -82,7 +82,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="page-transition">
-      {/* Ramadan Decorations Banner */}
+      {/* Eid Al-Fitr Decorations Banner */}
       <div className="relative bg-gradient-to-r from-emerald-800 via-green-700 to-emerald-800 overflow-hidden">
         {/* Decorative Lights String */}
         <div className="absolute top-0 left-0 right-0 flex justify-around items-center px-4 py-2">
@@ -104,7 +104,7 @@ const HomePage: React.FC = () => {
           ))}
         </div>
         
-        {/* Main Ramadan Greeting */}
+        {/* Main Eid Greeting */}
         <div className="relative pt-6 pb-4 md:pt-10 md:pb-6 px-4">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -138,13 +138,13 @@ const HomePage: React.FC = () => {
             </div>
             
             <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg">
-              <span className="text-amber-300">Ramadhan Kareem</span>
+              <span className="text-amber-300">Happy Eid Al-Fitr</span>
             </h2>
             <p className="text-lg md:text-xl lg:text-2xl text-emerald-100 mt-2 font-medium">
-              🌙 سُوْمٌ مَقْبُولٌ 🌙
+              🏆 عيْد مُبارَك 🏆
             </p>
             <p className="text-white text-sm md:text-base mt-2 max-w-2xl mx-auto">
-              May your fast be accepted. Wishing you a blessed and peaceful Ramadan!
+              Eid Mubarak! Wishing you joy, peace, and blessings on this special occasion!
             </p>
             
             {/* Decorative Elements */}

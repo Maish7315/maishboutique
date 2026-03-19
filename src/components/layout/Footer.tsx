@@ -2,6 +2,20 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin, Linkedin, X } from 'lucide-react';
 
+// Custom X (Twitter) Icon - The new X logo
+const XIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    className={className}
+    width="24" 
+    height="24"
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
+
 // Custom WhatsApp Channel Icon
 const WhatsAppChannelIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg 
@@ -59,11 +73,11 @@ export const Footer: React.FC = () => {
 
   const footerLinks = {
     shop: [
-      { label: 'New Arrivals', href: '/new-arrivals' },
-      { label: 'Women', href: '/categories/women' },
-      { label: 'Men', href: '/categories/men' },
-      { label: 'Kids', href: '/categories/kids' },
-      { label: 'Sale', href: '/sale' },
+      { label: 'New Arrivals', href: '/categories' },
+      { label: 'Women', href: '/category/women-wear' },
+      { label: 'Men', href: '/category/men-wear' },
+      { label: 'Kids', href: '/category/kids-wear' },
+      { label: 'Accessories', href: '/category/accessories' },
     ],
     help: [
       { label: 'Track Order', onClick: () => openModal('track-order') },
@@ -84,7 +98,7 @@ export const Footer: React.FC = () => {
   const socialLinks = [
     { icon: Instagram, href: 'https://www.instagram.com/maishboutique/#', label: 'Instagram' },
     { icon: Facebook, href: 'https://www.facebook.com/samuel.mwangi.0722?__tn__=%3C', label: 'Facebook' },
-    { icon: X, href: 'https://x.com/boutique_m57875', label: 'X' },
+    { icon: XIcon, href: 'https://x.com/boutique_m57875', label: 'X' },
     { icon: Youtube, href: 'https://youtube.com/@maishboutique', label: 'YouTube' },
     { icon: TikTokIcon, href: 'https://www.tiktok.com/@maish_boutique1?is_from_webapp=1&sender_device=pc', label: 'TikTok' },
     { icon: Linkedin, href: 'https://linkedin.com/company/maish-boutique', label: 'LinkedIn' },

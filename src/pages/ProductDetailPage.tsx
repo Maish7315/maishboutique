@@ -126,14 +126,15 @@ const ProductDetailPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-2 md:px-4 pb-8">
-        <div className="grid md:grid-cols-2 gap-4 md:gap-10">
-          {/* Image Gallery */}
-          <div className="relative">
+      <div className="container mx-auto px-0 md:px-4 pb-8">
+        <div className="grid md:grid-cols-2 gap-0 md:gap-10">
+          {/* Image Gallery - Full width on mobile */}
+          <div className="relative w-full max-w-full overflow-hidden">
             {/* Back Button - Mobile */}
             <button
               onClick={() => navigate(-1)}
               className="absolute top-4 left-4 z-10 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center md:hidden"
+              aria-label="Go back"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -143,43 +144,47 @@ const ProductDetailPage: React.FC = () => {
               <button
                 onClick={() => toggleItem(product)}
                 className="w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center"
+                aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
               >
                 <Heart className={cn('w-5 h-5', isWishlisted && 'fill-primary text-primary')} />
               </button>
               <button
                 onClick={handleShare}
                 className="w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center"
+                aria-label="Share product"
               >
                 <Share2 className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Main Image - Fixed aspect ratio for mobile - show full image */}
+            {/* Main Image - Full width on mobile with proper centering */}
             <div 
               ref={imageRef}
-              className="relative aspect-square md:aspect-[3/4] rounded-xl overflow-hidden bg-muted cursor-zoom-in"
+              className="relative w-full aspect-square md:aspect-[3/4] rounded-none md:rounded-xl overflow-hidden bg-muted cursor-zoom-in"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onClick={handleImageClick}
               onMouseMove={handleMouseMove}
             >
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={selectedImage}
-                  src={product.images[selectedImage]?.src}
-                  alt={product.images[selectedImage]?.alt || product.name}
-                  className="w-full h-full object-contain"
-                  style={{
-                    transform: isZoomed ? 'scale(2)' : 'scale(1)',
-                    transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
-                    transition: isZoomed ? 'none' : 'transform 0.3s ease-out'
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </AnimatePresence>
+              <div className="absolute inset-0 flex items-center justify-center p-2">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={selectedImage}
+                    src={product.images[selectedImage]?.src}
+                    alt={product.images[selectedImage]?.alt || product.name}
+                    className="w-full h-full object-contain"
+                    style={{
+                      transform: isZoomed ? 'scale(2)' : 'scale(1)',
+                      transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
+                      transition: isZoomed ? 'none' : 'transform 0.3s ease-out'
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                </AnimatePresence>
+              </div>
 
               {/* Badges */}
               {product.isSale && discount > 0 && (
@@ -204,18 +209,20 @@ const ProductDetailPage: React.FC = () => {
                 <span>Tap to zoom</span>
               </div>
 
-              {/* Image Navigation */}
+              {/* Image Navigation - Better positioned on mobile */}
               {product.images.length > 1 && (
                 <>
                   <button
                     onClick={() => setSelectedImage(prev => prev === 0 ? product.images.length - 1 : prev - 1)}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background"
+                    className="absolute left-1 md:left-2 top-1/2 -translate-y-1/2 w-10 h-10 md:w-10 md:h-10 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center hover:bg-background shadow-md"
+                    aria-label="Previous image"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => setSelectedImage(prev => prev === product.images.length - 1 ? 0 : prev + 1)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background"
+                    className="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 w-10 h-10 md:w-10 md:h-10 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center hover:bg-background shadow-md"
+                    aria-label="Next image"
                   >
                     <ChevronRight className="w-5 h-5" />
                   </button>
@@ -223,16 +230,16 @@ const ProductDetailPage: React.FC = () => {
               )}
             </div>
 
-            {/* Thumbnail Gallery - Properly sized for mobile */}
+            {/* Thumbnail Gallery - Full width on mobile */}
             {product.images.length > 1 && (
-              <div className="flex gap-1.5 md:gap-2 mt-2 md:mt-3 overflow-x-auto scrollbar-hide pb-1">
+              <div className="flex gap-1 md:gap-1.5 mt-2 md:mt-3 overflow-x-auto scrollbar-hide pb-1 px-0 md:px-0">
                 {product.images.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setSelectedImage(i)}
                     className={cn(
-                      'w-12 h-14 md:w-16 md:h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all',
-                      i === selectedImage ? 'border-primary' : 'border-transparent opacity-60'
+                      'w-10 h-12 md:w-14 md:h-16 lg:w-16 lg:h-20 rounded-md overflow-hidden flex-shrink-0 border-2 transition-all',
+                      i === selectedImage ? 'border-primary' : 'border-transparent opacity-60 hover:opacity-100'
                     )}
                   >
                     <img src={img.src} alt="" className="w-full h-full object-contain" />
@@ -242,8 +249,8 @@ const ProductDetailPage: React.FC = () => {
             )}
           </div>
 
-          {/* Product Info */}
-          <div className="md:py-4">
+          {/* Product Info - Full width on mobile */}
+          <div className="md:py-4 px-3 md:px-0">
             {/* Title & Actions */}
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
