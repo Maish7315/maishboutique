@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Truck, Shield, RefreshCw, Sparkles, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { ArrowRight, Truck, Shield, RefreshCw, Sparkles, Clock, CheckCircle, AlertCircle, Tag } from 'lucide-react';
 import { ProductGrid } from '@/components/product/ProductGrid';
 import { CategoryGrid } from '@/components/category/CategoryCard';
 import { ReviewsSlider } from '@/components/reviews/ReviewCard';
 import { PromoBannerSlider } from '@/components/promo/PromoBanner';
+import { WeekendSlider } from '@/components/promo/WeekendSlider';
 import { categories, products, googleReviews, weekendOffers, getNewArrivals, getSaleProducts, isWeekendSaleActive } from '@/data/products';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/lib/supabase';
+import { useSeasonalBanner } from '@/hooks/useSeasonalBanner';
 
 const HomePage: React.FC = () => {
   const newArrivals = getNewArrivals();
@@ -16,6 +18,7 @@ const HomePage: React.FC = () => {
   const popularProducts = products.slice(0, 8);
   const accessoriesProducts = products.filter(p => p.category === 'accessories').slice(0, 8);
   const isWeekend = isWeekendSaleActive();
+  const { bannerType, bannerTitle, bannerSubtitle, isEasterPeriod } = useSeasonalBanner();
 
   // Newsletter state
   const [email, setEmail] = useState('');
@@ -80,11 +83,45 @@ const HomePage: React.FC = () => {
     }
   };
 
+  // Dynamic gradient colors based on banner type
+  const getBannerGradient = () => {
+    switch (bannerType) {
+      case 'easter':
+        return 'from-purple-700 via-pink-600 to-purple-700';
+      case 'eid':
+        return 'from-emerald-800 via-green-700 to-emerald-800';
+      case 'spring':
+        return 'from-pink-400 via-rose-400 to-orange-300';
+      case 'summer':
+        return 'from-amber-500 via-orange-400 to-yellow-400';
+      default:
+        return 'from-primary via-primary/80 to-primary';
+    }
+  };
+
+  // Dynamic decorative icons based on banner type
+  const getBannerIcons = () => {
+    switch (bannerType) {
+      case 'easter':
+        return ['🐰', '🥚', '🌸', '🌷', '🐇'];
+      case 'eid':
+        return ['🏮', '🕌', '🌙', '⭐', '✨'];
+      case 'spring':
+        return ['🌸', '🌺', '🦋', '🌻', '🌿'];
+      case 'summer':
+        return ['☀️', '🌴', '🏖️', '🍦', '🌊'];
+      default:
+        return ['🏷️', '💥', '🎉', '⭐', '✨'];
+    }
+  };
+
+  const bannerIcons = getBannerIcons();
+
   return (
     <div className="page-transition">
-      {/* Eid Al-Fitr Decorations Banner */}
-      <div className="relative bg-gradient-to-r from-emerald-800 via-green-700 to-emerald-800 overflow-hidden">
-        {/* Decorative Lights String */}
+      {/* Seasonal Banner - Dynamic based on date */}
+      <div className={`relative bg-gradient-to-r ${getBannerGradient()} overflow-hidden`}>
+        {/* Decorative Icons String */}
         <div className="absolute top-0 left-0 right-0 flex justify-around items-center px-4 py-2">
           {[...Array(20)].map((_, i) => (
             <motion.div
@@ -97,14 +134,13 @@ const HomePage: React.FC = () => {
                 delay: i * 0.1 
               }}
               className="text-xl md:text-2xl"
-              style={{ color: ['#FFD700', '#FF6B6B', '#4ECDC4', '#FF9F43', '#A3E635'][i % 5] }}
             >
-              🏮
+              {bannerIcons[i % bannerIcons.length]}
             </motion.div>
           ))}
         </div>
         
-        {/* Main Eid Greeting */}
+        {/* Main Banner Content */}
         <div className="relative pt-6 pb-4 md:pt-10 md:pb-6 px-4">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -138,14 +174,24 @@ const HomePage: React.FC = () => {
             </div>
             
             <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg">
-              <span className="text-amber-300">Happy Eid Al-Fitr</span>
+              <span className="text-amber-300">{bannerTitle}</span>
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-emerald-100 mt-2 font-medium">
-              🏆 عيْد مُبارَك 🏆
-            </p>
             <p className="text-white text-sm md:text-base mt-2 max-w-2xl mx-auto">
-              Eid Mubarak! Wishing you joy, peace, and blessings on this special occasion!
+              {bannerSubtitle}
             </p>
+            
+            {/* Shop Now Button */}
+            <Button
+              variant="secondary"
+              size="lg"
+              className="mt-6 bg-white text-primary hover:bg-white/90"
+              asChild
+            >
+              <Link to="/sale">
+                <Tag className="w-4 h-4 mr-2" />
+                Shop Now
+              </Link>
+            </Button>
             
             {/* Decorative Elements */}
             <div className="flex justify-center items-center gap-4 mt-4">
@@ -154,34 +200,27 @@ const HomePage: React.FC = () => {
                 transition={{ duration: 2, repeat: Infinity }}
                 className="text-3xl"
               >
-                🔔
+                {bannerIcons[0]}
               </motion.span>
               <motion.span
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
                 className="text-3xl"
               >
-                🧧
+                {bannerIcons[1]}
               </motion.span>
               <motion.span
                 animate={{ rotate: [0, -10, 10, 0] }}
                 transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
                 className="text-3xl"
               >
-                🔔
-              </motion.span>
-              <motion.span
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-                className="text-3xl"
-              >
-                🧧
+                {bannerIcons[2]}
               </motion.span>
             </div>
           </motion.div>
         </div>
         
-        {/* Bottom decorative lights */}
+        {/* Bottom decorative icons */}
         <div className="absolute bottom-0 left-0 right-0 flex justify-around items-center px-4 py-2">
           {[...Array(20)].map((_, i) => (
             <motion.div
@@ -194,9 +233,8 @@ const HomePage: React.FC = () => {
                 delay: i * 0.1 + 0.5
               }}
               className="text-xl md:text-2xl"
-              style={{ color: ['#FFD700', '#FF6B6B', '#4ECDC4', '#FF9F43', '#A3E635'][(i + 2) % 5] }}
             >
-              🏮
+              {bannerIcons[(i + 2) % bannerIcons.length]}
             </motion.div>
           ))}
         </div>
@@ -285,6 +323,11 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Weekend Slider - Only show on Friday, Saturday, Sunday */}
+      {isWeekend && (
+        <WeekendSlider />
+      )}
 
       {/* Promo Banners - Only show on Friday, Saturday, Sunday */}
       {isWeekend && (
